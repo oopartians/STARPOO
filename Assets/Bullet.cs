@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour {
 		float dt = Time.deltaTime;
 
 
-		transform.localRotation = Quaternion.Euler (Vector3.up * angle);
+		transform.localRotation = Quaternion.Euler (Vector3.forward * angle);
 		transform.localPosition += (transform.localRotation * Vector3.right * dt * speed);
 	}
 
@@ -29,16 +29,20 @@ public class Bullet : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter(Collider cd){
-		Debug.Log (cd.tag);
-		if (cd.tag == "SpaceShip" && !destroyed) {
-			cd.GetComponent<SpaceShip> ().Damage (damage);
-			destroyed = true;
-			Destroy (gameObject);
-		} else if (cd.tag == "Bullet" && !destroyed) {
-			destroyed = true;
-			Destroy (gameObject);
+	void OnTriggerEnter2D(Collider2D cd){
+		if (destroyed) {
+			return;
 		}
+		switch (cd.tag) {
+		case "SpaceShip":
+			cd.GetComponent<SpaceShip> ().Damage (damage);
+			break;
+		case "Bullet":
+		case "Wall":
+			break;
 
+		}
+		destroyed = true;
+		Destroy (gameObject);
 	}
 }

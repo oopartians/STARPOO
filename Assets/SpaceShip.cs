@@ -22,6 +22,9 @@ public class SpaceShip : MonoBehaviour {
 	public float fireDelay;
 
 
+	bool destroyed = false;
+
+
 	// Use this for initialization
 	void Start () {
 		hp = maxHp;
@@ -31,8 +34,7 @@ public class SpaceShip : MonoBehaviour {
 		ammo = maxAmmo;
 		fireDelay = 0;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		float dt = Time.deltaTime;
 
@@ -40,7 +42,7 @@ public class SpaceShip : MonoBehaviour {
 		ammo = Mathf.Min (maxAmmo, ammo + reloadFrequency/dt );
 		fireDelay = Mathf.Max (0, fireDelay -= dt);
 
-		transform.localRotation = Quaternion.Euler (Vector3.up * angle);
+		transform.localRotation = Quaternion.Euler (Vector3.forward * angle);
 		transform.localPosition += (transform.localRotation * Vector3.right * dt * speed);
 	}
 
@@ -49,9 +51,7 @@ public class SpaceShip : MonoBehaviour {
 	}
 
 	void Shoot(){
-		Debug.Log ("READY");
 		if (ammo >= 1 && fireDelay <= 0) {
-			Debug.Log ("Shoot!");
 			--ammo;
 			fireDelay = 1/fireFrequency;
 			GameObject bullet = (GameObject)Instantiate(Resources.Load("Bullet"));
@@ -82,5 +82,24 @@ public class SpaceShip : MonoBehaviour {
 			SetSpeed(Random.value * maxSpeed/2 + maxSpeed/2);
 		if (Random.value < 10.5 * Time.deltaTime)
 			Shoot ();
+	}
+
+	
+	void OnTriggerEnter2D(Collider2D cd){
+		if (destroyed) {
+			return;
+		}
+		switch (cd.tag) {
+		case "Bullet":
+			break;
+		case "SpaceShip":
+		case "Wall":
+			Destroy (gameObject);
+			break;
+		}
+	}
+
+	void OnDestroy(){
+		destroyed = true;
 	}
 }
