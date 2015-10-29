@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SpaceShip
   - Bullet
+  - Wall
   layers:
   - Default
   - TransparentFX
