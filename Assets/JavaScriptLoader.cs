@@ -36,8 +36,8 @@ public class JavaScriptLoader : MonoBehaviour {
 
         // Exposing .NET methods to JavaScript.
         // The generic System.Action delegate is used to define method signatures with no returns;
-        //engine.SetGlobalFunction("SetShipSpeed", new System.Action<double>(SetShipSpeed));
-        // engine.SetGlobalFunction("SetShipAngleSpeed", new System.Action<double>(SetShipAngleSpeed));
+        engine.SetGlobalFunction("SetShipSpeed", new System.Action<double>(SetShipSpeed));
+        engine.SetGlobalFunction("SetShipAngleSpeed", new System.Action<double>(SetShipAngleSpeed));
         engine.SetGlobalFunction("Shoot", new System.Action(Shoot));
 
         // Examples of exposing some .NET methods with return values to JavaScript.
