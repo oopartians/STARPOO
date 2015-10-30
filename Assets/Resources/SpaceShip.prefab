@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7af8f3f256db084ba2a0b3a608e8f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  codeString: 
+  stringCode: 
   floatingText: 
 --- !u!114 &11440304
 MonoBehaviour:

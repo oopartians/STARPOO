@@ -8,19 +8,19 @@ public class JavaScriptLoader : MonoBehaviour {
 
     SpaceShipHandler spaceShipHandler;
     ScriptEngine engine;
-    public string codeString = "";
+    public string stringCode;
     public string floatingText = "";
 
     void Awake()
     {
-        Debug.Log("JavaScriptLoader Loaded! in Awake function");
+        //Debug.Log("JavaScriptLoader Loaded! in Awake function");
         spaceShipHandler = GetComponent<SpaceShipHandler>();
         //Debug.Log("Try Shoot..");
         //spaceShipHandler.Shoot();
 
         // Create an instance of the Jurassic engine then expose some stuff to it.
         engine = new ScriptEngine();
-        Debug.Log("Create Success ScriptEngine Instance!");
+        //Debug.Log("Create Success ScriptEngine Instance!");
 
         // Arguments and returns of functions exposed to JavaScript must be of supported types.
         // Supported types are bool, int, double, string, Jurassic.Null, Jurassic.Undefined
@@ -53,7 +53,7 @@ public class JavaScriptLoader : MonoBehaviour {
 
         // Example of creating an instance class with a constructor in JavaScript
         //engine.SetGlobalValue("Vector", new jsVectorConstructor(engine));
-        Debug.Log("end Awake");
+        //Debug.Log("end Awake");
     }
 
     #region JS Functions
@@ -81,20 +81,27 @@ public class JavaScriptLoader : MonoBehaviour {
     void Start () {
         //transform.localRotation;
         Debug.Log("[JavaScriptLoader] Start Function start!");
+        GetJavaScriptCode();
     }
 	
 	// Update is called once per frame
 	void Update () {
         Debug.Log("[JavaScriptLoader] Update Function start!");
 
-        string stringCode = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Script\" + gameObject.name);
+        
         //Execute the contents of the script every frame if Running is ticked.
         engine.Execute(stringCode);
-        Debug.Log(Directory.GetCurrentDirectory() + @"\Script\" + gameObject.name);
+        //Debug.Log(Directory.GetCurrentDirectory() + @"\Script\" + gameObject.name);
     }
 
     void LateUpdate()
     {
 
+    }
+
+    void GetJavaScriptCode()
+    {
+        stringCode = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Script\" + gameObject.name);
+        Debug.Log("stringCode : " + stringCode);
     }
 }
