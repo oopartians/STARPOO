@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SpaceShipHpBar : MonoBehaviour {
 
-	public SpaceShip stat;
+	public SpaceShipHandler stat;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +13,6 @@ public class SpaceShipHpBar : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		RectTransform rt = GetComponent<RectTransform> ();
-		rt.localScale = Vector3.one - Vector3.right * (1-stat.hp/SpaceShip.maxHp);
+		// rt.localScale = Vector3.one - Vector3.right * (1-stat.hp/SpaceShipHandler.maxHp);
 	}
 }

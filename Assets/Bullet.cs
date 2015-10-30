@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour {
 	void OnTriggerEnter(Collider cd){
 		Debug.Log (cd.tag);
 		if (cd.tag == "SpaceShip" && !destroyed) {
-			cd.GetComponent<SpaceShip> ().Damage (damage);
+			cd.GetComponent<SpaceShipHandler> ().Damage (damage);
 			destroyed = true;
 			Destroy (gameObject);
 		} else if (cd.tag == "Bullet" && !destroyed) {
