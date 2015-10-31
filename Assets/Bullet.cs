@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour {
 		}
 		switch (cd.tag) {
 		case "SpaceShip":
-			cd.GetComponent<SpaceShip> ().Damage (damage);
+			cd.GetComponent<SpaceShipHandler> ().Damage (damage);
 			break;
 		case "Bullet":
 		case "Wall":

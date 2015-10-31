@@ -44,9 +44,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 426592}
-  - 114: {fileID: 11482172}
   - 50: {fileID: 5069888}
   - 58: {fileID: 5829762}
+  - 114: {fileID: 11483964}
+  - 114: {fileID: 11422420}
   m_Layer: 0
   m_Name: SpaceShip
   m_TagString: SpaceShip
@@ -249,6 +250,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11422420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7af8f3f256db084ba2a0b3a608e8f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stringCode: 
+  floatingText: 
 --- !u!114 &11440304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -338,7 +352,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &11482172
+--- !u!114 &11483964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -346,7 +360,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 133960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 402d213e08ca1314ba32acf67b5b5e13, type: 3}
+  m_Script: {fileID: 11500000, guid: ba1e4ec7099b3e7448300b76690f53f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 0
@@ -366,7 +380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc6b9b9b12943d45aac84420adfb76e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat: {fileID: 11482172}
 --- !u!135 &13570048
 SphereCollider:
   m_ObjectHideFlags: 1
