@@ -87,6 +87,6 @@ public class VirtualAI_SpaceShipHandler : MonoBehaviour {
         if (Random.value < 0.5 * Time.deltaTime)
             SetSpeed(Random.value * maxSpeed / 2 + maxSpeed / 2);
         if (Random.value < 10.5 * Time.deltaTime)
-            ;// Shoot();
+            Shoot();
     }
 }

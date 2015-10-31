@@ -13,14 +13,10 @@ public class JavaScriptLoader : MonoBehaviour {
 
     void Awake()
     {
-        //Debug.Log("JavaScriptLoader Loaded! in Awake function");
         spaceShipHandler = GetComponent<SpaceShipHandler>();
-        //Debug.Log("Try Shoot..");
-        //spaceShipHandler.Shoot();
 
         // Create an instance of the Jurassic engine then expose some stuff to it.
         engine = new ScriptEngine();
-        //Debug.Log("Create Success ScriptEngine Instance!");
 
         // Arguments and returns of functions exposed to JavaScript must be of supported types.
         // Supported types are bool, int, double, string, Jurassic.Null, Jurassic.Undefined
@@ -42,7 +38,7 @@ public class JavaScriptLoader : MonoBehaviour {
 
         // Examples of exposing some .NET methods with return values to JavaScript.
         // The generic System.Func delegate is used to define method signatures with return types;
-        //engine.SetGlobalFunction("GetPos", new System.Func<jsVectorInstance>(jsGetPos));
+        engine.SetGlobalFunction("GetPos", new System.Func<jsVectorInstance>(GetPos));
         //engine.SetGlobalFunction("GetX", new System.Func<double>(jsGetX));
         //engine.SetGlobalFunction("GetY", new System.Func<double>(jsGetY));
         //engine.SetGlobalFunction("GetZ", new System.Func<double>(jsGetZ));
@@ -59,6 +55,11 @@ public class JavaScriptLoader : MonoBehaviour {
     #region JS Functions
     // This set of methods implment the functions we exposed to javaScript.
 
+    public jsVectorInstance GetPos()
+    {
+        return new jsVectorConstructor(engine).Construct(spaceShipHandler.GetPos());
+    }
+
     public void SetShipSpeed(double x)
     {
         spaceShipHandler.SetSpeed((float)x);
@@ -71,32 +72,67 @@ public class JavaScriptLoader : MonoBehaviour {
 
     public void Shoot()
     {
-        //Debug.Log("[JavaScriptLoader] Shoot Function Called!");
         spaceShipHandler.Shoot();
+    }
+
+    #endregion
+
+    #region Implementation of our custom JavaScript Vector class
+    // Objects that can be instantiated, like the built-in Number, String, Array and RegExp objects, require two .NET classes,
+    // one for the constructor and one for the instance. For more info see "Building an instance class" here:
+    // http://jurassic.codeplex.com/wikipage?title=Exposing%20a%20.NET%20class%20to%20JavaScript
+
+    //This is the constructor class for the JS Vector class.
+    public class jsVectorConstructor : ClrFunction
+    {
+        public jsVectorConstructor(ScriptEngine engine)
+            : base(engine.Function.InstancePrototype, "Vector", new jsVectorInstance(engine.Object.InstancePrototype))
+        { }
+
+        //The JSConstructorFunction attribute marks the method that is called when the new operator is used to create an instance in a JavaScript
+        [JSConstructorFunction]
+        public jsVectorInstance Construct(Vector3 position)
+        {
+            return new jsVectorInstance(this.InstancePrototype, (double)position.x, (double)position.y, (double)position.z);
+        }
+    }
+
+    //This is the instance class for the JS Vector class.
+    public class jsVectorInstance : ObjectInstance
+    {
+        public jsVectorInstance(ObjectInstance prototype)
+            : base(prototype)
+        {
+            this.PopulateFunctions();
+        }
+
+        public jsVectorInstance(ObjectInstance prototype, double x, double y, double z) : base(prototype)
+        {
+            this.SetPropertyValue("x", x, true);
+            this.SetPropertyValue("y", y, true);
+            this.SetPropertyValue("z", z, true);
+        }
+
+        [JSFunction]
+        public void Reset()
+        {
+            this.SetPropertyValue("x", 0, true);
+            this.SetPropertyValue("y", 0, true);
+            this.SetPropertyValue("z", 0, true);
+        }
     }
 
     #endregion
 
     // Use this for initialization
     void Start () {
-        //transform.localRotation;
-        //Debug.Log("[JavaScriptLoader] Start Function start!");
         GetJavaScriptCode();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        //Debug.Log("[JavaScriptLoader] Update Function start!");
-
-        
         //Execute the contents of the script every frame if Running is ticked.
         engine.Execute(stringCode);
-        //Debug.Log(Directory.GetCurrentDirectory() + @"\Script\" + gameObject.name);
-    }
-
-    void LateUpdate()
-    {
-
     }
 
     void GetJavaScriptCode()

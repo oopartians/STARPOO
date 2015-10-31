@@ -6,10 +6,9 @@ public class SpaceShipHpBar : MonoBehaviour {
     SpaceShipHandler spaceShipHandler;
 
     // Use this for initialization
-    void Start () {
-        //spaceShipHandler = GetComponent<SpaceShipHandler>();
-        //Debug.Log("game object name : " + gameObject.name);
-        //Debug.Log("ship hp : " + gameObject.transform.root.GetComponent<SpaceShipHandler>().hp);
+    void Start ()
+    {
+
     }
 	
 	// Update is called once per frame
