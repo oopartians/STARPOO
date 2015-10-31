@@ -71,7 +71,7 @@ public class JavaScriptLoader : MonoBehaviour {
 
     public void Shoot()
     {
-        Debug.Log("[JavaScriptLoader] Shoot Function Called!");
+        //Debug.Log("[JavaScriptLoader] Shoot Function Called!");
         spaceShipHandler.Shoot();
     }
 
@@ -80,13 +80,13 @@ public class JavaScriptLoader : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //transform.localRotation;
-        Debug.Log("[JavaScriptLoader] Start Function start!");
+        //Debug.Log("[JavaScriptLoader] Start Function start!");
         GetJavaScriptCode();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("[JavaScriptLoader] Update Function start!");
+        //Debug.Log("[JavaScriptLoader] Update Function start!");
 
         
         //Execute the contents of the script every frame if Running is ticked.

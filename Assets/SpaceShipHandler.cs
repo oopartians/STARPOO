@@ -36,13 +36,13 @@ public class SpaceShipHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("Time.deltaTime : " + Time.deltaTime);
+        //Debug.Log("Time.deltaTime : " + Time.deltaTime);
         float dt = Time.deltaTime;
 
         angle += angleSpeed * dt;
-        Debug.Log("ammo : " + ammo + "   maxAmmo : " + maxAmmo + "   reloadFrequency : " + reloadFrequency);
+        //Debug.Log("ammo : " + ammo + "   maxAmmo : " + maxAmmo + "   reloadFrequency : " + reloadFrequency);
         ammo = Mathf.Min(maxAmmo, ammo + reloadFrequency / dt);
-        Debug.Log("result ammo : " + ammo);
+        //Debug.Log("result ammo : " + ammo);
         fireDelay = Mathf.Max(0, fireDelay -= dt);
 
         transform.localRotation = Quaternion.Euler(Vector3.up * angle);
@@ -54,10 +54,10 @@ public class SpaceShipHandler : MonoBehaviour {
 	}
 
 	public void Shoot(){
-		Debug.Log ("READY");
-        Debug.Log("ammo : " + ammo + "  fireDelay : " + fireDelay);
+		//Debug.Log ("READY");
+        //Debug.Log("ammo : " + ammo + "  fireDelay : " + fireDelay);
 		if (ammo >= 1 && fireDelay <= 0) {
-			Debug.Log ("Shoot!");
+			//Debug.Log ("Shoot!");
 			--ammo;
 			fireDelay = 1/fireFrequency;
 			GameObject bullet = (GameObject)Instantiate(Resources.Load("Bullet"));
