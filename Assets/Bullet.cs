@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 
 public class Bullet : MonoBehaviour {
@@ -9,14 +10,25 @@ public class Bullet : MonoBehaviour {
 	public float angle;
 
 
+
+	public UnityEvent onDestroyed = new UnityEvent();
+
+	public void ListenDestroy(){
+
+	}
+
+
+
+
+
+
+
 	bool destroyed = false;
 
-	// Use this for initialization
 	void Start () {
 	
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		float dt = Time.deltaTime;
 
