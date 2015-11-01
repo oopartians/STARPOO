@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 
 public class SpaceShipHandler : MonoBehaviour {
@@ -20,6 +21,7 @@ public class SpaceShipHandler : MonoBehaviour {
     public float angleSpeed;
     public float ammo;
     public float fireDelay;
+	public Fleet fleet;
 
 
     bool destroyed = false;
@@ -39,8 +41,8 @@ public class SpaceShipHandler : MonoBehaviour {
 	void Update () {
         float dt = Time.deltaTime;
 
-        angle += angleSpeed * dt;
-        ammo = Mathf.Min(maxAmmo, ammo + reloadFrequency / dt);
+		angle += angleSpeed * dt;
+        ammo = Mathf.Min(maxAmmo, ammo + reloadFrequency * dt);
         fireDelay = Mathf.Max(0, fireDelay -= dt);
 
         transform.localRotation = Quaternion.Euler(Vector3.forward * angle);
@@ -101,5 +103,6 @@ public class SpaceShipHandler : MonoBehaviour {
     void OnDestroy()
     {
         destroyed = true;
+		fleet.ReportDestroy (gameObject);
     }
 }

@@ -126,18 +126,25 @@ public class JavaScriptLoader : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        GetJavaScriptCode();
+//        GetJavaScriptCode();
+		//SetJavaScriptPath (Directory.GetCurrentDirectory () + @"\Script\" + gameObject.name);
     }
 	
 	// Update is called once per frame
 	void Update () {
         //Execute the contents of the script every frame if Running is ticked.
         engine.Execute(stringCode);
-    }
-
-    void GetJavaScriptCode()
-    {
-        stringCode = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Script\" + gameObject.name);
-        Debug.Log("stringCode : " + stringCode);
-    }
+	}
+	
+	void GetJavaScriptCode()
+	{
+		stringCode = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Script\" + gameObject.name);
+		Debug.Log("stringCode : " + stringCode);
+	}
+	
+	public void SetJavaScriptPath(string path)
+	{
+		stringCode = File.ReadAllText(path);
+		Debug.Log("stringCode : " + stringCode);
+	}
 }

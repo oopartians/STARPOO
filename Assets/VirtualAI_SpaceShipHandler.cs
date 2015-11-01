@@ -41,7 +41,7 @@ public class VirtualAI_SpaceShipHandler : MonoBehaviour {
         float dt = Time.deltaTime;
 
         angle += angleSpeed * dt;
-        ammo = Mathf.Min(maxAmmo, ammo + reloadFrequency / dt);
+        ammo = Mathf.Min(maxAmmo, ammo + reloadFrequency * dt);
         fireDelay = Mathf.Max(0, fireDelay -= dt);
 
         transform.localRotation = Quaternion.Euler(Vector3.forward * angle);

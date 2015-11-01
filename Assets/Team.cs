@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Team : MonoBehaviour {
+	List<Fleet> fleets = new List<Fleet>();
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public void ReportDestroy(Fleet fleet){
+
 	}
 }

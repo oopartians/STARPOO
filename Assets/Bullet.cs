@@ -6,9 +6,8 @@ public class Bullet : MonoBehaviour {
 
 	public const float speed = 10;
 	public const float damage = 1;
-
 	public float angle;
-
+	public string fleetName;
 
 
 	public UnityEvent onDestroyed = new UnityEvent();
