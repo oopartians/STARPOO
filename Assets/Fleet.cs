@@ -7,12 +7,15 @@ using System.Collections.Generic;
 public class Fleet : MonoBehaviour {
 	public static Dictionary<string,Fleet> fleets = new Dictionary<string, Fleet>();
 
+	public GameObject spaceShipPrefab;
 	public Color color;
 	public string javascriptPath{set{
 			_javascriptPath = value;
 			name = Path.GetFileNameWithoutExtension(value);
 			gameObject.name = "Fleet("+name+")";
+			spaceShipName = "SpaceShip(" + name + ")";
 		}}
+	public string spaceShipName;
 	public string name;
 	public Team team;
 
@@ -29,6 +32,7 @@ public class Fleet : MonoBehaviour {
 	LinkedList<GameObject> spaceShips = new LinkedList<GameObject>();
 
 	void Start(){
+		Debug.Log ("start - " + name);
 		fleets.Add (name,this);
 		MakeSpaceShips ();
 		if (team == null) {
@@ -39,14 +43,17 @@ public class Fleet : MonoBehaviour {
 
 	void MakeSpaceShips(){
 		//여기서 우주선들을 만들고, 적절히 위치시킨다.
-		
+		Debug.Log ("MakeSpaceShips - " + name);
 		spaceShips.AddLast (MakeSpaceShip ());
 	}
 
 	GameObject MakeSpaceShip(){
-		GameObject spaceShip = (GameObject)Instantiate(Resources.Load("SpaceShip"));
+		Debug.Log ("MakeSpaceShip - " + name);
+		GameObject spaceShip = (GameObject)Instantiate(spaceShipPrefab,Vector3.right * Random.Range(0,50),Quaternion.identity);
 		spaceShip.GetComponent<JavaScriptLoader> ().SetJavaScriptPath (_javascriptPath);
 		spaceShip.GetComponent<SpaceShipHandler> ().fleet = this;
+		spaceShip.name = spaceShipName;
+
 		return spaceShip;
 	}
 }

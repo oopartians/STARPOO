@@ -369,6 +369,7 @@ MonoBehaviour:
   angleSpeed: 0
   ammo: 0
   fireDelay: 0
+  fleet: {fileID: 0}
 --- !u!114 &11494072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -380,6 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc6b9b9b12943d45aac84420adfb76e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceShip: {fileID: 11483964}
 --- !u!135 &13570048
 SphereCollider:
   m_ObjectHideFlags: 1

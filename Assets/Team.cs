@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Team : MonoBehaviour {
+public class Team {
 	List<Fleet> fleets = new List<Fleet>();
 
 	public void ReportDestroy(Fleet fleet){
