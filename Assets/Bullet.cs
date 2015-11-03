@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour {
 	public const float speed = 10;
 	public const float damage = 1;
 	public float angle;
-	public string fleetName;
+	public Fleet fleet;
 
 
 	public UnityEvent onDestroyed = new UnityEvent();
@@ -46,7 +46,12 @@ public class Bullet : MonoBehaviour {
 		}
 		switch (cd.tag) {
 		case "SpaceShip":
-			cd.GetComponent<SpaceShipHandler> ().Damage (damage);
+			SpaceShipHandler spaceShip = cd.GetComponent<SpaceShipHandler> ();
+			spaceShip.Damage (damage);
+			Record.Damage(fleet,spaceShip.fleet);
+			if(spaceShip.hp <= 0){
+				Record.Kill(fleet,spaceShip.fleet);
+			}
 			break;
 		case "Bullet":
 		case "Wall":

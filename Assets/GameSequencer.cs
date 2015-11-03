@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 public class GameSequencer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Init ();
 		string[] scripts = LoadJavascripts ();
-		MakeFleets (scripts);
+		List<Fleet> fleets = MakeFleets (scripts);
+		Record.Init (fleets);
+	}
+
+	void Init()
+	{
 	}
 
 	string[] LoadJavascripts(){
@@ -19,12 +25,17 @@ public class GameSequencer : MonoBehaviour {
 		return javascriptPaths;
 	}
 
-	void MakeFleets(string[] javascriptPaths){
+	List<Fleet> MakeFleets(string[] javascriptPaths){
+		List<Fleet> fleets = new List<Fleet>();
 		for(int i = 0; i < javascriptPaths.Length; i++)
 		{
-			GameObject fleet = (GameObject)Instantiate(Resources.Load("Fleet"));
+			GameObject fleetObject = (GameObject)Instantiate(Resources.Load("Fleet"));
 			Debug.Log(javascriptPaths[i]);
-			fleet.GetComponent<Fleet>().javascriptPath = javascriptPaths[i];
+			Fleet fleet = fleetObject.GetComponent<Fleet>();
+			fleet.javascriptPath = javascriptPaths[i];
+			fleets.Add(fleet);
 		}
+
+		return fleets;
 	}
 }

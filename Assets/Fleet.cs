@@ -32,7 +32,6 @@ public class Fleet : MonoBehaviour {
 	LinkedList<GameObject> spaceShips = new LinkedList<GameObject>();
 
 	void Start(){
-		Debug.Log ("start - " + name);
 		fleets.Add (name,this);
 		MakeSpaceShips ();
 		if (team == null) {
@@ -43,12 +42,10 @@ public class Fleet : MonoBehaviour {
 
 	void MakeSpaceShips(){
 		//여기서 우주선들을 만들고, 적절히 위치시킨다.
-		Debug.Log ("MakeSpaceShips - " + name);
 		spaceShips.AddLast (MakeSpaceShip ());
 	}
 
 	GameObject MakeSpaceShip(){
-		Debug.Log ("MakeSpaceShip - " + name);
 		GameObject spaceShip = (GameObject)Instantiate(spaceShipPrefab,Vector3.right * Random.Range(0,50),Quaternion.identity);
 		spaceShip.GetComponent<JavaScriptLoader> ().SetJavaScriptPath (_javascriptPath);
 		spaceShip.GetComponent<SpaceShipHandler> ().fleet = this;

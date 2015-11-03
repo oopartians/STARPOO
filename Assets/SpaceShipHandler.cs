@@ -60,6 +60,7 @@ public class SpaceShipHandler : MonoBehaviour {
 			GameObject bullet = (GameObject)Instantiate(Resources.Load("Bullet"));
 			bullet.transform.localPosition = transform.localPosition + (transform.localRotation * Vector3.right * 1);
 			bullet.GetComponent<Bullet>().angle = angle;
+			bullet.GetComponent<Bullet>().fleet = fleet;
 		}
 	}
 	
