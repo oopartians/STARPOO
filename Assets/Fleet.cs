@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 
 public class Fleet : MonoBehaviour {
-	public static Dictionary<string,Fleet> fleets = new Dictionary<string, Fleet>();
-
 	public GameObject spaceShipPrefab;
 	public Color color;
 	public string javascriptPath{set{
@@ -31,12 +29,14 @@ public class Fleet : MonoBehaviour {
 	string _javascriptPath;
 	LinkedList<GameObject> spaceShips = new LinkedList<GameObject>();
 
-	void Start(){
-		fleets.Add (name,this);
-		MakeSpaceShips ();
+	public Fleet(){
 		if (team == null) {
 			team = new Team();
 		}
+	}
+
+	void Start(){
+		MakeSpaceShips ();
 	}
 
 
