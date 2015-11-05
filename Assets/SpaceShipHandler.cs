@@ -96,6 +96,7 @@ public class SpaceShipHandler : MonoBehaviour {
                 break;
             case "SpaceShip":
             case "Wall":
+				Record.Kill(fleet,fleet);
                 Destroy(gameObject);
                 break;
         }

@@ -48,9 +48,7 @@ public static class Record {
 		killAlly = new Dictionary<Team, int> ();
 		killEnemy = new Dictionary<Team, int> ();
 
-		Debug.Log(Match.teams.Count);
 		foreach(Team team in Match.teams){
-			Debug.Log("!!");
 			killAlly.Add(team,0);
 			killEnemy.Add(team,0);
 			_ui.CreateTeamStat(team);

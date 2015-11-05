@@ -10,10 +10,21 @@ public class Match {
 		teams.Clear ();
 	}
 
-	public static void RegisterTeam(Team team){
-
+	public static Team MakeTeam(string name){
+		Team team = new Team ();
+		team.name = name;
 		teams.Add (team);
-		Debug.Log (teams.Count);
+
+		return team;
 	}
 
+	public static void RemoveTeam(Team team){
+		teams.Remove (team);
+	}
+
+	public static int GetNumTeams(){
+		return teams.Count;
+	}
 }
+
+
