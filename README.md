@@ -1,2 +1,2 @@
-# SpaceBattle
+# STAR POO
 AI War Games
