@@ -36,4 +36,14 @@ public class TeamListPannel : MonoBehaviour {
 	}
 
 
+	public void Complete(){
+		foreach(GameObject pannel in teamPannels){
+			Team team = Match.MakeTeam();
+			foreach(Transform js in pannel.transform){
+				JavascriptPannel jsPannel = js.gameObject.GetComponent<JavascriptPannel>();
+				team.AddJSPath(jsPannel.path);
+			}
+		}
+	}
+
 }

@@ -35,4 +35,36 @@ Untracked files:
 	[31mtypescript[m
 
 no changes added to commit (use "git add" and/or "git commit -a")
-[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo]1;..Unity/starpoo[0m[27m[24m[J[01;32m➜ [01;32m [36mstarpoo [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=
+[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo]1;..Unity/starpoo[0m[27m[24m[J[01;32m➜ [01;32m [36mstarpoo [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=ggcg  gga --all[?1l>
+]2;git add --all]1;ga[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo]1;..Unity/starpoo[0m[27m[24m[J[01;32m➜ [01;32m [36mstarpoo [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=ggc -m "d ㅇ  c b team  add/remove btn"[?1l>
+]2;git commit -v -m "team add/remove btn"]1;gc[feature/MakeTeamScene 2285f4b] team add/remove btn
+ 7 files changed, 638 insertions(+), 212 deletions(-)
+ create mode 100644 Assets/Resources/TeamPannel.prefab
+ create mode 100644 Assets/Resources/TeamPannel.prefab.meta
+ create mode 100644 Assets/TeamListPannel.cs
+ create mode 100644 Assets/TeamListPannel.cs.meta
+ create mode 100644 typescript
+[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo]1;..Unity/starpoo[0m[27m[24m[J[01;32m➜ [01;32m [36mstarpoo [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=ggp origin feature/MakeTeamScene [?1l>
+]2;git push origin feature/MakeTeamScene]1;gpCounting objects: 12, done.
+Delta compression using up to 8 threads.
+Compressing objects:   8% (1/12)   Compressing objects:  16% (2/12)   Compressing objects:  25% (3/12)   Compressing objects:  33% (4/12)   Compressing objects:  41% (5/12)   Compressing objects:  50% (6/12)   Compressing objects:  58% (7/12)   Compressing objects:  66% (8/12)   Compressing objects:  75% (9/12)   Compressing objects:  83% (10/12)   Compressing objects:  91% (11/12)   Compressing objects: 100% (12/12)   Compressing objects: 100% (12/12), done.
+Writing objects:   8% (1/12)   Writing objects:  16% (2/12)   Writing objects:  25% (3/12)   Writing objects:  33% (4/12)   Writing objects:  41% (5/12)   Writing objects:  50% (6/12)   Writing objects:  58% (7/12)   Writing objects:  66% (8/12)   Writing objects:  75% (9/12)   Writing objects:  83% (10/12)   Writing objects:  91% (11/12)   Writing objects: 100% (12/12)   Writing objects: 100% (12/12), 3.98 KiB | 0 bytes/s, done.
+Total 12 (delta 7), reused 0 (delta 0)
+To git@github.com:oopartians/SpaceBattle.git
+   431c783..2285f4b  feature/MakeTeamScene -> feature/MakeTeamScene
+[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo]1;..Unity/starpoo[0m[27m[24m[J[01;32m➜ [01;32m [36mstarpoo [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=ㅎ  ggit a status[?1l>
+]2;git status]1;gitOn branch feature/MakeTeamScene
+Your branch is up-to-date with 'origin/feature/MakeTeamScene'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   Assets/Fleet.cs[m
+	[31mmodified:   Assets/JavaScriptLoader.cs[m
+	[31mmodified:   Assets/Match.cs[m
+	[31mmodified:   Assets/Team.cs[m
+	[31mmodified:   Assets/TeamListPannel.cs[m
+	[31mmodified:   typescript[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo]1;..Unity/starpoo[0m[27m[24m[J[01;32m➜ [01;32m [36mstarpoo [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=g

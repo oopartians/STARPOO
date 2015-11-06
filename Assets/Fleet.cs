@@ -29,12 +29,6 @@ public class Fleet : MonoBehaviour {
 	string _javascriptPath;
 	LinkedList<GameObject> spaceShips = new LinkedList<GameObject>();
 
-	public Fleet(){
-		if (team == null) {
-			team = new Team();
-			Debug.Log("TEAM!");
-		}
-	}
 
 	void Start(){
 		MakeSpaceShips ();
