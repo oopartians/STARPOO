@@ -1,0 +1,38 @@
+Script started on Fri Nov  6 12:02:22 2015
+l[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo]1;..Unity/starpoo[0m[27m[24m[J[01;32m➜ [01;32m [36mstarpoo [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=lls[?1l>
+]2;ls -G]1;lsAssembly-CSharp.csproj README.md              [1m[36mTemp[39;49m[0m
+[1m[36mAssets[39;49m[0m                 [1m[36mScript[39;49m[0m                 typescript
+[1m[36mLibrary[39;49m[0m                StarPoo.sln
+[1m[36mProjectSettings[39;49m[0m        StarPoo.userprefs
+[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo]1;..Unity/starpoo[0m[27m[24m[J[01;32m➜ [01;32m [36mstarpoo [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=SScript[?1l>
+]2;Script]1;Script[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo/Script]1;..tarpoo/Script[0m[27m[24m[J[01;32m➜ [01;32m [36mScript [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=lls[?1l>
+]2;ls -G]1;lsaaaaaaaaaaa - 복사본 (2).js
+aaaaaaaaaaa - 복사본.js
+aaaaaaaaaaa.js
+[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo/Script]1;..tarpoo/Script[0m[27m[24m[J[01;32m➜ [01;32m [36mScript [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=...[?1l>
+]2;..]1;..[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo]1;..Unity/starpoo[0m[27m[24m[J[01;32m➜ [01;32m [36mstarpoo [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=lls[?1l>
+]2;ls -G]1;lsAssembly-CSharp.csproj README.md              [1m[36mTemp[39;49m[0m
+[1m[36mAssets[39;49m[0m                 [1m[36mScript[39;49m[0m                 typescript
+[1m[36mLibrary[39;49m[0m                StarPoo.sln
+[1m[36mProjectSettings[39;49m[0m        StarPoo.userprefs
+[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo]1;..Unity/starpoo[0m[27m[24m[J[01;32m➜ [01;32m [36mstarpoo [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=ggjit  g  ggit status[?1l>
+]2;git status]1;gitOn branch feature/MakeTeamScene
+Your branch is up-to-date with 'origin/feature/MakeTeamScene'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   Assets/JavaScriptLoader.cs[m
+	[31mmodified:   Assets/Scenes/MakeTeam.unity[m
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31mAssets/Resources/TeamPannel.prefab[m
+	[31mAssets/Resources/TeamPannel.prefab.meta[m
+	[31mAssets/TeamListPannel.cs[m
+	[31mAssets/TeamListPannel.cs.meta[m
+	[31mtypescript[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[1m[7m%[27m[1m[0m                                                                                 ]2;gameegg@gameeggui-MacBook-Pro: ~/Develop/Unity/starpoo]1;..Unity/starpoo[0m[27m[24m[J[01;32m➜ [01;32m [36mstarpoo [01;34mgit:([31mfeature/MakeTeamScene[34m) [33m✗[00m[00m[01;34m [00m[K[?1h=

@@ -24,8 +24,9 @@ public class JavascriptLoader : MonoBehaviour {
 
 
 	string[] LoadJavascripts(){
-		
-		string[] javascriptPaths = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Script\", "*.js");
+		Debug.Log(Directory.GetCurrentDirectory() + @"\Script\");
+
+		string[] javascriptPaths = Directory.GetFiles(Directory.GetCurrentDirectory() + @"/Script/", "*.js");
 		for (int i = 0; i < javascriptPaths.Length; i++)
 			javascriptPaths [i] = javascriptPaths [i];
 		
