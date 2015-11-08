@@ -16,7 +16,6 @@ public class JavascriptLoader : MonoBehaviour {
 			scriptPannelObj.name =  Path.GetFileNameWithoutExtension(path);
 			var scriptPannel = scriptPannelObj.GetComponent<JavascriptPannel>();
 
-			Debug.Log(scriptPannel.name);
 			scriptPannel.name = scriptPannelObj.name;
 			scriptPannel.path = path;
 		}

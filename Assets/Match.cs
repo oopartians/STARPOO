@@ -17,7 +17,6 @@ public class Match {
 		Team team = new Team ();
 		team.name = name;
 		teams.Add (team);
-
 		return team;
 	}
 
@@ -26,6 +25,7 @@ public class Match {
 	}
 
 	public static int GetNumTeams(){
+		Debug.Log (teams.Count);
 		return teams.Count;
 	}
 }

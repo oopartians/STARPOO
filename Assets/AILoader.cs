@@ -131,7 +131,7 @@ public class AILoader : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         //Execute the contents of the script every frame if Running is ticked.
         engine.Execute(stringCode);
 	}

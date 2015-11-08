@@ -11,8 +11,8 @@ public class SpaceShipHandler : MonoBehaviour {
     public const float raderRadius = 10;
     public const float raderAngle = 120;
     public const float maxAmmo = 10;
-    public const float fireFrequency = 1;
-    public const float reloadFrequency = 0.3f;
+    public const float fireFrequency = 10;
+    public const float reloadFrequency = 10.3f;
 
 
     public float hp;
@@ -38,7 +38,7 @@ public class SpaceShipHandler : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         float dt = Time.deltaTime;
 
 		angle += angleSpeed * dt;
