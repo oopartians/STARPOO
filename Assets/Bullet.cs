@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour {
 	
 	}
 
-	void Update () {
+	void FixedUpdate () {
 		float dt = Time.deltaTime;
 
 
@@ -47,11 +47,11 @@ public class Bullet : MonoBehaviour {
 		switch (cd.tag) {
 		case "SpaceShip":
 			SpaceShipHandler spaceShip = cd.GetComponent<SpaceShipHandler> ();
-			spaceShip.Damage (damage);
 			Record.Damage(fleet,spaceShip.fleet);
-			if(spaceShip.hp <= 0){
+			if(spaceShip.hp <= 1){
 				Record.Kill(fleet,spaceShip.fleet);
 			}
+			spaceShip.Damage (damage);
 			break;
 		case "Bullet":
 		case "Wall":

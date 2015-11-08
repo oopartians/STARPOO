@@ -7,35 +7,27 @@ public class GameSequencer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Init ();
-		string[] scripts = LoadJavascripts ();
-		List<Fleet> fleets = MakeFleets (scripts);
-		Record.Init (fleets,ui);
+
+
+
+		MakeFleets ();
+		Record.Init (ui);
 	}
 
 	void Init()
 	{
-		Match.Init ();
 	}
 
-	string[] LoadJavascripts(){
-
-		string[] javascriptPaths = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Script\", "*.js");
-		for (int i = 0; i < javascriptPaths.Length; i++)
-			javascriptPaths [i] = javascriptPaths [i];
-
-		return javascriptPaths;
-	}
-
-	List<Fleet> MakeFleets(string[] javascriptPaths){
-		List<Fleet> fleets = new List<Fleet>();
-		for(int i = 0; i < javascriptPaths.Length; i++)
-		{
-			GameObject fleetObject = (GameObject)Instantiate(Resources.Load("Fleet"));
-			Fleet fleet = fleetObject.GetComponent<Fleet>();
-			fleet.javascriptPath = javascriptPaths[i];
-			fleets.Add(fleet);
+	void MakeFleets(){
+		foreach (Team team in Match.teams) {
+			foreach(string path in team.GetJSPaths()){
+				GameObject fleetObject = (GameObject)Instantiate(Resources.Load("Fleet"));
+				Fleet fleet = fleetObject.GetComponent<Fleet>();
+				fleet.team = team;
+				team.AddFleet(fleet);
+				fleet.javascriptPath = path;
+				Debug.Log(fleet.name);
+			}
 		}
-
-		return fleets;
 	}
 }

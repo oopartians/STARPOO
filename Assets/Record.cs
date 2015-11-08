@@ -9,17 +9,19 @@ public static class Record {
 	static Dictionary<Team,int> killAlly;
 	static Dictionary<Team,int> killEnemy;
 
-	public static void Init(List<Fleet> fleets,GameUI ui){
+	public static void Init(GameUI ui){
 		_ui = ui;
-		InitFleetRecord (fleets);
+		InitFleetRecord ();
 		InitTeamRecord ();
 	}
 
 	public static void Kill(Fleet killer,Fleet victim){
 		killInfo [killer] [victim]++;
 		if (killer.team != victim.team) {
+			Debug.Log(killer.team.name);
 			killEnemy[killer.team]++;
 		} else {
+			Debug.Log(killer.team.name);
 			killAlly[killer.team]++;
 		}
 		_ui.UpdateTeamStat (killer.team, killAlly [killer.team], killEnemy [killer.team]);
@@ -29,17 +31,24 @@ public static class Record {
 		damageInfo [attacker] [victim]++;
 	}
 
-	static void InitFleetRecord(List<Fleet> fleets){
+	static void InitFleetRecord(){
 		damageInfo = new Dictionary<Fleet,Dictionary<Fleet,float>> ();
 		killInfo = new Dictionary<Fleet,Dictionary<Fleet,float>> ();
 		
+		List<Fleet> fleets = new List<Fleet> ();
+
+		foreach (Team team in Match.teams) {
+			foreach (Fleet fleet in team.fleets) {
+				fleets.Add(fleet);
+			}
+		}
 		foreach (Fleet fleet in fleets) {
-			damageInfo.Add(fleet,new Dictionary<Fleet, float>());
-			killInfo.Add(fleet,new Dictionary<Fleet, float>());
-			
-			foreach(Fleet target in fleets){
-				damageInfo[fleet].Add (target,0);
-				killInfo[fleet].Add (target,0);
+			damageInfo.Add (fleet, new Dictionary<Fleet, float> ());
+			killInfo.Add (fleet, new Dictionary<Fleet, float> ());
+
+			foreach (Fleet target in fleets) {
+				damageInfo [fleet].Add (target, 0);
+				killInfo [fleet].Add (target, 0);
 			}
 		}
 	}
@@ -48,11 +57,10 @@ public static class Record {
 		killAlly = new Dictionary<Team, int> ();
 		killEnemy = new Dictionary<Team, int> ();
 
-		Debug.Log(Match.teams.Count);
 		foreach(Team team in Match.teams){
-			Debug.Log("!!");
 			killAlly.Add(team,0);
 			killEnemy.Add(team,0);
+			Debug.Log(team.name);
 			_ui.CreateTeamStat(team);
 		}
 	}

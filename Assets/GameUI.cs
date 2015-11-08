@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class GameUI : MonoBehaviour {
@@ -16,6 +17,7 @@ public class GameUI : MonoBehaviour {
 		rt.localScale = Vector3.one;
 
 		TeamStat teamStat = teamStatObj.GetComponent<TeamStat> ();
+		teamStat.team = team;
 		stats.Add (team,teamStat);
 
 		return teamStat;

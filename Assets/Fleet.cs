@@ -29,11 +29,6 @@ public class Fleet : MonoBehaviour {
 	string _javascriptPath;
 	LinkedList<GameObject> spaceShips = new LinkedList<GameObject>();
 
-	public Fleet(){
-		if (team == null) {
-			team = new Team();
-		}
-	}
 
 	void Start(){
 		MakeSpaceShips ();
@@ -47,7 +42,7 @@ public class Fleet : MonoBehaviour {
 
 	GameObject MakeSpaceShip(){
 		GameObject spaceShip = (GameObject)Instantiate(spaceShipPrefab,Vector3.right * Random.Range(0,50),Quaternion.identity);
-		spaceShip.GetComponent<JavaScriptLoader> ().SetJavaScriptPath (_javascriptPath);
+		spaceShip.GetComponent<AILoader> ().SetJavaScriptPath (_javascriptPath);
 		spaceShip.GetComponent<SpaceShipHandler> ().fleet = this;
 		spaceShip.name = spaceShipName;
 

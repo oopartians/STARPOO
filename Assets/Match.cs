@@ -2,18 +2,32 @@
 using System.Collections.Generic;
 
 public class Match {
-
+	public static int namingNumber = 1;
 	public static List<Team> teams = new List<Team>();
 
 	public static void Init(){
-
+		namingNumber = 1;
 		teams.Clear ();
 	}
 
-	public static void RegisterTeam(Team team){
-
+	public static Team MakeTeam(string name = null){
+		if(name == null){
+			name = "Team"+namingNumber++;
+		}
+		Team team = new Team ();
+		team.name = name;
 		teams.Add (team);
-		Debug.Log (teams.Count);
+		return team;
 	}
 
+	public static void RemoveTeam(Team team){
+		teams.Remove (team);
+	}
+
+	public static int GetNumTeams(){
+		Debug.Log (teams.Count);
+		return teams.Count;
+	}
 }
+
+
