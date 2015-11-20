@@ -2,7 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 
-public class JavascriptLoader : MonoBehaviour {
+public class JavaScriptLoader : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

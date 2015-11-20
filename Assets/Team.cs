@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Team {
 	public string name;
 	public TeamStat stat;
+	public Color color;
 
 	public List<Fleet> fleets{get{return _fleets;}}
 

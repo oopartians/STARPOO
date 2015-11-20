@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class TeamListPannel : MonoBehaviour {
 	List<GameObject> teamPannels = new List<GameObject>();
+	List<Color> colors = new List<Color>();
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +22,11 @@ public class TeamListPannel : MonoBehaviour {
 		GameObject pannel = (GameObject)Instantiate(Resources.Load("TeamPannel"));
 		pannel.transform.SetParent(transform);
 		pannel.transform.localScale = Vector3.one;
+
+		Color color = new Color (Random.Range (0.5f, 1), Random.Range (0.5f, 1), Random.Range (0.5f, 1),0.5f);
+
+		pannel.GetComponent<Image> ().color = color;
+
 		teamPannels.Add(pannel);
 	}
 	public void RemoveTeam(){
@@ -39,6 +46,9 @@ public class TeamListPannel : MonoBehaviour {
 	public void Complete(){
 		foreach(GameObject pannel in teamPannels){
 			Team team = Match.MakeTeam();
+			team.color = pannel.GetComponent<Image>().color;
+			team.color.a = 1;
+
 			foreach(Transform js in pannel.transform){
 				JavascriptPannel jsPannel = js.gameObject.GetComponent<JavascriptPannel>();
 				team.AddJSPath(jsPannel.path);
