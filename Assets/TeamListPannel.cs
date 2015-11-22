@@ -23,7 +23,7 @@ public class TeamListPannel : MonoBehaviour {
 		pannel.transform.SetParent(transform);
 		pannel.transform.localScale = Vector3.one;
 
-		Color color = new Color (Random.Range (0.5f, 1), Random.Range (0.5f, 1), Random.Range (0.5f, 1),0.5f);
+		Color color = new Color (Random.Range (0.2f, 1), Random.Range (0.2f, 1), Random.Range (0.2f, 1),0.5f);
 
 		pannel.GetComponent<Image> ().color = color;
 

@@ -13,7 +13,7 @@ public class GameUI : MonoBehaviour {
 		GameObject teamStatObj = (GameObject)UnityEngine.GameObject.Instantiate(Resources.Load("TeamStat"));
 		RectTransform rt = teamStatObj.GetComponent<RectTransform> ();
 		rt.SetParent (transform);
-		rt.anchoredPosition = new Vector2(20 + (teamStatObj.GetComponent<RectTransform>().rect.width + 5) * stats.Count,-20);
+		rt.anchoredPosition = new Vector3(20 + (teamStatObj.GetComponent<RectTransform>().rect.width + 5) * stats.Count,-20,0);
 		rt.localScale = Vector3.one;
 
 		TeamStat teamStat = teamStatObj.GetComponent<TeamStat> ();

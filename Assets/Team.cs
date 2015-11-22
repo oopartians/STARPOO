@@ -25,6 +25,7 @@ public class Team {
 	}
 
 	public void AddFleet(Fleet fleet){
+		fleet.color = color;
 		_fleets.Add(fleet);
 	}
 
