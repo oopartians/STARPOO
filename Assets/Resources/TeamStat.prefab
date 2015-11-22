@@ -256,7 +256,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Kill Enemy
+  m_Text: Killed Enemy
 --- !u!114 &11481994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -288,7 +288,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Kill Ally
+  m_Text: Killed Ally
 --- !u!114 &11482600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -375,8 +375,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -41.5999985, y: -34.7999992}
-  m_SizeDelta: {x: 68.6999969, y: 16.5}
+  m_AnchoredPosition: {x: -31.1750031, y: -34.7999992}
+  m_SizeDelta: {x: 47.8499985, y: 16.5}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22427104
 RectTransform:
@@ -392,8 +392,8 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 42.9000015, y: -34.7999992}
-  m_SizeDelta: {x: 68.6999969, y: 16.5}
+  m_AnchoredPosition: {x: 52.7999992, y: -34.7999992}
+  m_SizeDelta: {x: 88.5999985, y: 16.5}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22432970
 RectTransform:
@@ -409,8 +409,8 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 42.8999634, y: -53.9000015}
-  m_SizeDelta: {x: 68.6999969, y: 16.5}
+  m_AnchoredPosition: {x: 52.8249741, y: -53.9000015}
+  m_SizeDelta: {x: 88.5500031, y: 16.5}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22446456
 RectTransform:
@@ -443,8 +443,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -41.5999985, y: -53.9000015}
-  m_SizeDelta: {x: 68.6999969, y: 16.5}
+  m_AnchoredPosition: {x: -31.2000008, y: -53.9000015}
+  m_SizeDelta: {x: 47.7999992, y: 16.5}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000
 Prefab:
