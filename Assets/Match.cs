@@ -20,6 +20,13 @@ public class Match {
 		return team;
 	}
 
+	public static void CompleteMakeTeams(){
+		int i = 0;
+		foreach (Team team in teams) {
+			team.positionAngle = (i++)*360/teams.Count;
+		}
+	}
+
 	public static void RemoveTeam(Team team){
 		teams.Remove (team);
 	}

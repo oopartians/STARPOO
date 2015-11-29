@@ -6,7 +6,7 @@ public class Team {
 	public string name;
 	public TeamStat stat;
 	public Color color;
-
+	public float positionAngle;
 	public List<Fleet> fleets{get{return _fleets;}}
 
 	List<Fleet> _fleets = new List<Fleet>();
@@ -27,6 +27,13 @@ public class Team {
 	public void AddFleet(Fleet fleet){
 		fleet.color = color;
 		_fleets.Add(fleet);
+	}
+
+	public void CompleteAddFleets(){
+		int i = 0;
+		foreach (Fleet fleet in _fleets) {
+			fleet.positionAngle = positionAngle + ((i++) - (_fleets.Count-1)/2) * 20;
+		}
 	}
 
 }

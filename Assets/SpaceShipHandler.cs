@@ -16,7 +16,7 @@ public class SpaceShipHandler : MonoBehaviour {
 
 
     public float hp;
-    public float angle;
+    public float angle = 0;
     public float speed;
     public float angleSpeed;
     public float ammo;
@@ -30,7 +30,6 @@ public class SpaceShipHandler : MonoBehaviour {
     // Use this for initialization
     void Start () {
 		hp = maxHp;
-		angle = 0;
 		speed = 0;
 		angleSpeed = 0;
 		ammo = maxAmmo;
@@ -58,6 +57,8 @@ public class SpaceShipHandler : MonoBehaviour {
 			--ammo;
 			fireDelay = 1/fireFrequency;
 			GameObject bullet = (GameObject)Instantiate(Resources.Load("Bullet"));
+			var p = GameObject.Find("Bullets");
+			bullet.transform.SetParent(p.transform);
 			bullet.transform.localPosition = transform.localPosition + (transform.localRotation * Vector3.right * 1);
 			bullet.GetComponent<Bullet>().angle = angle;
 			bullet.GetComponent<Bullet>().fleet = fleet;
@@ -95,12 +96,22 @@ public class SpaceShipHandler : MonoBehaviour {
             case "Bullet":
                 break;
             case "SpaceShip":
-            case "Wall":
-				Record.Kill(fleet,fleet);
-                Destroy(gameObject);
                 break;
         }
     }
+
+	void OnTriggerExit2D(Collider2D cd){
+		if (destroyed)
+		{
+			return;
+		}
+		switch (cd.tag) {
+		case "Ground":
+			Record.Kill (fleet, fleet);
+			Destroy (gameObject);
+			break;
+		}
+	}
 
     void OnDestroy()
     {

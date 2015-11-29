@@ -28,6 +28,7 @@ public class GameSequencer : MonoBehaviour {
 				fleet.javascriptPath = path;
 				Debug.Log(fleet.name);
 			}
+			team.CompleteAddFleets();
 		}
 	}
 }

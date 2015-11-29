@@ -54,6 +54,7 @@ public class TeamListPannel : MonoBehaviour {
 				team.AddJSPath(jsPannel.path);
 			}
 		}
+		Match.CompleteMakeTeams ();
 	}
 
 }

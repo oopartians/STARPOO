@@ -52,13 +52,26 @@ public class Bullet : MonoBehaviour {
 				Record.Kill(fleet,spaceShip.fleet);
 			}
 			spaceShip.Damage (damage);
+			destroyed = true;
+			Destroy (gameObject);
 			break;
 		case "Bullet":
-		case "Wall":
+			destroyed = true;
+			Destroy (gameObject);
 			break;
-
 		}
-		destroyed = true;
-		Destroy (gameObject);
+	}
+	
+	void OnTriggerExit2D(Collider2D cd){
+		if (destroyed)
+		{
+			return;
+		}
+		switch (cd.tag) {
+		case "Ground":
+			Destroy (gameObject);
+			destroyed = true;
+			break;
+		}
 	}
 }

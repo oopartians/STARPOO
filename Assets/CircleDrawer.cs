@@ -8,9 +8,9 @@ public class CircleDrawer : MonoBehaviour {
 	public Color lineColor;
 	public float lineWidth;
 	public float r;
+	public float theta_scale = 0.2f;
 	// Use this for initialization
 	void Start () {
-		float theta_scale = 0.2f;
 		int size = Mathf.CeilToInt((2.0f * Mathf.PI) / theta_scale)+1;
 
 		LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
