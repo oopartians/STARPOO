@@ -19,11 +19,9 @@ public class CameraController : MonoBehaviour {
 		if (Input.GetAxis ("Mouse ScrollWheel") > 0) {
 			transform.Translate(Vector3.forward*zoomSpeed);
 			cam.farClipPlane = -transform.localPosition.z + 2;
-			Debug.Log (Input.GetAxis ("Mouse ScrollWheel"));
 		} else if (Input.GetAxis ("Mouse ScrollWheel") < 0) {
 			transform.Translate(Vector3.back*zoomSpeed);
 			cam.farClipPlane = -transform.localPosition.z + 2;
-			Debug.Log (Input.GetAxis ("Mouse ScrollWheel"));
 		}
 
 

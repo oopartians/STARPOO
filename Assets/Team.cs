@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Jurassic.Library;
 
 public class Team : MonoBehaviour {
 	public string name;
@@ -14,14 +15,16 @@ public class Team : MonoBehaviour {
 	public HashSet<Bullet> scannedBullets = new HashSet<Bullet>();
 	public List<Bullet> scannedBullets_;
 
-    public HashSet<SpaceShipHandler> scannedSpaceShips_Alliance = new HashSet<SpaceShipHandler>();
-    public List<SpaceShipHandler> scannedSpaceShips_Alliance_;
+	public HashSet<SpaceShipHandler> spaceShips_Alliance = new HashSet<SpaceShipHandler>();
 
     public HashSet<SpaceShipHandler> scannedSpaceShips_Enemy = new HashSet<SpaceShipHandler>();
     public List<SpaceShipHandler> scannedSpaceShips_Enemy_;
 
-    public JSONObject SpaceShips_Alliance;
-    public JSONObject SpaceShips_Enemy;
+	public JSONObject SpaceShips_Alliance = new JSONObject(JSONObject.Type.ARRAY);
+	public JSONObject SpaceShips_Enemy = new JSONObject(JSONObject.Type.ARRAY);
+	
+	public ObjectInstance allyShips = new ObjectInstance();
+	public ObjectInstance enemyShips = new ObjectInstance();
 
     List<Fleet> _fleets = new List<Fleet>();
 	List<string> jsPaths = new List<string>();
@@ -53,21 +56,39 @@ public class Team : MonoBehaviour {
 
 	void FixedUpdate(){
 		scannedBullets_ = scannedBullets.ToList();
-        scannedSpaceShips_Alliance_ = scannedSpaceShips_Alliance.ToList();
         scannedSpaceShips_Enemy_ = scannedSpaceShips_Enemy.ToList();
 
-        int i = 0;
-        foreach(SpaceShipHandler spaceShip in scannedSpaceShips_Alliance)
-        {
-            SpaceShips_Alliance.AddField(i.ToString(), spaceShip.ship);
-            i++;
-        }
+		
+		int i = 0;
+		foreach(SpaceShipHandler spaceShip in spaceShips_Alliance)
+		{
+			allyShips[i++] = spaceShip.ship;
+		}
 
-        i = 0;
-        foreach(SpaceShipHandler spaceShip in scannedSpaceShips_Enemy)
-        {
-            SpaceShips_Enemy.AddField(i.ToString(), spaceShip.ship);
-            i++;
-        }
+
+
+
+		i = 0;
+		if(spaceShips_Alliance.Count != SpaceShips_Alliance.list.Count){
+			SpaceShips_Alliance.list.Clear();
+			foreach(SpaceShipHandler spaceShip in spaceShips_Alliance)
+			{
+				SpaceShips_Alliance.Add(spaceShip.ship);
+			}
+		}
+		
+//		foreach(SpaceShipHandler spaceShip in spaceShips_Alliance)
+//		{
+//			SpaceShips_Alliance.SetField(i.ToString(), spaceShip.ship);
+//			i++;
+//		}
+
+		Debug.Log(SpaceShips_Alliance.Print());
+		i = 0;
+		foreach(SpaceShipHandler spaceShip in scannedSpaceShips_Enemy)
+		{
+			SpaceShips_Enemy.SetField(i.ToString(), spaceShip.ship);
+			i++;
+		}
     }
 }

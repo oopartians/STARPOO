@@ -18,10 +18,8 @@ public static class Record {
 	public static void Kill(Fleet killer,Fleet victim){
 		killInfo [killer] [victim]++;
 		if (killer.team != victim.team) {
-			Debug.Log(killer.team.name);
 			killEnemy[killer.team]++;
 		} else {
-			Debug.Log(killer.team.name);
 			killAlly[killer.team]++;
 		}
 		_ui.UpdateTeamStat (killer.team, killAlly [killer.team], killEnemy [killer.team]);

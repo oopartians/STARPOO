@@ -58,7 +58,6 @@ public class Bullet : MonoBehaviour {
 			Die();
 			break;
 		case "Radar":
-			Debug.Log("Radar hit"+Random.Range(0,1000).ToString());
 			if(!cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedBullets.Contains(this)){
 				cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedBullets.Add(this);
 			}

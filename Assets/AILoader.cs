@@ -12,7 +12,7 @@ public class AILoader : MonoBehaviour {
     public string floatingText = "";
     //public System.Json.JsonObject ships;
 
-    void Awake()
+    void Start()
     {
         spaceShipHandler = GetComponent<SpaceShipHandler>();
 
@@ -32,8 +32,8 @@ public class AILoader : MonoBehaviour {
         // engine.SetGlobalValue("Input", typeof(Input));
         // engine.SetGlobalValue("Transform", typeof(Transform));
 
-        /////////////////////////////////////////////// HERE HAS PROBLEM. //////////////////////////////////////////////////
-        engine.SetGlobalValue("allianceShips", spaceShipHandler.fleet.team.SpaceShips_Alliance);
+		/////////////////////////////////////////////// HERE HAS PROBLEM. //////////////////////////////////////////////////
+        engine.SetGlobalValue("allyShips", spaceShipHandler.fleet.team.SpaceShips_Alliance);
         engine.SetGlobalValue("enemyShips", spaceShipHandler.fleet.team.SpaceShips_Enemy);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -41,11 +41,12 @@ public class AILoader : MonoBehaviour {
         // The generic System.Action delegate is used to define method signatures with no returns;
         engine.SetGlobalFunction("SetShipSpeed", new System.Action<double>(SetShipSpeed));
         engine.SetGlobalFunction("SetShipAngleSpeed", new System.Action<double>(SetShipAngleSpeed));
-        engine.SetGlobalFunction("Shoot", new System.Action(Shoot));
+		engine.SetGlobalFunction("Shoot", new System.Action(Shoot));
+		engine.SetGlobalFunction("log", new System.Action<string>(Log));
 
         // Examples of exposing some .NET methods with return values to JavaScript.
-        // The generic System.Func delegate is used to define method signatures with return types;
-        engine.SetGlobalFunction("GetPos", new System.Func<jsVectorInstance>(GetPos));
+		// The generic System.Func delegate is used to define method signatures with return types;
+		engine.SetGlobalFunction("GetPos", new System.Func<jsVectorInstance>(GetPos));
         //engine.SetGlobalFunction("GetX", new System.Func<double>(jsGetX));
         //engine.SetGlobalFunction("GetY", new System.Func<double>(jsGetY));
         //engine.SetGlobalFunction("GetZ", new System.Func<double>(jsGetZ));
@@ -60,6 +61,12 @@ public class AILoader : MonoBehaviour {
         //ships = new System.Json.JsonObject();
     }
 
+	void Update(){
+		
+		engine.SetGlobalValue("allyShips", spaceShipHandler.fleet.team.allyShips);
+		engine.SetGlobalValue("enemyShips", spaceShipHandler.fleet.team.SpaceShips_Enemy);
+	}
+
     #region JS Functions
     // This set of methods implment the functions we exposed to javaScript.
 
@@ -73,7 +80,7 @@ public class AILoader : MonoBehaviour {
     }
 
     public void SetShipSpeed(double x)
-    {
+	{
         spaceShipHandler.SetSpeed((float)x);
     }
 
@@ -86,6 +93,10 @@ public class AILoader : MonoBehaviour {
     {
         spaceShipHandler.Shoot();
     }
+
+	public void Log(string str){
+		Debug.Log("JS LOG : "+str);
+	}
 
     #endregion
 
@@ -135,10 +146,6 @@ public class AILoader : MonoBehaviour {
     }
 
     #endregion
-
-    // Use this for initialization
-    void Start () {
-    }
 
 	// Update is called once per frame
 	void FixedUpdate () {

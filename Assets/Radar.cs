@@ -2,20 +2,11 @@
 using System.Collections.Generic;
 
 public class Radar : MonoBehaviour {
-    public SpaceShipHandler spaceShip;
-
     public float radarRadius;
     private CircleCollider2D circleCollider2D;
 
-    public List<SpaceShipHandler> spaceShips_alliance;
-    public SpaceShipHandler[] spaceShips_alliancea;
-    public List<SpaceShipHandler> spaceShips_enemy;
-    public Bullet[] bullets;
-
     // Use this for initialization
     void Start () {
-        Debug.Log("Hello Radar");
-
         // Update Radar Radius for develop.
         circleCollider2D = transform.GetComponent<CircleCollider2D>();
         circleCollider2D.radius = radarRadius;
