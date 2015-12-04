@@ -14,7 +14,16 @@ public class Team : MonoBehaviour {
 	public HashSet<Bullet> scannedBullets = new HashSet<Bullet>();
 	public List<Bullet> scannedBullets_;
 
-	List<Fleet> _fleets = new List<Fleet>();
+    public HashSet<SpaceShipHandler> scannedSpaceShips_Alliance = new HashSet<SpaceShipHandler>();
+    public List<SpaceShipHandler> scannedSpaceShips_Alliance_;
+
+    public HashSet<SpaceShipHandler> scannedSpaceShips_Enemy = new HashSet<SpaceShipHandler>();
+    public List<SpaceShipHandler> scannedSpaceShips_Enemy_;
+
+    public JSONObject SpaceShips_Alliance;
+    public JSONObject SpaceShips_Enemy;
+
+    List<Fleet> _fleets = new List<Fleet>();
 	List<string> jsPaths = new List<string>();
 
 	public void AddJSPath(string path){
@@ -44,5 +53,21 @@ public class Team : MonoBehaviour {
 
 	void FixedUpdate(){
 		scannedBullets_ = scannedBullets.ToList();
-	}
+        scannedSpaceShips_Alliance_ = scannedSpaceShips_Alliance.ToList();
+        scannedSpaceShips_Enemy_ = scannedSpaceShips_Enemy.ToList();
+
+        int i = 0;
+        foreach(SpaceShipHandler spaceShip in scannedSpaceShips_Alliance)
+        {
+            SpaceShips_Alliance.AddField(i.ToString(), spaceShip.ship);
+            i++;
+        }
+
+        i = 0;
+        foreach(SpaceShipHandler spaceShip in scannedSpaceShips_Enemy)
+        {
+            SpaceShips_Enemy.AddField(i.ToString(), spaceShip.ship);
+            i++;
+        }
+    }
 }

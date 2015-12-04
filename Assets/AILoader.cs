@@ -10,6 +10,7 @@ public class AILoader : MonoBehaviour {
     ScriptEngine engine;
     public string stringCode;
     public string floatingText = "";
+    //public System.Json.JsonObject ships;
 
     void Awake()
     {
@@ -17,6 +18,7 @@ public class AILoader : MonoBehaviour {
 
         // Create an instance of the Jurassic engine then expose some stuff to it.
         engine = new ScriptEngine();
+        engine.SetGlobalValue("console", new Jurassic.Library.FirebugConsole(engine));
 
         // Arguments and returns of functions exposed to JavaScript must be of supported types.
         // Supported types are bool, int, double, string, Jurassic.Null, Jurassic.Undefined
@@ -25,10 +27,15 @@ public class AILoader : MonoBehaviour {
 
         // Examples of exposing some static classes to JavaScript using Jurassic's "seamless .NET interop" feature.
         engine.EnableExposedClrTypes = true; // You must enable this in order to use interop feaure.
-        
+
         // engine.SetGlobalValue("Mathf", typeof(Mathf));
         // engine.SetGlobalValue("Input", typeof(Input));
         // engine.SetGlobalValue("Transform", typeof(Transform));
+
+        /////////////////////////////////////////////// HERE HAS PROBLEM. //////////////////////////////////////////////////
+        engine.SetGlobalValue("allianceShips", spaceShipHandler.fleet.team.SpaceShips_Alliance);
+        engine.SetGlobalValue("enemyShips", spaceShipHandler.fleet.team.SpaceShips_Enemy);
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Exposing .NET methods to JavaScript.
         // The generic System.Action delegate is used to define method signatures with no returns;
@@ -50,6 +57,7 @@ public class AILoader : MonoBehaviour {
         // Example of creating an instance class with a constructor in JavaScript
         //engine.SetGlobalValue("Vector", new jsVectorConstructor(engine));
         //Debug.Log("end Awake");
+        //ships = new System.Json.JsonObject();
     }
 
     #region JS Functions
@@ -57,7 +65,11 @@ public class AILoader : MonoBehaviour {
 
     public jsVectorInstance GetPos()
     {
-        return new jsVectorConstructor(engine).Construct(spaceShipHandler.GetPos());
+        return new jsVectorConstructor(engine).Construct(
+            (double)spaceShipHandler.GetPos().x, 
+            (double)spaceShipHandler.GetPos().y, 
+            (double)spaceShipHandler.GetPos().z
+            );
     }
 
     public void SetShipSpeed(double x)
@@ -91,9 +103,9 @@ public class AILoader : MonoBehaviour {
 
         //The JSConstructorFunction attribute marks the method that is called when the new operator is used to create an instance in a JavaScript
         [JSConstructorFunction]
-        public jsVectorInstance Construct(Vector3 position)
+        public jsVectorInstance Construct(double x, double y, double z)
         {
-            return new jsVectorInstance(this.InstancePrototype, (double)position.x, (double)position.y, (double)position.z);
+            return new jsVectorInstance(this.InstancePrototype, x, y, z);
         }
     }
 
@@ -126,20 +138,12 @@ public class AILoader : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-//        GetJavaScriptCode();
-		//SetJavaScriptPath (Directory.GetCurrentDirectory () + @"\Script\" + gameObject.name);
     }
-	
+
 	// Update is called once per frame
 	void FixedUpdate () {
         //Execute the contents of the script every frame if Running is ticked.
         engine.Execute(stringCode);
-	}
-	
-	void GetJavaScriptCode()
-	{
-		stringCode = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Script\" + gameObject.name);
-		Debug.Log("stringCode : " + stringCode);
 	}
 	
 	public void SetJavaScriptPath(string path)
