@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Bullet : MonoBehaviour {
 
@@ -52,12 +52,16 @@ public class Bullet : MonoBehaviour {
 				Record.Kill(fleet,spaceShip.fleet);
 			}
 			spaceShip.Damage (damage);
-			destroyed = true;
-			Destroy (gameObject);
+			Die();
 			break;
 		case "Bullet":
-			destroyed = true;
-			Destroy (gameObject);
+			Die();
+			break;
+		case "Radar":
+			Debug.Log("Radar hit"+Random.Range(0,1000).ToString());
+			if(!cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedBullets.Contains(this)){
+				cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedBullets.Add(this);
+			}
 			break;
 		}
 	}
@@ -69,9 +73,23 @@ public class Bullet : MonoBehaviour {
 		}
 		switch (cd.tag) {
 		case "Ground":
-			Destroy (gameObject);
-			destroyed = true;
+			Die();
+			break;
+		case "Radar":
+			if(cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedBullets.Contains(this)){
+				cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedBullets.Remove(this);
+			}
 			break;
 		}
+	}
+
+	void Die(){
+		foreach(Team team in Match.teams){
+			if(team.scannedBullets.Contains(this)){
+				team.scannedBullets.Remove(this);
+			}
+		}
+		destroyed = true;
+		Destroy (gameObject);
 	}
 }

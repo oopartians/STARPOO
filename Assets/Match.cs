@@ -14,7 +14,11 @@ public class Match {
 		if(name == null){
 			name = "Team"+namingNumber++;
 		}
-		Team team = new Team ();
+		GameObject obj = new GameObject();
+		obj.name = name;
+		GameObject.DontDestroyOnLoad(obj);
+		Team team = obj.AddComponent<Team>();
+//		Team team = new Team ();
 		team.name = name;
 		teams.Add (team);
 		return team;

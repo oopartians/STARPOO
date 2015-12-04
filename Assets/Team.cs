@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
-public class Team {
+public class Team : MonoBehaviour {
 	public string name;
 	public TeamStat stat;
 	public Color color;
 	public float positionAngle;
 	public List<Fleet> fleets{get{return _fleets;}}
+
+	public HashSet<Bullet> scannedBullets = new HashSet<Bullet>();
+	public List<Bullet> scannedBullets_;
 
 	List<Fleet> _fleets = new List<Fleet>();
 	List<string> jsPaths = new List<string>();
@@ -36,4 +41,8 @@ public class Team {
 		}
 	}
 
+
+	void FixedUpdate(){
+		scannedBullets_ = scannedBullets.ToList();
+	}
 }

@@ -23,17 +23,17 @@ public class Radar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        bullets = GameObject.FindObjectsOfType<Bullet>();
-        Debug.Log("[Radar] Current Bullets count : " + bullets.Length);
-        
-        SpaceShipHandler[] spaceShips = GameObject.FindObjectsOfType<SpaceShipHandler>();
-        spaceShips_alliancea = GameObject.FindObjectsOfType<SpaceShipHandler>();
-        foreach (SpaceShipHandler _spaceShip in spaceShips)
-        {
-            if (_spaceShip.fleet.name.Equals(spaceShip.fleet.name))
-                spaceShips_alliance.Add(_spaceShip);
-            else
-                spaceShips_enemy.Add(_spaceShip);
-        }
+//        bullets = GameObject.FindObjectsOfType<Bullet>();
+////        Debug.Log("[Radar] Current Bullets count : " + bullets.Length);
+//        
+//        SpaceShipHandler[] spaceShips = GameObject.FindObjectsOfType<SpaceShipHandler>();
+//        spaceShips_alliancea = GameObject.FindObjectsOfType<SpaceShipHandler>();
+//        foreach (SpaceShipHandler _spaceShip in spaceShips)
+//        {
+//            if (_spaceShip.fleet.name.Equals(spaceShip.fleet.name))
+//                spaceShips_alliance.Add(_spaceShip);
+//            else
+//                spaceShips_enemy.Add(_spaceShip);
+//        }
     }
 }
