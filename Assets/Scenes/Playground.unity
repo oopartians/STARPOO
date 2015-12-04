@@ -85,48 +85,6 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &508054433
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -23.4108086
-      objectReference: {fileID: 0}
-    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -19.806673
-      objectReference: {fileID: 0}
-    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &905862706
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,9 +526,7 @@ LineRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
