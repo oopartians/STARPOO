@@ -23,7 +23,7 @@ public class SpaceShipHandler : MonoBehaviour {
     public float fireDelay;
 	public Fleet fleet;
 
-	public JSONObject ship = new JSONObject();
+	public JSONObject jsonobj = new JSONObject();
 	public JSONObject pos = new JSONObject();
 
     bool destroyed = false;
@@ -39,7 +39,7 @@ public class SpaceShipHandler : MonoBehaviour {
 
         pos.AddField("x", GetPos().x);
         pos.AddField("y", GetPos().y);
-        ship.AddField("position", pos);
+        jsonobj.AddField("position", pos);
     }
 	
 	// Update is called once per frame
@@ -56,7 +56,7 @@ public class SpaceShipHandler : MonoBehaviour {
         // Update position for JSON
         pos.SetField("x", transform.position.x);
         pos.SetField("y", transform.position.y);
-        ship.SetField("position", pos);
+        jsonobj.SetField("position", pos);
     }
 
 	void LateUpdate(){
@@ -114,8 +114,8 @@ public class SpaceShipHandler : MonoBehaviour {
 //                Debug.Log("[SpaceShip] Radar hit" + Random.Range(0, 1000).ToString());
                 if (cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team != fleet.team)
                 {
-                    if (!cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedSpaceShips_Enemy.Contains(this))
-                        cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedSpaceShips_Enemy.Add(this);
+                    if (!cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Contains(this))
+						cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Add(this);
                 }
                     
 
@@ -138,8 +138,8 @@ public class SpaceShipHandler : MonoBehaviour {
             case "SpaceShip":
                 if (cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team != fleet.team)
                 {
-                    if (cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedSpaceShips_Enemy.Contains(this))
-                        cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedSpaceShips_Enemy.Remove(this);
+					if (cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Contains(this))
+						cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Remove(this);
                 }
                 break;
         }
@@ -147,14 +147,14 @@ public class SpaceShipHandler : MonoBehaviour {
 
     void OnDestroy()
     {
-		this.fleet.team.spaceShips_Alliance.Remove(this);
+		this.fleet.team.allyShips.Remove(this);
 		foreach(Team team in Match.teams){
 			if(team == fleet.team){
 				continue;
 			}
-			if (team.scannedSpaceShips_Enemy.Contains(this))
+			if (team.scannedEnemyShips.Contains(this))
 			{
-				team.scannedSpaceShips_Enemy.Remove(this);
+				team.scannedEnemyShips.Remove(this);
 			}
 		}
 

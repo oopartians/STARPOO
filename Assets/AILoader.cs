@@ -6,18 +6,28 @@ using System.IO;
 
 public class AILoader : MonoBehaviour {
 
-    SpaceShipHandler spaceShipHandler;
-    ScriptEngine engine;
     public string stringCode;
-    public string floatingText = "";
+	public string floatingText = "";
+	
+	SpaceShipHandler ship;
+	ScriptEngine engine;
+	
+	ArrayInstance allyShipsJS;
+	ArrayInstance enemyShipsJS;
+
     //public System.Json.JsonObject ships;
+	 	
+	void Awake(){
+		ship = GetComponent<SpaceShipHandler>();
+	}
 
     void Start()
-    {
-        spaceShipHandler = GetComponent<SpaceShipHandler>();
+	{
+		engine = new ScriptEngine();
+		CacheJSValues();
+
 
         // Create an instance of the Jurassic engine then expose some stuff to it.
-        engine = new ScriptEngine();
         engine.SetGlobalValue("console", new Jurassic.Library.FirebugConsole(engine));
 
         // Arguments and returns of functions exposed to JavaScript must be of supported types.
@@ -33,8 +43,8 @@ public class AILoader : MonoBehaviour {
         // engine.SetGlobalValue("Transform", typeof(Transform));
 
 		/////////////////////////////////////////////// HERE HAS PROBLEM. //////////////////////////////////////////////////
-        engine.SetGlobalValue("allyShips", spaceShipHandler.fleet.team.SpaceShips_Alliance);
-        engine.SetGlobalValue("enemyShips", spaceShipHandler.fleet.team.SpaceShips_Enemy);
+        engine.SetGlobalValue("allyShips", allyShipsJS);
+        engine.SetGlobalValue("enemyShips", enemyShipsJS);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Exposing .NET methods to JavaScript.
@@ -61,11 +71,6 @@ public class AILoader : MonoBehaviour {
         //ships = new System.Json.JsonObject();
     }
 
-	void Update(){
-		
-		engine.SetGlobalValue("allyShips", spaceShipHandler.fleet.team.allyShips);
-		engine.SetGlobalValue("enemyShips", spaceShipHandler.fleet.team.SpaceShips_Enemy);
-	}
 
     #region JS Functions
     // This set of methods implment the functions we exposed to javaScript.
@@ -73,25 +78,25 @@ public class AILoader : MonoBehaviour {
     public jsVectorInstance GetPos()
     {
         return new jsVectorConstructor(engine).Construct(
-            (double)spaceShipHandler.GetPos().x, 
-            (double)spaceShipHandler.GetPos().y, 
-            (double)spaceShipHandler.GetPos().z
+            (double)ship.GetPos().x, 
+            (double)ship.GetPos().y, 
+            (double)ship.GetPos().z
             );
     }
 
     public void SetShipSpeed(double x)
 	{
-        spaceShipHandler.SetSpeed((float)x);
+        ship.SetSpeed((float)x);
     }
 
     public void SetShipAngleSpeed(double aAngleSpeed)
     {
-        spaceShipHandler.SetAngleSpeed((float)aAngleSpeed);
+        ship.SetAngleSpeed((float)aAngleSpeed);
     }
 
     public void Shoot()
     {
-        spaceShipHandler.Shoot();
+        ship.Shoot();
     }
 
 	public void Log(string str){
@@ -147,8 +152,33 @@ public class AILoader : MonoBehaviour {
 
     #endregion
 
+	void CacheJSValues(){
+		allyShipsJS = engine.Array.New();
+		int i = 0;
+		foreach(SpaceShipHandler allyShip in ship.fleet.team.allyShips)
+		{
+//			var allyShipJS = engine.Object.Construct();
+			var allyShipJS2 = ObjectConstructor.Create(engine,engine.Object.InstancePrototype);
+			allyShipsJS[i++] = allyShipJS2;
+		}
+
+		enemyShipsJS = engine.Array.Construct();
+	}
+
 	// Update is called once per frame
 	void FixedUpdate () {
+		int i = 0;
+//		var allyShipsJS = engine.Array.Construct();
+		allyShipsJS.Length = (uint)ship.fleet.team.allyShips.Count;
+		foreach(SpaceShipHandler allyShip in ship.fleet.team.allyShips)
+		{
+			var allyShipJS = allyShipsJS[i++] as ObjectInstance;
+			var allyShipPos = allyShip.GetPos();
+			allyShipJS.SetPropertyValue("x",engine.Number.Construct((double)allyShipPos.x),true);
+			allyShipJS.SetPropertyValue("y",engine.Number.Construct((double)allyShipPos.y),true);
+			allyShipJS.SetPropertyValue("rotation",engine.Number.Construct((double)allyShip.angle),true);
+			allyShipJS.SetPropertyValue("hp",engine.Number.Construct((double)allyShip.hp),true);
+		}
         //Execute the contents of the script every frame if Running is ticked.
         engine.Execute(stringCode);
 	}

@@ -15,17 +15,11 @@ public class Team : MonoBehaviour {
 	public HashSet<Bullet> scannedBullets = new HashSet<Bullet>();
 	public List<Bullet> scannedBullets_;
 
-	public HashSet<SpaceShipHandler> spaceShips_Alliance = new HashSet<SpaceShipHandler>();
+	public HashSet<SpaceShipHandler> allyShips = new HashSet<SpaceShipHandler>();
 
-    public HashSet<SpaceShipHandler> scannedSpaceShips_Enemy = new HashSet<SpaceShipHandler>();
-    public List<SpaceShipHandler> scannedSpaceShips_Enemy_;
-
-	public JSONObject SpaceShips_Alliance = new JSONObject(JSONObject.Type.ARRAY);
-	public JSONObject SpaceShips_Enemy = new JSONObject(JSONObject.Type.ARRAY);
+    public HashSet<SpaceShipHandler> scannedEnemyShips = new HashSet<SpaceShipHandler>();
+	public List<SpaceShipHandler> scannedEnemyShips_;
 	
-	public ObjectInstance allyShips = new ObjectInstance();
-	public ObjectInstance enemyShips = new ObjectInstance();
-
     List<Fleet> _fleets = new List<Fleet>();
 	List<string> jsPaths = new List<string>();
 
@@ -56,39 +50,8 @@ public class Team : MonoBehaviour {
 
 	void FixedUpdate(){
 		scannedBullets_ = scannedBullets.ToList();
-        scannedSpaceShips_Enemy_ = scannedSpaceShips_Enemy.ToList();
-
-		
-		int i = 0;
-		foreach(SpaceShipHandler spaceShip in spaceShips_Alliance)
-		{
-			allyShips[i++] = spaceShip.ship;
-		}
+		scannedEnemyShips_ = scannedEnemyShips.ToList();
 
 
-
-
-		i = 0;
-		if(spaceShips_Alliance.Count != SpaceShips_Alliance.list.Count){
-			SpaceShips_Alliance.list.Clear();
-			foreach(SpaceShipHandler spaceShip in spaceShips_Alliance)
-			{
-				SpaceShips_Alliance.Add(spaceShip.ship);
-			}
-		}
-		
-//		foreach(SpaceShipHandler spaceShip in spaceShips_Alliance)
-//		{
-//			SpaceShips_Alliance.SetField(i.ToString(), spaceShip.ship);
-//			i++;
-//		}
-
-		Debug.Log(SpaceShips_Alliance.Print());
-		i = 0;
-		foreach(SpaceShipHandler spaceShip in scannedSpaceShips_Enemy)
-		{
-			SpaceShips_Enemy.SetField(i.ToString(), spaceShip.ship);
-			i++;
-		}
     }
 }
