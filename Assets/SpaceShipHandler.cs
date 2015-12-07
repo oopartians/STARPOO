@@ -27,6 +27,7 @@ public class SpaceShipHandler : MonoBehaviour {
 	public JSONObject pos = new JSONObject();
 
     bool destroyed = false;
+	int nrScanned = 0;
 
 
     // Use this for initialization
@@ -96,7 +97,13 @@ public class SpaceShipHandler : MonoBehaviour {
         return transform.localPosition;
     }
 
-    void OnTriggerEnter2D(Collider2D cd)
+	public void ScanOut(Team scannedTeam){
+		nrScanned--;
+		if (nrScanned <=0 && scannedTeam.scannedEnemyShips.Contains(this))
+			scannedTeam.scannedEnemyShips.Remove(this);
+	}
+
+	void OnTriggerEnter2D(Collider2D cd)
     {
         if (destroyed)
         {
@@ -104,22 +111,23 @@ public class SpaceShipHandler : MonoBehaviour {
         }
         switch (cd.tag)
         {
-            case "Bullet":
-                break;
+        case "Bullet":
+            break;
 
-            case "Radar":
-                break;
+        case "Radar":
+            break;
 
-            case "SpaceShip":
+        case "SpaceShip":
 //                Debug.Log("[SpaceShip] Radar hit" + Random.Range(0, 1000).ToString());
-                if (cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team != fleet.team)
-                {
-                    if (!cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Contains(this))
-						cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Add(this);
-                }
-                    
+            if (cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team != fleet.team)
+            {
+				nrScanned++;
+                if (!cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Contains(this))
+					cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Add(this);
+            }
+                
 
-                break;
+            break;
             
         }
     }
@@ -137,8 +145,9 @@ public class SpaceShipHandler : MonoBehaviour {
 
             case "SpaceShip":
                 if (cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team != fleet.team)
-                {
-					if (cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Contains(this))
+			{
+				nrScanned--;
+				if (nrScanned <=0 && cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Contains(this))
 						cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Remove(this);
                 }
                 break;

@@ -153,22 +153,25 @@ public class AILoader : MonoBehaviour {
     #endregion
 
 	void CacheJSValues(){
-		allyShipsJS = engine.Array.New();
 		int i = 0;
+		allyShipsJS = engine.Array.New();
 		foreach(SpaceShipHandler allyShip in ship.fleet.team.allyShips)
 		{
-//			var allyShipJS = engine.Object.Construct();
-			var allyShipJS2 = ObjectConstructor.Create(engine,engine.Object.InstancePrototype);
-			allyShipsJS[i++] = allyShipJS2;
+			var allyShipJS = ObjectConstructor.Create(engine,engine.Object.InstancePrototype);
+			allyShipsJS[i++] = allyShipJS;
 		}
-
-		enemyShipsJS = engine.Array.Construct();
+		i = 0;
+		enemyShipsJS = engine.Array.New();
+		foreach(SpaceShipHandler enemyShip in ship.fleet.team.scannedEnemyShips)
+		{
+			var enemyShipJS = ObjectConstructor.Create(engine,engine.Object.InstancePrototype);
+			enemyShipsJS[i++] = enemyShipJS;
+		}
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
 		int i = 0;
-//		var allyShipsJS = engine.Array.Construct();
 		allyShipsJS.Length = (uint)ship.fleet.team.allyShips.Count;
 		foreach(SpaceShipHandler allyShip in ship.fleet.team.allyShips)
 		{
@@ -178,6 +181,18 @@ public class AILoader : MonoBehaviour {
 			allyShipJS.SetPropertyValue("y",engine.Number.Construct((double)allyShipPos.y),true);
 			allyShipJS.SetPropertyValue("rotation",engine.Number.Construct((double)allyShip.angle),true);
 			allyShipJS.SetPropertyValue("hp",engine.Number.Construct((double)allyShip.hp),true);
+		}
+
+		i = 0;
+		enemyShipsJS.Length = (uint)ship.fleet.team.scannedEnemyShips.Count;
+		foreach(SpaceShipHandler enemyShip in ship.fleet.team.scannedEnemyShips)
+		{
+			var enemyShipJS = enemyShipsJS[i++] as ObjectInstance;
+			var enemyShipPos = enemyShip.GetPos();
+			enemyShipJS.SetPropertyValue("x",engine.Number.Construct((double)enemyShipPos.x),true);
+			enemyShipJS.SetPropertyValue("y",engine.Number.Construct((double)enemyShipPos.y),true);
+			enemyShipJS.SetPropertyValue("rotation",engine.Number.Construct((double)enemyShip.angle),true);
+			enemyShipJS.SetPropertyValue("hp",engine.Number.Construct((double)enemyShip.hp),true);
 		}
         //Execute the contents of the script every frame if Running is ticked.
         engine.Execute(stringCode);

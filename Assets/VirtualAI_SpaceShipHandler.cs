@@ -7,8 +7,6 @@ public class VirtualAI_SpaceShipHandler : MonoBehaviour {
     public const float maxSpeed = 5;
     public const float maxAngleSpeed = 180;
     public const float maxHp = 3;
-    public const float raderRadius = 10;
-    public const float raderAngle = 120;
     public const float maxAmmo = 10;
     public const float fireFrequency = 1;
     public const float reloadFrequency = 0.3f;

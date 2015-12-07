@@ -1,3 +1,3 @@
-SetShipSpeed(1);
-SetShipAngleSpeed(30);
-Shoot();
+SetShipSpeed(5);
+// SetShipAngleSpeed(30);
+// Shoot();
