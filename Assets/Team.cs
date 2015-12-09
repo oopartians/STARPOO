@@ -11,15 +11,9 @@ public class Team : MonoBehaviour {
 	public Color color;
 	public float positionAngle;
 	public List<Fleet> fleets{get{return _fleets;}}
+	public TeamAIInformation aiInfor;
 
-	public HashSet<Bullet> scannedBullets = new HashSet<Bullet>();
-	public List<Bullet> scannedBullets_;
 
-	public HashSet<SpaceShipHandler> allyShips = new HashSet<SpaceShipHandler>();
-
-    public HashSet<SpaceShipHandler> scannedEnemyShips = new HashSet<SpaceShipHandler>();
-	public List<SpaceShipHandler> scannedEnemyShips_;
-	
     List<Fleet> _fleets = new List<Fleet>();
 	List<string> jsPaths = new List<string>();
 
@@ -48,10 +42,8 @@ public class Team : MonoBehaviour {
 	}
 
 
-	void FixedUpdate(){
-		scannedBullets_ = scannedBullets.ToList();
-		scannedEnemyShips_ = scannedEnemyShips.ToList();
+	void Awake(){
+		aiInfor = gameObject.GetComponent<TeamAIInformation> ();
+	}
 
-
-    }
 }

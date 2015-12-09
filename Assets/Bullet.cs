@@ -2,30 +2,25 @@
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : MonoBehaviour,IJSONExportable {
 
 	public const float speed = 10;
 	public const float damage = 1;
 	public float angle;
 	public Fleet fleet;
-
-
-	public UnityEvent onDestroyed = new UnityEvent();
-
-	public void ListenDestroy(){
-
-	}
-
-
-
-
+	
+	public Dictionary<string,double> exportableValues = new Dictionary<string,double> ();
+	public Dictionary<string,double> GetExportableValues(){return exportableValues;}
 
 
 
 	bool destroyed = false;
 
 	void Start () {
-	
+		exportableValues.Add("x",transform.localPosition.x);
+		exportableValues.Add("y",transform.localPosition.y);
+		exportableValues.Add("rotation",angle);
+		exportableValues.Add("speed",speed);
 	}
 
 	void FixedUpdate () {
@@ -34,6 +29,10 @@ public class Bullet : MonoBehaviour {
 
 		transform.localRotation = Quaternion.Euler (Vector3.forward * angle);
 		transform.localPosition += (transform.localRotation * Vector3.right * dt * speed);
+
+		
+		exportableValues["x"] = transform.localPosition.x;
+		exportableValues["y"] = transform.localPosition.y;
 	}
 
 	void LateUpdate(){
@@ -58,8 +57,12 @@ public class Bullet : MonoBehaviour {
 			Die();
 			break;
 		case "Radar":
-			if(!cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedBullets.Contains(this)){
-				cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedBullets.Add(this);
+			Dictionary<IJSONExportable,int> scannedBullets = cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.aiInfor.scannedBullets;
+			if(scannedBullets.ContainsKey(this)){
+				++scannedBullets[this];
+			}
+			else{
+				scannedBullets.Add(this,1);
 			}
 			break;
 		}
@@ -75,17 +78,21 @@ public class Bullet : MonoBehaviour {
 			Die();
 			break;
 		case "Radar":
-			if(cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedBullets.Contains(this)){
-				cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedBullets.Remove(this);
-			}
+			Dictionary<IJSONExportable,int> scannedBullets = cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.aiInfor.scannedBullets;
+
+			if(scannedBullets[this] > 1)
+				--scannedBullets[this];
+			else
+				scannedBullets.Remove(this);
+
 			break;
 		}
 	}
 
 	void Die(){
 		foreach(Team team in Match.teams){
-			if(team.scannedBullets.Contains(this)){
-				team.scannedBullets.Remove(this);
+			if(team.aiInfor.scannedBullets.ContainsKey(this)){
+				team.aiInfor.scannedBullets.Remove(this);
 			}
 		}
 		destroyed = true;

@@ -16,6 +16,7 @@ public class Match {
 		}
 		GameObject obj = new GameObject();
 		obj.name = name;
+		obj.AddComponent<TeamAIInformation>();
 		GameObject.DontDestroyOnLoad(obj);
 		Team team = obj.AddComponent<Team>();
 //		Team team = new Team ();

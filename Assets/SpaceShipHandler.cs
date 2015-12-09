@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using System.Collections;
+using System.Collections.Generic;
 
-public class SpaceShipHandler : MonoBehaviour {
+public class SpaceShipHandler : MonoBehaviour,IJSONExportable {
 
     public const float hitRange = 1;
     public const float maxSpeed = 5;
@@ -10,9 +10,9 @@ public class SpaceShipHandler : MonoBehaviour {
     public const float maxHp = 3;
     public const float raderRadius = 10;
     public const float raderAngle = 120;
-    public const float maxAmmo = 10;
-    public const float fireFrequency = 10;
-    public const float reloadFrequency = 10.3f;
+    public const float maxAmmo = 5;
+    public const float fireFrequency = 2;
+    public const float reloadFrequency = 0.3f;
 
 
     public float hp;
@@ -23,12 +23,10 @@ public class SpaceShipHandler : MonoBehaviour {
     public float fireDelay;
 	public Fleet fleet;
 
-	public JSONObject jsonobj = new JSONObject();
-	public JSONObject pos = new JSONObject();
+	public Dictionary<string,double> exportableValues = new Dictionary<string,double> ();
+	public Dictionary<string,double> GetExportableValues(){return exportableValues;}
 
     bool destroyed = false;
-	int nrScanned = 0;
-
 
     // Use this for initialization
     void Start () {
@@ -37,10 +35,11 @@ public class SpaceShipHandler : MonoBehaviour {
 		angleSpeed = 0;
 		ammo = maxAmmo;
 		fireDelay = 0;
-
-        pos.AddField("x", GetPos().x);
-        pos.AddField("y", GetPos().y);
-        jsonobj.AddField("position", pos);
+		
+		exportableValues.Add ("x", GetPos ().x);
+		exportableValues.Add ("y", GetPos ().y);
+		exportableValues.Add ("rotation", angle);
+		exportableValues.Add ("hp", hp);
     }
 	
 	// Update is called once per frame
@@ -54,10 +53,11 @@ public class SpaceShipHandler : MonoBehaviour {
         transform.localRotation = Quaternion.Euler(Vector3.forward * angle);
         transform.localPosition += (transform.localRotation * Vector3.right * dt * speed);
 
-        // Update position for JSON
-        pos.SetField("x", transform.position.x);
-        pos.SetField("y", transform.position.y);
-        jsonobj.SetField("position", pos);
+		
+		exportableValues ["x"] = GetPos().x;
+		exportableValues ["y"] = GetPos().y;
+		exportableValues ["rotation"] = angle;
+		exportableValues ["hp"] = hp;
     }
 
 	void LateUpdate(){
@@ -97,12 +97,6 @@ public class SpaceShipHandler : MonoBehaviour {
         return transform.localPosition;
     }
 
-	public void ScanOut(Team scannedTeam){
-		nrScanned--;
-		if (nrScanned <=0 && scannedTeam.scannedEnemyShips.Contains(this))
-			scannedTeam.scannedEnemyShips.Remove(this);
-	}
-
 	void OnTriggerEnter2D(Collider2D cd)
     {
         if (destroyed)
@@ -121,9 +115,11 @@ public class SpaceShipHandler : MonoBehaviour {
 //                Debug.Log("[SpaceShip] Radar hit" + Random.Range(0, 1000).ToString());
             if (cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team != fleet.team)
             {
-				nrScanned++;
-                if (!cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Contains(this))
-					cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Add(this);
+				Dictionary<IJSONExportable,int> scannedEnemyShips = cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.aiInfor.scannedEnemyShips;
+				if (scannedEnemyShips.ContainsKey(this))
+					++scannedEnemyShips[this];
+				else
+					scannedEnemyShips.Add(this,1);
             }
                 
 
@@ -138,33 +134,34 @@ public class SpaceShipHandler : MonoBehaviour {
 			return;
 		}
 		switch (cd.tag) {
-            case "Ground":
-	            Record.Kill (fleet, fleet);
-	            Destroy (gameObject);
-	            break;
+        case "Ground":
+            Record.Kill (fleet, fleet);
+            Destroy (gameObject);
+            break;
 
-            case "SpaceShip":
-                if (cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team != fleet.team)
+        case "SpaceShip":
+            if (cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team != fleet.team)
 			{
-				nrScanned--;
-				if (nrScanned <=0 && cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Contains(this))
-						cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.scannedEnemyShips.Remove(this);
-                }
-                break;
+				Dictionary<IJSONExportable,int> scannedEnemyShips = cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.aiInfor.scannedEnemyShips;
+				if (scannedEnemyShips.ContainsKey(this)){
+					if(scannedEnemyShips[this] > 1)
+						--scannedEnemyShips[this];
+					else
+						scannedEnemyShips.Remove(this);
+				}
+	        }
+            break;
         }
 	}
 
     void OnDestroy()
     {
-		this.fleet.team.allyShips.Remove(this);
+		this.fleet.team.aiInfor.allyShips.Remove(this);
 		foreach(Team team in Match.teams){
-			if(team == fleet.team){
+			if(team == fleet.team)
 				continue;
-			}
-			if (team.scannedEnemyShips.Contains(this))
-			{
-				team.scannedEnemyShips.Remove(this);
-			}
+			if (team.aiInfor.scannedEnemyShips.ContainsKey(this))
+				team.aiInfor.scannedEnemyShips.Remove(this);
 		}
 
         destroyed = true;

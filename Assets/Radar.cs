@@ -3,11 +3,17 @@ using System.Collections.Generic;
 
 public class Radar : MonoBehaviour {
     public float radarRadius;
+	
+	private HashSet<IJSONExportable> ships = new HashSet<IJSONExportable>();
+	private HashSet<IJSONExportable> bullets = new HashSet<IJSONExportable>();
+
     private CircleCollider2D circleCollider2D;
+	private Team team;
 
     // Use this for initialization
     void Start () {
-        // Update Radar Radius for develop.
+		// Update Radar Radius for develop.
+		team = gameObject.GetComponentInParent<SpaceShipHandler> ().fleet.team;
         circleCollider2D = transform.GetComponent<CircleCollider2D>();
         circleCollider2D.radius = radarRadius;
     }
@@ -27,4 +33,51 @@ public class Radar : MonoBehaviour {
 //                spaceShips_enemy.Add(_spaceShip);
 //        }
     }
+
+	void OnTriggerEnter2D(Collider2D cd)
+	{
+		switch (cd.tag)
+		{
+		case "Bullet":
+			bullets.Add(cd.gameObject.GetComponent<Bullet>());
+			break;
+			
+		case "SpaceShip":
+			if(cd.gameObject.GetComponent<SpaceShipHandler>().fleet.team != team)
+				ships.Add(cd.gameObject.GetComponent<SpaceShipHandler>());
+			break;
+			
+		}
+	}
+	
+	void OnTriggerExit2D(Collider2D cd){
+
+		switch (cd.tag)
+		{
+		case "Bullet":
+			bullets.Remove(cd.gameObject.GetComponent<Bullet>());
+			break;
+			
+		case "SpaceShip":
+			if(cd.gameObject.GetComponent<SpaceShipHandler>().fleet.team != team)
+				ships.Add(cd.gameObject.GetComponent<SpaceShipHandler>());
+			break;
+			
+		}
+	}
+
+	void OnDisable(){
+		foreach (IJSONExportable ship in ships){
+			if(team.aiInfor.scannedEnemyShips.ContainsKey(ship) && team.aiInfor.scannedEnemyShips[ship] > 1)
+				--team.aiInfor.scannedEnemyShips[ship];
+			else
+				team.aiInfor.scannedEnemyShips.Remove(ship);
+		}
+		foreach (IJSONExportable bullet in bullets){
+			if(team.aiInfor.scannedBullets.ContainsKey(bullet) && team.aiInfor.scannedBullets[bullet] > 1)
+				--team.aiInfor.scannedBullets[bullet];
+			else
+				team.aiInfor.scannedBullets.Remove(bullet);
+		}
+	}
 }

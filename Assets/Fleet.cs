@@ -69,7 +69,9 @@ public class Fleet : MonoBehaviour {
 		spaceShip.GetComponent<CircleDrawer> ().lineColor = color;
 		spaceShip.name = spaceShipName;
 		spaceShips.AddLast (spaceShip);
-		team.allyShips.Add(spaceShip.GetComponent<SpaceShipHandler>());
+		Debug.Log (team.aiInfor);
+		Debug.Log (team.aiInfor.allyShips);
+		team.aiInfor.allyShips.Add(spaceShip.GetComponent<SpaceShipHandler>());
 		return spaceShip;
 	}
 }

@@ -1,8 +1,6 @@
-SetShipSpeed(enemyShips.length);
-if(enemyShips.length.a > 0){
-}
-else{
-	// Shoot();
+SetShipSpeed(5);
+if(enemyShips.length > 0){
+	Shoot();
 }
 var pos = GetPos();
 // log('x : '+pos.x+', y : '+pos.y);

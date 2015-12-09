@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using Jurassic;
 using Jurassic.Library;
-using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.IO;
 
 public class AILoader : MonoBehaviour {
@@ -14,6 +15,7 @@ public class AILoader : MonoBehaviour {
 	
 	ArrayInstance allyShipsJS;
 	ArrayInstance enemyShipsJS;
+	ArrayInstance bulletsJS;
 
     //public System.Json.JsonObject ships;
 	 	
@@ -43,9 +45,10 @@ public class AILoader : MonoBehaviour {
         // engine.SetGlobalValue("Transform", typeof(Transform));
 
 		/////////////////////////////////////////////// HERE HAS PROBLEM. //////////////////////////////////////////////////
-        engine.SetGlobalValue("allyShips", allyShipsJS);
-        engine.SetGlobalValue("enemyShips", enemyShipsJS);
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		engine.SetGlobalValue("allyShips", allyShipsJS);
+		engine.SetGlobalValue("enemyShips", enemyShipsJS);
+		engine.SetGlobalValue("bullets", bulletsJS);
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Exposing .NET methods to JavaScript.
         // The generic System.Action delegate is used to define method signatures with no returns;
@@ -153,49 +156,35 @@ public class AILoader : MonoBehaviour {
     #endregion
 
 	void CacheJSValues(){
-		int i = 0;
 		allyShipsJS = engine.Array.New();
-		foreach(SpaceShipHandler allyShip in ship.fleet.team.allyShips)
-		{
-			var allyShipJS = ObjectConstructor.Create(engine,engine.Object.InstancePrototype);
-			allyShipsJS[i++] = allyShipJS;
-		}
-		i = 0;
 		enemyShipsJS = engine.Array.New();
-		foreach(SpaceShipHandler enemyShip in ship.fleet.team.scannedEnemyShips)
-		{
-			var enemyShipJS = ObjectConstructor.Create(engine,engine.Object.InstancePrototype);
-			enemyShipsJS[i++] = enemyShipJS;
-		}
+		bulletsJS = engine.Array.New();
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		int i = 0;
-		allyShipsJS.Length = (uint)ship.fleet.team.allyShips.Count;
-		foreach(SpaceShipHandler allyShip in ship.fleet.team.allyShips)
-		{
-			var allyShipJS = allyShipsJS[i++] as ObjectInstance;
-			var allyShipPos = allyShip.GetPos();
-			allyShipJS.SetPropertyValue("x",engine.Number.Construct((double)allyShipPos.x),true);
-			allyShipJS.SetPropertyValue("y",engine.Number.Construct((double)allyShipPos.y),true);
-			allyShipJS.SetPropertyValue("rotation",engine.Number.Construct((double)allyShip.angle),true);
-			allyShipJS.SetPropertyValue("hp",engine.Number.Construct((double)allyShip.hp),true);
-		}
-
-		i = 0;
-		enemyShipsJS.Length = (uint)ship.fleet.team.scannedEnemyShips.Count;
-		foreach(SpaceShipHandler enemyShip in ship.fleet.team.scannedEnemyShips)
-		{
-			var enemyShipJS = enemyShipsJS[i++] as ObjectInstance;
-			var enemyShipPos = enemyShip.GetPos();
-			enemyShipJS.SetPropertyValue("x",engine.Number.Construct((double)enemyShipPos.x),true);
-			enemyShipJS.SetPropertyValue("y",engine.Number.Construct((double)enemyShipPos.y),true);
-			enemyShipJS.SetPropertyValue("rotation",engine.Number.Construct((double)enemyShip.angle),true);
-			enemyShipJS.SetPropertyValue("hp",engine.Number.Construct((double)enemyShip.hp),true);
-		}
+		ExportCollectionToJS (ship.fleet.team.aiInfor.allyShips, allyShipsJS);
+		ExportCollectionToJS (ship.fleet.team.aiInfor.scannedEnemyShips.Keys, enemyShipsJS);
+		ExportCollectionToJS (ship.fleet.team.aiInfor.scannedBullets.Keys, bulletsJS);
         //Execute the contents of the script every frame if Running is ticked.
         engine.Execute(stringCode);
+	}
+
+	void ExportCollectionToJS(ICollection<IJSONExportable> col, ArrayInstance arrjs){
+		arrjs.Length = (uint)col.Count;
+		int i = 0;
+		foreach(IJSONExportable obj in col)
+		{
+			var json = arrjs[i++] as ObjectInstance;
+			if(json == null){
+				json = (arrjs[i-1] = ObjectConstructor.Create(engine,engine.Object.InstancePrototype)) as ObjectInstance;
+			}
+
+			Dictionary<string,double> values = obj.GetExportableValues();
+			foreach(string key in values.Keys){
+				json.SetPropertyValue(key,values[key],true);
+			}
+		}
 	}
 	
 	public void SetJavaScriptPath(string path)
