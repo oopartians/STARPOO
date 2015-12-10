@@ -167,7 +167,11 @@ public class AILoader : MonoBehaviour {
 		ExportCollectionToJS (ship.fleet.team.aiInfor.scannedEnemyShips.Keys, enemyShipsJS);
 		ExportCollectionToJS (ship.fleet.team.aiInfor.scannedBullets.Keys, bulletsJS);
         //Execute the contents of the script every frame if Running is ticked.
-        engine.Execute(stringCode);
+		ExcuteScript();
+	}
+	
+	void ExcuteScript(){
+		engine.Execute(stringCode);
 	}
 
 	void ExportCollectionToJS(ICollection<IJSONExportable> col, ArrayInstance arrjs){
