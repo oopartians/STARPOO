@@ -27,6 +27,8 @@ public class SpaceShipHandler : MonoBehaviour,IJSONExportable {
 	public Dictionary<string,double> GetExportableValues(){return exportableValues;}
 
     bool destroyed = false;
+	bool wantToShoot = false;
+	ShipJSObject json;
 
     // Use this for initialization
     void Start () {
@@ -35,6 +37,8 @@ public class SpaceShipHandler : MonoBehaviour,IJSONExportable {
 		angleSpeed = 0;
 		ammo = maxAmmo;
 		fireDelay = 0;
+
+		json = GetComponent<ShipJSObject> ();
 		
 		exportableValues.Add ("x", GetPos ().x);
 		exportableValues.Add ("y", GetPos ().y);
@@ -53,6 +57,12 @@ public class SpaceShipHandler : MonoBehaviour,IJSONExportable {
         transform.localRotation = Quaternion.Euler(Vector3.forward * angle);
         transform.localPosition += (transform.localRotation * Vector3.right * dt * speed);
 
+		if (wantToShoot) {
+			ShootBullet();
+			wantToShoot = false;
+		}
+
+		json.UpdateProperties ();
 		
 		exportableValues ["x"] = GetPos().x;
 		exportableValues ["y"] = GetPos().y;
@@ -60,11 +70,7 @@ public class SpaceShipHandler : MonoBehaviour,IJSONExportable {
 		exportableValues ["hp"] = hp;
     }
 
-	void LateUpdate(){
-
-	}
-
-	public void Shoot(){
+	void ShootBullet(){
 		if (ammo >= 1 && fireDelay <= 0) {
 			--ammo;
 			fireDelay = 1/fireFrequency;
@@ -76,13 +82,23 @@ public class SpaceShipHandler : MonoBehaviour,IJSONExportable {
 			bullet.GetComponent<Bullet>().fleet = fleet;
 		}
 	}
+
+	void LateUpdate(){
+
+	}
+
+	public void Shoot(){
+		wantToShoot = true;
+	}
 	
 	public void SetAngleSpeed(float aAngleSpeed){
-        angleSpeed = Mathf.Max(-maxAngleSpeed, Mathf.Min(maxAngleSpeed, aAngleSpeed));
+		angleSpeed = Mathf.Max(-maxAngleSpeed, Mathf.Min(maxAngleSpeed, aAngleSpeed));
+		json.UpdateProperty ("angle", angleSpeed);
     }
 	
 	public void SetSpeed(float aSpeed){
 		speed = Mathf.Max (0, Mathf.Min (maxSpeed, aSpeed));
+		json.UpdateProperty ("speed", speed);
 	}
 
 	public void Damage(float damage){
@@ -165,6 +181,6 @@ public class SpaceShipHandler : MonoBehaviour,IJSONExportable {
 		}
 
         destroyed = true;
-		fleet.ReportDestroy (gameObject);
+		fleet.ReportDestroy (this);
     }
 }

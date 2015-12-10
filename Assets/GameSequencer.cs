@@ -23,10 +23,11 @@ public class GameSequencer : MonoBehaviour {
 			foreach(string path in team.GetJSPaths()){
 				GameObject fleetObject = (GameObject)Instantiate(Resources.Load("Fleet"));
 				Fleet fleet = fleetObject.GetComponent<Fleet>();
+				FleetAILoader fleetAILoader = fleetObject.GetComponent<FleetAILoader>();
+				fleetAILoader.SetJavaScriptPath(path);
 				fleet.team = team;
 				team.AddFleet(fleet);
 				fleet.javascriptPath = path;
-				Debug.Log(fleet.name);
 			}
 			team.CompleteAddFleets();
 		}

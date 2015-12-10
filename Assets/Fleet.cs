@@ -22,21 +22,19 @@ public class Fleet : MonoBehaviour {
 	public float positionAngle;
 
 
-	public void ReportDestroy(GameObject spaceShip){
-		spaceShips.Remove (spaceShip);
-		if (spaceShips.Count == 0) {
+	public void ReportDestroy(SpaceShipHandler spaceShip){
+		ships.Remove (spaceShip);
+		if (ships.Count == 0) {
 			team.ReportDestroy(this);
 		}
 	}
-
-
 	
 	string _javascriptPath;
-	LinkedList<GameObject> spaceShips = new LinkedList<GameObject>();
-
+	public HashSet<SpaceShipHandler> ships = new HashSet<SpaceShipHandler>();
 
 	void Start(){
 		MakeSpaceShips ();
+		GetComponent<FleetAILoader>().Ready();
 	}
 
 
@@ -68,9 +66,7 @@ public class Fleet : MonoBehaviour {
 		spaceShip.GetComponent<SpaceShipHandler> ().fleet = this;
 		spaceShip.GetComponent<CircleDrawer> ().lineColor = color;
 		spaceShip.name = spaceShipName;
-		spaceShips.AddLast (spaceShip);
-		Debug.Log (team.aiInfor);
-		Debug.Log (team.aiInfor.allyShips);
+		ships.Add (spaceShip.GetComponent<SpaceShipHandler> ());
 		team.aiInfor.allyShips.Add(spaceShip.GetComponent<SpaceShipHandler>());
 		return spaceShip;
 	}

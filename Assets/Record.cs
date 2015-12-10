@@ -58,7 +58,6 @@ public static class Record {
 		foreach(Team team in Match.teams){
 			killAlly.Add(team,0);
 			killEnemy.Add(team,0);
-			Debug.Log(team.name);
 			_ui.CreateTeamStat(team);
 		}
 	}
