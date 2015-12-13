@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 public class TeamColor
 {
@@ -43,10 +45,7 @@ public class TeamColor
     private void InitDefaultColorList(params Color[] colors)
     {
         for (int i = 0; i < colors.Length; i++)
-        {
             defaultColors.Add(colors[i]);
-            //Debug.Log("color : " + defaultColors[i].ToString());
-        }
     }
 
     public void SetColorsList(int matchSize)
@@ -54,10 +53,7 @@ public class TeamColor
         Shuffle(defaultColors);
 
         for (int i = 0; i < matchSize; i++)
-        {
             colors.Enqueue(defaultColors[i]);
-            //Debug.Log("Shuffled color : " + colors.ToArray()[i].ToString());
-        }
 
         if (matchSize > 13)
         {
@@ -79,7 +75,15 @@ public class TeamColor
 
     public Color DequeueTeamColor()
     {
-        return colors.Dequeue();
+        try
+        {
+            return colors.Dequeue();
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("[TeamColor] Error catched : " + ex.Message);
+            return new Color(Random.Range(0.2f, 1), Random.Range(0.2f, 1), Random.Range(0.2f, 1), 0.5f);
+        }
     }
 
     public void EnQueueTeamColor(Color color)
