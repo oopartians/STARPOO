@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpaceShipHpBar : MonoBehaviour {
+public class ShipHpBar : MonoBehaviour {
 	public Ship ship;
 
     // Use this for initialization

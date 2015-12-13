@@ -12,7 +12,7 @@ public class SpaceshipSpawner : MonoBehaviour {
 
         for(int i = 0; i < javaScripts.Length; i++)
         {
-            GameObject Ships = (GameObject)Instantiate(Resources.Load("SpaceShip"), new Vector3(3*i, 3*i, 0), Quaternion.identity);
+            GameObject Ships = (GameObject)Instantiate(Resources.Load("Ship"), new Vector3(3*i, 3*i, 0), Quaternion.identity);
             // Ships에 JavaScript 파일 이름 넘기기
             Ships.name = javaScripts[i];
         }

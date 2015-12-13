@@ -23,14 +23,14 @@ public class Radar : MonoBehaviour {
 //        bullets = GameObject.FindObjectsOfType<Bullet>();
 ////        Debug.Log("[Radar] Current Bullets count : " + bullets.Length);
 //        
-//        Ship[] spaceShips = GameObject.FindObjectsOfType<Ship>();
-//        spaceShips_alliancea = GameObject.FindObjectsOfType<Ship>();
-//        foreach (Ship _spaceShip in spaceShips)
+//        Ship[] ships = GameObject.FindObjectsOfType<Ship>();
+//        ships_alliancea = GameObject.FindObjectsOfType<Ship>();
+//        foreach (Ship _ship in ships)
 //        {
-//            if (_spaceShip.fleet.name.Equals(ship.fleet.name))
-//                spaceShips_alliance.Add(_spaceShip);
+//            if (_ship.fleet.name.Equals(ship.fleet.name))
+//                ships_alliance.Add(_ship);
 //            else
-//                spaceShips_enemy.Add(_spaceShip);
+//                ships_enemy.Add(_ship);
 //        }
     }
 
@@ -42,7 +42,7 @@ public class Radar : MonoBehaviour {
 			bullets.Add(cd.gameObject.GetComponent<Bullet>());
 			break;
 			
-		case "SpaceShip":
+		case "Ship":
 			if(cd.gameObject.GetComponent<Ship>().fleet.team != team)
 				ships.Add(cd.gameObject.GetComponent<Ship>());
 			break;
@@ -58,7 +58,7 @@ public class Radar : MonoBehaviour {
 			bullets.Remove(cd.gameObject.GetComponent<Bullet>());
 			break;
 			
-		case "SpaceShip":
+		case "Ship":
 			if(cd.gameObject.GetComponent<Ship>().fleet.team != team)
 				ships.Add(cd.gameObject.GetComponent<Ship>());
 			break;
