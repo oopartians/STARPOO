@@ -62,7 +62,6 @@ public class Fleet : MonoBehaviour {
 
 	GameObject MakeSpaceShip(){
 		GameObject spaceShip = (GameObject)Instantiate(spaceShipPrefab,Vector3.right * Random.Range(0,50),Quaternion.identity);
-		spaceShip.GetComponent<AILoader> ().SetJavaScriptPath (_javascriptPath);
 		spaceShip.GetComponent<SpaceShipHandler> ().fleet = this;
 		spaceShip.GetComponent<CircleDrawer> ().lineColor = color;
 		spaceShip.name = spaceShipName;
