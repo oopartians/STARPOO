@@ -2,7 +2,9 @@
 using System.IO;
 using System.Collections.Generic;
 
-public class JavaScriptLoader : MonoBehaviour {
+public class JavaScriptLoader : MonoBehaviour
+{
+    public int javascriptCount;
 
 	// Use this for initialization
 	void Start () {
@@ -21,12 +23,13 @@ public class JavaScriptLoader : MonoBehaviour {
 		}
 	}
 
-
 	string[] LoadJavascripts(){
 		string[] javascriptPaths = Directory.GetFiles(Directory.GetCurrentDirectory() + @"/Script/", "*.js");
 		for (int i = 0; i < javascriptPaths.Length; i++)
 			javascriptPaths [i] = javascriptPaths [i];
-		
-		return javascriptPaths;
+
+	    javascriptCount = javascriptPaths.Length;
+
+        return javascriptPaths;
 	}
 }
