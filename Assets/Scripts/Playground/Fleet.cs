@@ -7,15 +7,15 @@ using System.Collections.Generic;
 public class Fleet : MonoBehaviour {
 	static public int numShip = 9;
 
-	public GameObject spaceShipPrefab;
+	public GameObject shipPrefab;
 	public Color color;
 	public string javascriptPath{set{
 			_javascriptPath = value;
 			name = Path.GetFileNameWithoutExtension(value);
 			gameObject.name = "Fleet("+name+")";
-			spaceShipName = "SpaceShip(" + name + ")";
+			shipName = "Ship(" + name + ")";
 		}}
-	public string spaceShipName;
+	public string shipName;
 	public string name;
 	public Team team;
 
@@ -33,17 +33,17 @@ public class Fleet : MonoBehaviour {
 	public HashSet<Ship> ships = new HashSet<Ship>();
 
 	void Start(){
-		MakeSpaceShips ();
+		MakeShips ();
 		GetComponent<FleetAILoader>().Ready();
 	}
 
 
-	void MakeSpaceShips(){
+	void MakeShips(){
 		//여기서 우주선들을 만들고, 적절히 위치시킨다.
 
 
 		for (int i = 0; i < numShip; ++i) {
-			GameObject spaceShip = MakeSpaceShip ();
+			GameObject Ship = MakeShip ();
 
 			int numRow = Mathf.CeilToInt (Mathf.Sqrt((float)numShip));
 			float row = i%numRow;
@@ -55,18 +55,18 @@ public class Fleet : MonoBehaviour {
 			float rad = Mathf.PI * angle / 180;
 			float x = Mathf.Cos (rad) * (40 + distance);
 			float y = Mathf.Sin (rad) * (40 + distance);
-			spaceShip.transform.position = new Vector2(x,y);
-			spaceShip.GetComponent<Ship>().angle = positionAngle - 180;
+			Ship.transform.position = new Vector2(x,y);
+			Ship.GetComponent<Ship>().angle = positionAngle - 180;
 		}
 	}
 
-	GameObject MakeSpaceShip(){
-		GameObject spaceShip = (GameObject)Instantiate(Resources.Load("Ship"),Vector3.right * Random.Range(0,50),Quaternion.identity);
-		spaceShip.GetComponent<Ship> ().fleet = this;
-		spaceShip.GetComponent<CircleDrawer> ().lineColor = color;
-		spaceShip.name = spaceShipName;
-		ships.Add (spaceShip.GetComponent<Ship> ());
-		team.aiInfor.allyShips.Add(spaceShip.GetComponent<Ship>());
-		return spaceShip;
+	GameObject MakeShip(){
+		GameObject ship = (GameObject)Instantiate(Resources.Load("Ship"),Vector3.right * Random.Range(0,50),Quaternion.identity);
+		ship.GetComponent<Ship> ().fleet = this;
+		ship.GetComponent<CircleDrawer> ().lineColor = color;
+		ship.name = shipName;
+		ships.Add (ship.GetComponent<Ship> ());
+		team.aiInfor.allyShips.Add(ship.GetComponent<Ship>());
+		return ship;
 	}
 }
