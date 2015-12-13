@@ -29,12 +29,20 @@ public class Team : MonoBehaviour {
 
 	}
 
-	public void AddFleet(Fleet fleet){
-		fleet.color = color;
-		_fleets.Add(fleet);
+	public void MakeFleets(){
+		foreach(string path in jsPaths){
+			GameObject fleetObject = (GameObject)Instantiate(Resources.Load("Fleet"));
+			Fleet fleet = fleetObject.GetComponent<Fleet>();
+			FleetAILoader fleetAILoader = fleetObject.GetComponent<FleetAILoader>();
+			fleetAILoader.SetJavaScriptPath(path);
+			fleet.team = this;
+			fleet.color = color;
+			fleet.javascriptPath = path;
+			_fleets.Add(fleet);
+		}
 	}
 
-	public void CompleteAddFleets(){
+	public void InitFleetsAngle(){
 		int i = 0;
 		foreach (Fleet fleet in _fleets) {
 			fleet.positionAngle = positionAngle + ((i++) - (_fleets.Count-1)/2) * 20;

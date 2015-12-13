@@ -20,16 +20,8 @@ public class GameSequencer : MonoBehaviour {
 
 	void MakeFleets(){
 		foreach (Team team in Match.teams) {
-			foreach(string path in team.GetJSPaths()){
-				GameObject fleetObject = (GameObject)Instantiate(Resources.Load("Fleet"));
-				Fleet fleet = fleetObject.GetComponent<Fleet>();
-				FleetAILoader fleetAILoader = fleetObject.GetComponent<FleetAILoader>();
-				fleetAILoader.SetJavaScriptPath(path);
-				fleet.team = team;
-				team.AddFleet(fleet);
-				fleet.javascriptPath = path;
-			}
-			team.CompleteAddFleets();
+			team.MakeFleets();
+			team.InitFleetsAngle();
 		}
 	}
 }
