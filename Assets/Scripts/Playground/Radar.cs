@@ -13,7 +13,7 @@ public class Radar : MonoBehaviour {
     // Use this for initialization
     void Start () {
 		// Update Radar Radius for develop.
-		team = gameObject.GetComponentInParent<SpaceShipHandler> ().fleet.team;
+		team = gameObject.GetComponentInParent<Ship> ().fleet.team;
         circleCollider2D = transform.GetComponent<CircleCollider2D>();
         circleCollider2D.radius = radarRadius;
     }
@@ -23,11 +23,11 @@ public class Radar : MonoBehaviour {
 //        bullets = GameObject.FindObjectsOfType<Bullet>();
 ////        Debug.Log("[Radar] Current Bullets count : " + bullets.Length);
 //        
-//        SpaceShipHandler[] spaceShips = GameObject.FindObjectsOfType<SpaceShipHandler>();
-//        spaceShips_alliancea = GameObject.FindObjectsOfType<SpaceShipHandler>();
-//        foreach (SpaceShipHandler _spaceShip in spaceShips)
+//        Ship[] spaceShips = GameObject.FindObjectsOfType<Ship>();
+//        spaceShips_alliancea = GameObject.FindObjectsOfType<Ship>();
+//        foreach (Ship _spaceShip in spaceShips)
 //        {
-//            if (_spaceShip.fleet.name.Equals(spaceShip.fleet.name))
+//            if (_spaceShip.fleet.name.Equals(ship.fleet.name))
 //                spaceShips_alliance.Add(_spaceShip);
 //            else
 //                spaceShips_enemy.Add(_spaceShip);
@@ -43,8 +43,8 @@ public class Radar : MonoBehaviour {
 			break;
 			
 		case "SpaceShip":
-			if(cd.gameObject.GetComponent<SpaceShipHandler>().fleet.team != team)
-				ships.Add(cd.gameObject.GetComponent<SpaceShipHandler>());
+			if(cd.gameObject.GetComponent<Ship>().fleet.team != team)
+				ships.Add(cd.gameObject.GetComponent<Ship>());
 			break;
 			
 		}
@@ -59,8 +59,8 @@ public class Radar : MonoBehaviour {
 			break;
 			
 		case "SpaceShip":
-			if(cd.gameObject.GetComponent<SpaceShipHandler>().fleet.team != team)
-				ships.Add(cd.gameObject.GetComponent<SpaceShipHandler>());
+			if(cd.gameObject.GetComponent<Ship>().fleet.team != team)
+				ships.Add(cd.gameObject.GetComponent<Ship>());
 			break;
 			
 		}

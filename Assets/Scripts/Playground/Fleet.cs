@@ -22,15 +22,15 @@ public class Fleet : MonoBehaviour {
 	public float positionAngle;
 
 
-	public void ReportDestroy(SpaceShipHandler spaceShip){
-		ships.Remove (spaceShip);
+	public void ReportDestroy(Ship ship){
+		ships.Remove (ship);
 		if (ships.Count == 0) {
 			team.ReportDestroy(this);
 		}
 	}
 	
 	string _javascriptPath;
-	public HashSet<SpaceShipHandler> ships = new HashSet<SpaceShipHandler>();
+	public HashSet<Ship> ships = new HashSet<Ship>();
 
 	void Start(){
 		MakeSpaceShips ();
@@ -56,17 +56,17 @@ public class Fleet : MonoBehaviour {
 			float x = Mathf.Cos (rad) * (40 + distance);
 			float y = Mathf.Sin (rad) * (40 + distance);
 			spaceShip.transform.position = new Vector2(x,y);
-			spaceShip.GetComponent<SpaceShipHandler>().angle = positionAngle - 180;
+			spaceShip.GetComponent<Ship>().angle = positionAngle - 180;
 		}
 	}
 
 	GameObject MakeSpaceShip(){
-		GameObject spaceShip = (GameObject)Instantiate(spaceShipPrefab,Vector3.right * Random.Range(0,50),Quaternion.identity);
-		spaceShip.GetComponent<SpaceShipHandler> ().fleet = this;
+		GameObject spaceShip = (GameObject)Instantiate(Resources.Load("Ship"),Vector3.right * Random.Range(0,50),Quaternion.identity);
+		spaceShip.GetComponent<Ship> ().fleet = this;
 		spaceShip.GetComponent<CircleDrawer> ().lineColor = color;
 		spaceShip.name = spaceShipName;
-		ships.Add (spaceShip.GetComponent<SpaceShipHandler> ());
-		team.aiInfor.allyShips.Add(spaceShip.GetComponent<SpaceShipHandler>());
+		ships.Add (spaceShip.GetComponent<Ship> ());
+		team.aiInfor.allyShips.Add(spaceShip.GetComponent<Ship>());
 		return spaceShip;
 	}
 }

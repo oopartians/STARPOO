@@ -6,10 +6,10 @@ using Jurassic.Library;
 public class ShipJSObject : MonoBehaviour {
 	public JSObject jsobj;
 	FleetAILoader fleetAILoader;
-	SpaceShipHandler ship;
+	Ship ship;
 	// Use this for initialization
 	public void Create(){
-		ship = GetComponent<SpaceShipHandler> ();
+		ship = GetComponent<Ship> ();
 		fleetAILoader = ship.fleet.GetComponent<FleetAILoader>();
 		                                             
 		jsobj = new JSObject(fleetAILoader.GetEngine(),ship);
@@ -47,8 +47,8 @@ public class ShipJSObject : MonoBehaviour {
 
 	public class JSObject : ObjectInstance
 	{
-		SpaceShipHandler ship;
-		public JSObject(ScriptEngine engine,SpaceShipHandler ship)
+		Ship ship;
+		public JSObject(ScriptEngine engine,Ship ship)
 			: base(engine)
 		{
 			this.ship = ship;

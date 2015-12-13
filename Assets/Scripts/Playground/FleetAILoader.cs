@@ -25,7 +25,7 @@ public class FleetAILoader : MonoBehaviour {
 		fleet = GetComponent<Fleet> ();
 		teamAIInfo = fleet.team.aiInfor;
 		engine = new ScriptEngine();
-		CacheJSValues();
+		InitJSValues();
 		
 		
 		// Create an instance of the Jurassic engine then expose some stuff to it.
@@ -80,12 +80,12 @@ public class FleetAILoader : MonoBehaviour {
 	}
 	
 	#endregion
-	void CacheJSValues(){
+	void InitJSValues(){
 		allyShipsJS = engine.Array.New();
 		enemyShipsJS = engine.Array.New();
 		bulletsJS = engine.Array.New();
 
-		foreach (SpaceShipHandler ship in fleet.ships) {
+		foreach (Ship ship in fleet.ships) {
 			ship.GetComponent<ShipJSObject>().Create();
 		}
 	}
@@ -111,7 +111,7 @@ public class FleetAILoader : MonoBehaviour {
 		}
 		int i = 0;
 		allyShipsJS.Length = (uint)fleet.ships.Count;
-		foreach (SpaceShipHandler ship in fleet.ships) {
+		foreach (Ship ship in fleet.ships) {
 			allyShipsJS[i++] = ship.GetComponent<ShipJSObject>().jsobj as ObjectInstance;
 		}
 	}

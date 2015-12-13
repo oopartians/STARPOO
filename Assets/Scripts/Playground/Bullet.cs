@@ -45,19 +45,19 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 		}
 		switch (cd.tag) {
 		case "SpaceShip":
-			SpaceShipHandler spaceShip = cd.GetComponent<SpaceShipHandler> ();
-			Record.Damage(fleet,spaceShip.fleet);
-			if(spaceShip.hp <= 1){
-				Record.Kill(fleet,spaceShip.fleet);
+			Ship ship = cd.GetComponent<Ship> ();
+			Record.Damage(fleet,ship.fleet);
+			if(ship.hp <= 1){
+				Record.Kill(fleet,ship.fleet);
 			}
-			spaceShip.Damage (damage);
+			ship.Damage (damage);
 			Die();
 			break;
 		case "Bullet":
 			Die();
 			break;
 		case "Radar":
-			Dictionary<IJSONExportable,int> scannedBullets = cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.aiInfor.scannedBullets;
+			Dictionary<IJSONExportable,int> scannedBullets = cd.gameObject.GetComponentInParent<Ship>().fleet.team.aiInfor.scannedBullets;
 			if(scannedBullets.ContainsKey(this)){
 				++scannedBullets[this];
 			}
@@ -78,7 +78,7 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 			Die();
 			break;
 		case "Radar":
-			Dictionary<IJSONExportable,int> scannedBullets = cd.gameObject.GetComponentInParent<SpaceShipHandler>().fleet.team.aiInfor.scannedBullets;
+			Dictionary<IJSONExportable,int> scannedBullets = cd.gameObject.GetComponentInParent<Ship>().fleet.team.aiInfor.scannedBullets;
 
 			if(scannedBullets[this] > 1)
 				--scannedBullets[this];
