@@ -52,7 +52,7 @@ GameObject:
   - 114: {fileID: 11493594}
   - 114: {fileID: 11427910}
   m_Layer: 0
-  m_Name: Ship
+  m_Name: SpaceShip
   m_TagString: SpaceShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc6b9b9b12943d45aac84420adfb76e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 11483964}
+  spaceShip: {fileID: 11483964}
 --- !u!120 &12021496
 LineRenderer:
   m_ObjectHideFlags: 1
