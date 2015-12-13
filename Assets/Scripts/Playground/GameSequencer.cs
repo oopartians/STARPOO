@@ -6,16 +6,8 @@ public class GameSequencer : MonoBehaviour {
 	public GameUI ui;
 	// Use this for initialization
 	void Start () {
-		Init ();
-
-
-
 		MakeFleets ();
 		Record.Init (ui);
-	}
-
-	void Init()
-	{
 	}
 
 	void MakeFleets(){
