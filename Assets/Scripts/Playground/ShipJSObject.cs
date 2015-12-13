@@ -41,7 +41,7 @@ public class ShipJSObject : MonoBehaviour {
 	public void UpdateProperties(){
 		jsobj.UpdateProperties ();
 	}
-	public void UpdateProperty(string key, object value){
+	public void UpdateProperty(string key, float value){
 		jsobj.UpdateProperty(key,value);
 	}
 
@@ -56,7 +56,14 @@ public class ShipJSObject : MonoBehaviour {
 			this["name"] = "Test Application";
 			
 			// Read-only property (version).
-			this.DefineProperty("version", new PropertyDescriptor(5, PropertyAttributes.Sealed), true);
+			this.DefineProperty("version", new PropertyDescriptor(5, PropertyAttributes.Writable), true);
+			this["x"] = 666;
+			this["y"] = 666;
+			this["angle"] = 666;
+			this["speed"] = 666;
+			this["angleSpeed"] = 666;
+			this["hp"] = 666;
+			this["ammo"] = 666;
 			this.PopulateFunctions();
 		}
 		
@@ -70,7 +77,7 @@ public class ShipJSObject : MonoBehaviour {
 		{
 			ship.SetSpeed ((float)speed);
 		}
-		[JSFunction(Name = "setRotationSpeed")]
+		[JSFunction(Name = "setAngleSpeed")]
 		public void SetAngleSpeed(double angleSpeed)
 		{
 			ship.SetAngleSpeed ((float)angleSpeed);
@@ -85,8 +92,8 @@ public class ShipJSObject : MonoBehaviour {
 			UpdateProperty ("hp", ship.hp);
 			UpdateProperty ("ammo", ship.ammo);
 		}
-		public void UpdateProperty(string key, object value){
-			this.SetPropertyValue (key, new PropertyDescriptor (value, PropertyAttributes.Sealed), true);
+		public void UpdateProperty(string key, float value){
+			this[key] = (double)value;
 		}
 	}
 }

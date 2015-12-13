@@ -4,6 +4,7 @@ using Jurassic.Library;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.IO;
+using System;
 
 public class FleetAILoader : MonoBehaviour {
 
@@ -55,6 +56,8 @@ public class FleetAILoader : MonoBehaviour {
 		//engine.SetGlobalFunction("SetShipAngleSpeed", new System.Action<double>(SetShipAngleSpeed));
 		//engine.SetGlobalFunction("Shoot", new System.Action(Shoot));
 		engine.SetGlobalFunction("log", new System.Action<string>(Log));
+		engine.SetGlobalFunction("polar", new Func<ObjectInstance,ObjectInstance>(Polar));
+		engine.SetGlobalFunction("polarFrom", new Func<ObjectInstance,ObjectInstance,ObjectInstance>(PolarFrom));
 		
 		// Examples of exposing some .NET methods with return values to JavaScript.
 		// The generic System.Func delegate is used to define method signatures with return types;
@@ -77,6 +80,64 @@ public class FleetAILoader : MonoBehaviour {
 	// This set of methods implment the functions we exposed to javaScript.
 	public void Log(string str){
 		Debug.Log("JS LOG : "+str);
+	}
+
+	public ObjectInstance Polar(ObjectInstance target){
+		ObjectInstance ret = PolarFrom(null,target);
+		return ret;
+	}
+	public ObjectInstance PolarFrom(ObjectInstance center, ObjectInstance target){
+//		Debug.Log(target["x"]);
+		//Debug.Log((float)target["x"]);
+		float x,y;
+//		float x = (float)(double)target["x"];//(float)((PropertyDescriptor)target["x"]).Value;
+//		float y = (float)(double)target["y"];//(float)((PropertyDescriptor)target["y"]).Value;
+		if(target["x"] is System.Int32){
+			
+			x = (float)(int)target["x"];
+			y = (float)(int)target["y"];
+		}
+		else {
+			x = (float)(double)target["x"];
+			y = (float)(double)target["y"];
+		}
+		ObjectInstance ret = engine.Object.Construct();
+		if(center == null){
+			var angle = Mathf.Atan2(y,x)*Mathf.Rad2Deg;
+			Debug.Log(angle);
+			angle %= 360;
+			var r = Vector2.Distance(new Vector2(x,y),Vector2.zero);
+			ret["r"] = (double)r;
+			ret["angle"] = (double)angle;
+		}
+		else{
+			if(center["x"] is System.Int32){
+				
+				x -= (float)(int)center["x"];
+				y -= (float)(int)center["y"];
+			}
+			else {
+				x -= (float)(double)center["x"];
+				y -= (float)(double)center["y"];
+			}
+			var angle = Mathf.Atan2(y,x)*Mathf.Rad2Deg;
+			Debug.Log("type : "+center.HasProperty("angle"));
+			if(center.HasProperty("angle")){
+				if(center["angle"] is System.Int32){
+					angle -= (float)(int)center["angle"];
+				}
+				else{
+					angle -= (float)(double)center["angle"];
+				}
+				angle %= 360;
+			}
+			
+			var r = Vector2.Distance(new Vector2(x,y),Vector2.zero);
+			ret["r"] = (double)r;
+			ret["angle"] = (double)angle;
+		}
+		
+		return ret;
 	}
 	
 	#endregion

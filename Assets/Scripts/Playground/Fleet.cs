@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 
 public class Fleet : MonoBehaviour {
-	static public int numShip = 9;
+	static public int numShip = 1;
 
 	public GameObject shipPrefab;
 	public Color color;

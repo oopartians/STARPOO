@@ -40,6 +40,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 
 		json = GetComponent<ShipJSObject> ();
 		
+		json.UpdateProperties ();
 		exportableValues.Add ("x", GetPos ().x);
 		exportableValues.Add ("y", GetPos ().y);
 		exportableValues.Add ("rotation", angle);
@@ -51,6 +52,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
         float dt = Time.deltaTime;
 
 		angle += angleSpeed * dt;
+		angle %= 360;
         ammo = Mathf.Min(maxAmmo, ammo + reloadFrequency * dt);
         fireDelay = Mathf.Max(0, fireDelay -= dt);
 
@@ -93,7 +95,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 	
 	public void SetAngleSpeed(float aAngleSpeed){
 		angleSpeed = Mathf.Max(-maxAngleSpeed, Mathf.Min(maxAngleSpeed, aAngleSpeed));
-		json.UpdateProperty ("angle", angleSpeed);
+		json.UpdateProperty ("angleSpeed", angleSpeed);
     }
 	
 	public void SetSpeed(float aSpeed){
