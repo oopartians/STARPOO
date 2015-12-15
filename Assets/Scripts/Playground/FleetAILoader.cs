@@ -121,7 +121,6 @@ public class FleetAILoader : MonoBehaviour {
 				y -= (float)(double)center["y"];
 			}
 			var angle = Mathf.Atan2(y,x)*Mathf.Rad2Deg;
-			Debug.Log("type : "+center.HasProperty("angle"));
 			if(center.HasProperty("angle")){
 				if(center["angle"] is System.Int32){
 					angle -= (float)(int)center["angle"];
@@ -130,6 +129,14 @@ public class FleetAILoader : MonoBehaviour {
 					angle -= (float)(double)center["angle"];
 				}
 				angle %= 360;
+				
+				if(angle > 180){
+					angle -= 360;
+				}
+				if(angle < -180){
+					angle += 360;
+				}
+
 			}
 			
 			var r = Vector2.Distance(new Vector2(x,y),Vector2.zero);
