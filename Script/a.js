@@ -14,7 +14,7 @@ for (var i = allyShips.length - 1; i >= 0; i--) {
 	if(p.r > goodR){
 		goodAngle = 0;
 	}
-		log(p.angle)
+		//log(p.angle)
 	ship.setAngleSpeed((p.angle-goodAngle)*50);
 };
 

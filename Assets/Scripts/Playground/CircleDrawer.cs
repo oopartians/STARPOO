@@ -10,7 +10,7 @@ public class CircleDrawer : MonoBehaviour {
 	public float r;
 	public float theta_scale = 0.2f;
 	// Use this for initialization
-	void Start () {
+	public void Draw () {
 		int size = Mathf.CeilToInt((2.0f * Mathf.PI) / theta_scale)+1;
 
 		LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
@@ -29,6 +29,10 @@ public class CircleDrawer : MonoBehaviour {
 			i+=1;
 		}
 		lineRenderer.SetPosition(size-1, new Vector3(r,0,0));
+	}
+
+	void Start() {
+		Draw ();
 	}
 	
 	// Update is called once per frame

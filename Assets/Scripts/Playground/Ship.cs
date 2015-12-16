@@ -6,7 +6,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 
     public const float hitRange = 1;
     public const float maxSpeed = 5;
-    public const float maxAngleSpeed = 180;
+    public const float maxAngleSpeed = 360;
     public const float maxHp = 3;
     public const float raderRadius = 10;
     public const float raderAngle = 120;

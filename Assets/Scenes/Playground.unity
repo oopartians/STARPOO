@@ -474,6 +474,7 @@ GameObject:
   - 120: {fileID: 1643489245}
   - 114: {fileID: 1643489244}
   - 58: {fileID: 1643489246}
+  - 114: {fileID: 1643489247}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Ground
@@ -683,6 +684,17 @@ CircleCollider2D:
   m_Offset: {x: .00106048584, y: -.00418281555}
   serializedVersion: 2
   m_Radius: 59.9989395
+--- !u!114 &1643489247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1643489242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 528a013c2fc879140b52deb94fd26897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1778115134
 GameObject:
   m_ObjectHideFlags: 0

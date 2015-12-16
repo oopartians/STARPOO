@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 
 public class Fleet : MonoBehaviour {
-	static public int numShip = 1;
-
 	public GameObject shipPrefab;
 	public Color color;
 	public string javascriptPath{set{
@@ -42,10 +40,10 @@ public class Fleet : MonoBehaviour {
 		//여기서 우주선들을 만들고, 적절히 위치시킨다.
 
 
-		for (int i = 0; i < numShip; ++i) {
+		for (int i = 0; i < GameValueSetter.numShipsPerFleet; ++i) {
 			GameObject Ship = MakeShip ();
 
-			int numRow = Mathf.CeilToInt (Mathf.Sqrt((float)numShip));
+			int numRow = Mathf.CeilToInt (Mathf.Sqrt((float)GameValueSetter.numShipsPerFleet));
 			float row = i%numRow;
 			float column = Mathf.Floor(i/numRow);
 
