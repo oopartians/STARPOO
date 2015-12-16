@@ -4,11 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - SpaceShip
+  - Ship
   - Bullet
   - Wall
   - Ground
   - Radar
+  - SpaceShip
   layers:
   - Default
   - TransparentFX
