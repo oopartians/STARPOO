@@ -61,6 +61,9 @@ public class FleetAILoader : MonoBehaviour {
 		engine.SetGlobalFunction("log", new System.Action<string>(Log));
 		engine.SetGlobalFunction("polar", new Func<ObjectInstance,ObjectInstance>(Polar));
 		engine.SetGlobalFunction("polarFrom", new Func<ObjectInstance,ObjectInstance,ObjectInstance>(PolarFrom));
+
+		engine.SetGlobalValue("dt",engine.Number.Construct(0.02));
+		engine.SetGlobalValue("groundRadius", engine.Number.Construct((double)GameValueSetter.groundSize));
 		
 		// Examples of exposing some .NET methods with return values to JavaScript.
 		// The generic System.Func delegate is used to define method signatures with return types;

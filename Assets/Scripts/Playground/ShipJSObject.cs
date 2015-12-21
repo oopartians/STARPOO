@@ -13,7 +13,6 @@ public class ShipJSObject : MonoBehaviour {
 		fleetAILoader = ship.fleet.GetComponent<FleetAILoader>();
 		                                             
 		jsobj = new JSObject(fleetAILoader.GetEngine(),ship);
-		Debug.Log ("!!!");
 	}
 
 	void OnDisable(){
