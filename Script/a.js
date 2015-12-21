@@ -1,25 +1,28 @@
 
 
-for (var i = allyShips.length - 1; i >= 0; i--) {
-	// allyShips[i].shoot()
-	ship = allyShips[i]
-	ship.shoot()
-	ship.setSpeed(5)
+function update(){
+	for (var i = myShips.length - 1; i >= 0; i--) {
+		// myShips[i].shoot()
+		ship = myShips[i]
+		ship.shoot()
+		ship.setSpeed(5)
 
-	var goodR = 20;
-	var goodAngle = 90;
+		var goodR = 20;
+		var goodAngle = 90;
 
-	p = polarFrom(ship,{x:0,y:0});
+		p = polarFrom(ship,{x:0,y:0});
 
-	if(p.r > goodR){
-		goodAngle = 0;
+		if(p.r > goodR){
+			goodAngle = 0;
+		}
+			//log(p.angle)
+		ship.setAngleSpeed((p.angle-goodAngle)*50);
 	}
-		//log(p.angle)
-	ship.setAngleSpeed((p.angle-goodAngle)*50);
-};
+}
 
 //enemyShips : array<ship>
 //allyShips : array<ship>
+//myShips : array<ship>
 //bullets : array<bulley>
 
 

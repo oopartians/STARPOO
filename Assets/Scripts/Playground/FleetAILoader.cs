@@ -16,10 +16,12 @@ public class FleetAILoader : MonoBehaviour {
 	TeamAIInformation teamAIInfo;
 	ScriptEngine engine;
 	
+	ArrayInstance myShipsJS;
 	ArrayInstance allyShipsJS;
 	ArrayInstance enemyShipsJS;
 	ArrayInstance bulletsJS;
 	bool ready = false;
+	bool scriptExcuted = false;
 
 	public void Ready()
 	{
@@ -45,6 +47,7 @@ public class FleetAILoader : MonoBehaviour {
 		// engine.SetGlobalValue("Transform", typeof(Transform));
 		
 		/////////////////////////////////////////////// HERE HAS PROBLEM. //////////////////////////////////////////////////
+		engine.SetGlobalValue("myShips", myShipsJS);
 		engine.SetGlobalValue("allyShips", allyShipsJS);
 		engine.SetGlobalValue("enemyShips", enemyShipsJS);
 		engine.SetGlobalValue("bullets", bulletsJS);
@@ -149,6 +152,7 @@ public class FleetAILoader : MonoBehaviour {
 	
 	#endregion
 	void InitJSValues(){
+		myShipsJS = engine.Array.New();
 		allyShipsJS = engine.Array.New();
 		enemyShipsJS = engine.Array.New();
 		bulletsJS = engine.Array.New();
@@ -162,25 +166,29 @@ public class FleetAILoader : MonoBehaviour {
 	void FixedUpdate () {
 		if (!ready)
 			return;
-	//	ExportCollectionToJS (ship.fleet.team.aiInfor.allyShips, allyShipsJS);
-		ExportAllyShips ();
+		ExportMyShips ();
+		ExportCollectionToJS (teamAIInfo.allyShips, allyShipsJS);
 		ExportCollectionToJS (teamAIInfo.scannedEnemyShips.Keys, enemyShipsJS);
 		ExportCollectionToJS (teamAIInfo.scannedBullets.Keys, bulletsJS);
 		ExcuteScript();
 	}
 	
 	void ExcuteScript(){
-		engine.Execute(stringCode);
+		if(!scriptExcuted){
+			engine.Execute(stringCode);
+			scriptExcuted = true;
+		}
+		engine.CallGlobalFunction("update");
 	}
 
-	void ExportAllyShips(){
-		if (allyShipsJS.Length == fleet.ships.Count) {
+	void ExportMyShips(){
+		if (myShipsJS.Length == fleet.ships.Count) {
 			return;
 		}
 		int i = 0;
-		allyShipsJS.Length = (uint)fleet.ships.Count;
+		myShipsJS.Length = (uint)fleet.ships.Count;
 		foreach (Ship ship in fleet.ships) {
-			allyShipsJS[i++] = ship.GetComponent<ShipJSObject>().jsobj as ObjectInstance;
+			myShipsJS[i++] = ship.GetComponent<ShipJSObject>().jsobj as ObjectInstance;
 		}
 	}
 	
