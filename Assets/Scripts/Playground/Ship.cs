@@ -126,10 +126,10 @@ public class Ship : MonoBehaviour,IJSONExportable {
         case "Bullet":
             break;
 
-        case "Radar":
+        case "Ship":
             break;
 
-        case "Ship":
+		case "Radar":
 //                Debug.Log("[Ship] Radar hit" + Random.Range(0, 1000).ToString());
             if (cd.gameObject.GetComponentInParent<Ship>().fleet.team != fleet.team)
             {
@@ -157,7 +157,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
             Destroy (gameObject);
             break;
 
-        case "Ship":
+        case "Radar":
             if (cd.gameObject.GetComponentInParent<Ship>().fleet.team != fleet.team)
 			{
 				Dictionary<IJSONExportable,int> scannedEnemyShips = cd.gameObject.GetComponentInParent<Ship>().fleet.team.aiInfor.scannedEnemyShips;
