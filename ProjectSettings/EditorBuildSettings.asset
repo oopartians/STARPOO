@@ -9,3 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/MakeTeam.unity
   - enabled: 1
     path: Assets/Scenes/Playground.unity
+  - enabled: 1
+    path: Assets/Scenes/Score.unity
