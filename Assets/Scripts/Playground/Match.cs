@@ -4,10 +4,12 @@ using System.Collections.Generic;
 public class Match {
 	public static int namingNumber = 1;
 	public static List<Team> teams = new List<Team>();
+    public static int destroyedteamcount = 0;
 
 	public static void Init(){
 		namingNumber = 1;
-		teams.Clear ();
+	    destroyedteamcount = 0;
+        teams.Clear ();
 	}
 
 	public static Team MakeTeam(string name = null){
@@ -40,6 +42,20 @@ public class Match {
 		Debug.Log (teams.Count);
 		return teams.Count;
 	}
+
+    public static void ReportDestroy(Team team)
+    {
+        destroyedteamcount++;
+        if (teams.Count - 1 == destroyedteamcount)
+        {
+            GameOver();
+        }
+    }
+
+    public static void GameOver()
+    {
+        Application.LoadLevel("Score");
+    }
 }
 
 

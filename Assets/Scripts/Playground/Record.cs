@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public static class Record {
 	static GameUI _ui;
-	static Dictionary<Fleet,Dictionary<Fleet,float>> damageInfo;
-	static Dictionary<Fleet,Dictionary<Fleet,float>> killInfo;
-	static Dictionary<Team,int> killAlly;
-	static Dictionary<Team,int> killEnemy;
+	public static Dictionary<Fleet,Dictionary<Fleet,float>> damageInfo;
+	public static Dictionary<Fleet,Dictionary<Fleet,float>> killInfo;
+	public static Dictionary<Team,int> killAlly;
+	public static Dictionary<Team,int> killEnemy;
 
 	public static void Init(GameUI ui){
 		_ui = ui;

@@ -44,28 +44,30 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 			return;
 		}
 		switch (cd.tag) {
-		case "Ship":
-			Ship ship = cd.GetComponent<Ship> ();
-			Record.Damage(fleet,ship.fleet);
-			if(ship.hp <= 1){
-				Record.Kill(fleet,ship.fleet);
-			}
-			ship.Damage (damage);
-			Die();
-			break;
-		case "Bullet":
-			Die();
-			break;
-		case "Radar":
-			Dictionary<IJSONExportable,int> scannedBullets = cd.gameObject.GetComponentInParent<Ship>().fleet.team.aiInfor.scannedBullets;
-			if(scannedBullets.ContainsKey(this)){
-				++scannedBullets[this];
-			}
-			else{
-				scannedBullets.Add(this,1);
-			}
-			break;
-		}
+	        case "Ship":
+		        Ship ship = cd.GetComponent<Ship> ();
+                Record.Damage(fleet,ship.fleet);
+		        if(ship.hp <= 1){
+			        Record.Kill(fleet,ship.fleet);
+                }
+                ship.Damage(damage);
+                Die();
+		        break;
+
+	        case "Bullet":
+		        Die();
+		        break;
+
+	        case "Radar":
+		        Dictionary<IJSONExportable,int> scannedBullets = cd.gameObject.GetComponentInParent<Ship>().fleet.team.aiInfor.scannedBullets;
+		        if(scannedBullets.ContainsKey(this)){
+			        ++scannedBullets[this];
+		        }
+		        else{
+			        scannedBullets.Add(this,1);
+		        }
+		        break;
+        }
 	}
 	
 	void OnTriggerExit2D(Collider2D cd){

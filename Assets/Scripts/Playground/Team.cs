@@ -12,7 +12,7 @@ public class Team : MonoBehaviour {
 	public float positionAngle;
 	public List<Fleet> fleets{get{return _fleets;}}
 	public TeamAIInformation aiInfor;
-
+    private int destroyedfleetcount = 0;
 
     List<Fleet> _fleets = new List<Fleet>();
 	List<string> jsPaths = new List<string>();
@@ -25,9 +25,14 @@ public class Team : MonoBehaviour {
 		return jsPaths;
 	}
 
-	public void ReportDestroy(Fleet fleet){
-
-	}
+	public void ReportDestroy(Fleet fleet)
+	{
+	    destroyedfleetcount++;
+        if (_fleets.Count == destroyedfleetcount)
+        {
+            Match.ReportDestroy(fleet.team);
+        }
+    }
 
 	public void MakeFleets(){
 		foreach(string path in jsPaths){
