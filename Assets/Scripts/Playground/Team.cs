@@ -58,5 +58,4 @@ public class Team : MonoBehaviour {
 	void Awake(){
 		aiInfor = gameObject.GetComponent<TeamAIInformation> ();
 	}
-
 }
