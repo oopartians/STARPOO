@@ -180,6 +180,7 @@ public class FleetAILoader : MonoBehaviour {
 		if(!scriptExcuted){
 			engine.Execute(stringCode);
 			scriptExcuted = true;
+			return;
 		}
 		engine.CallGlobalFunction("update");
 	}

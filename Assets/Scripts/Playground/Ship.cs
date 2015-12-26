@@ -54,10 +54,10 @@ public class Ship : MonoBehaviour,IJSONExportable {
 		angle += angleSpeed * dt;
 		angle %= 360;
 		if (angle > 180) {
-			angle -= 180;
+			angle -= 360;
 		}
 		if (angle < -180) {
-			angle += 180;
+			angle += 360;
 		}
         ammo = Mathf.Min(maxAmmo, ammo + reloadFrequency * dt);
         fireDelay = Mathf.Max(0, fireDelay -= dt);
