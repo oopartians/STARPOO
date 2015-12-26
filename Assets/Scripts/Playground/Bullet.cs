@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 	void Start () {
 		exportableValues.Add("x",transform.localPosition.x);
 		exportableValues.Add("y",transform.localPosition.y);
-		exportableValues.Add("rotation",angle);
+		exportableValues.Add("angle",angle);
 		exportableValues.Add("speed",speed);
 	}
 
