@@ -60,7 +60,7 @@ public class Radar : MonoBehaviour {
 			
 		case "Ship":
 			if(cd.gameObject.GetComponent<Ship>().fleet.team != team)
-				ships.Add(cd.gameObject.GetComponent<Ship>());
+				ships.Remove(cd.gameObject.GetComponent<Ship>());
 			break;
 			
 		}

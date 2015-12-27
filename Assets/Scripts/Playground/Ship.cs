@@ -43,7 +43,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 		json.UpdateProperties ();
 		exportableValues.Add ("x", GetPos ().x);
 		exportableValues.Add ("y", GetPos ().y);
-		exportableValues.Add ("rotation", angle);
+		exportableValues.Add ("angle", angle);
 		exportableValues.Add ("hp", hp);
     }
 	
@@ -74,7 +74,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 		
 		exportableValues ["x"] = GetPos().x;
 		exportableValues ["y"] = GetPos().y;
-		exportableValues ["rotation"] = angle;
+		exportableValues ["angle"] = angle;
 		exportableValues ["hp"] = hp;
     }
 
