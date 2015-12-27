@@ -61,6 +61,11 @@ public class FleetAILoader : MonoBehaviour {
 		engine.SetGlobalFunction("log", new System.Action<string>(Log));
 		engine.SetGlobalFunction("polar", new Func<ObjectInstance,ObjectInstance>(Polar));
 		engine.SetGlobalFunction("polarFrom", new Func<ObjectInstance,ObjectInstance,ObjectInstance>(PolarFrom));
+		engine.SetGlobalFunction("cos", new Func<double,double>(Cos));
+		engine.SetGlobalFunction("sin", new Func<double,double>(Sin));
+		engine.SetGlobalFunction("d2r", new Func<double,double>(D2R));
+		engine.SetGlobalFunction("r2d", new Func<double,double>(R2D));
+		engine.SetGlobalFunction("dist", new Func<ObjectInstance,ObjectInstance,double>(Distance));
 
 		engine.SetGlobalValue("dt",engine.Number.Construct(0.02));
 		engine.SetGlobalValue("groundRadius", engine.Number.Construct((double)GameValueSetter.groundSize));
@@ -86,6 +91,31 @@ public class FleetAILoader : MonoBehaviour {
 	// This set of methods implment the functions we exposed to javaScript.
 	public void Log(string str){
 		Debug.Log("JS LOG : "+str);
+	}
+	
+	public double Cos(double v){
+		return (double)Mathf.Cos (Mathf.Deg2Rad * (float)v);
+	}
+	public double Sin(double v){
+		return (double)Mathf.Sin (Mathf.Deg2Rad * (float)v);
+	}
+	public double D2R(double v){
+		return (double)(Mathf.Deg2Rad * (float)v);
+	}
+	public double R2D(double v){
+		return (double)(Mathf.Rad2Deg * (float)v);
+	}
+	public double Distance(ObjectInstance a,ObjectInstance b){
+		float x1 = (float)(double)a["x"];
+		float y1 = (float)(double)a["y"];
+
+		float x2 = (float)(double)b["x"];
+		float y2 = (float)(double)b["y"];
+
+		float x = x1 - x2;
+		float y = y1 - y2;
+
+		return (double)Mathf.Sqrt (x * x + y * y);
 	}
 
 	public ObjectInstance Polar(ObjectInstance target){
