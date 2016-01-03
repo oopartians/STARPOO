@@ -51,8 +51,9 @@ public class Fleet : MonoBehaviour {
 			float distance = column * 4;
 
 			float rad = Mathf.PI * angle / 180;
-			float x = Mathf.Cos (rad) * (40 + distance);
-			float y = Mathf.Sin (rad) * (40 + distance);
+			int size = GameValueSetter.groundSize * 2 / 3;
+			float x = Mathf.Cos (rad) * (size + distance);
+			float y = Mathf.Sin (rad) * (size + distance);
 			Ship.transform.position = new Vector2(x,y);
 			Ship.GetComponent<Ship>().angle = positionAngle - 180;
 		}
