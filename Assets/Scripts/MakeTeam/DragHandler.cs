@@ -31,6 +31,11 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 		if (transform.parent == startParent) {
 			transform.position = startPos;
 		}
+        else
+        {
+            if (startParent.GetComponent<DragDropSlot>() != null) startParent.GetComponent<DragDropSlot>().OnBye(gameObject);
+            if (transform.parent.GetComponent<DragDropSlot>() != null) transform.parent.GetComponent<DragDropSlot>().OnHi(gameObject);
+        }
 	}
 }
 

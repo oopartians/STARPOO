@@ -6,6 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/SelectMode.unity
+  - enabled: 1
     path: Assets/Scenes/MakeTeam.unity
   - enabled: 1
     path: Assets/Scenes/Playground.unity

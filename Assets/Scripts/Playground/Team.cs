@@ -15,14 +15,15 @@ public class Team : MonoBehaviour {
     private int destroyedfleetcount = 0;
 
     List<Fleet> _fleets = new List<Fleet>();
-	List<string> jsPaths = new List<string>();
+    List<JSInfo> jsInfos = new List<JSInfo>();
 
-	public void AddJSPath(string path){
-		jsPaths.Add(path);
+	public void AddJSInfo(JSInfo jsInfo){
+        jsInfos.Add(jsInfo);
 	}
 
-	public List<string> GetJSPaths(){
-		return jsPaths;
+    public List<JSInfo> GetJSInfos()
+    {
+		return jsInfos;
 	}
 
 	public void ReportDestroy(Fleet fleet)
@@ -35,14 +36,14 @@ public class Team : MonoBehaviour {
     }
 
 	public void MakeFleets(){
-		foreach(string path in jsPaths){
+		foreach(JSInfo info in jsInfos){
 			GameObject fleetObject = (GameObject)Instantiate(Resources.Load("Fleet"));
 			Fleet fleet = fleetObject.GetComponent<Fleet>();
 			FleetAILoader fleetAILoader = fleetObject.GetComponent<FleetAILoader>();
-			fleetAILoader.SetJavaScriptPath(path);
+			fleetAILoader.code = info.code;
 			fleet.team = this;
 			fleet.color = color;
-			fleet.javascriptPath = path;
+			fleet.jsName = info.name;
 			_fleets.Add(fleet);
 		}
 	}

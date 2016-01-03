@@ -8,7 +8,7 @@ using System;
 
 public class FleetAILoader : MonoBehaviour {
 
-	public string stringCode;
+	public string code;
 	public ScriptEngine GetEngine(){return engine;}
 
 
@@ -208,7 +208,10 @@ public class FleetAILoader : MonoBehaviour {
 	
 	void ExcuteScript(){
 		if(!scriptExcuted){
-			engine.Execute(stringCode);
+
+            Debug.Log("code=================");
+            Debug.Log(code);
+            engine.Execute(code);
 			scriptExcuted = true;
 			return;
 		}
@@ -241,11 +244,5 @@ public class FleetAILoader : MonoBehaviour {
 				json.SetPropertyValue(key,values[key],true);
 			}
 		}
-	}
-	
-	public void SetJavaScriptPath(string path)
-	{
-		stringCode = File.ReadAllText(path);
-		Debug.Log("fleet : stringCode : " + stringCode);
 	}
 }

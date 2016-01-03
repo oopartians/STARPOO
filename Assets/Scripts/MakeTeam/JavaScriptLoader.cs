@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using System.Collections.Generic;
 
@@ -15,18 +16,20 @@ public class JavaScriptLoader : MonoBehaviour
 			scriptPannelObj.transform.SetParent(transform);
 			scriptPannelObj.transform.localScale = Vector3.one;
 
-			scriptPannelObj.name =  Path.GetFileNameWithoutExtension(path);
 			var scriptPannel = scriptPannelObj.GetComponent<JavascriptPannel>();
-
-			scriptPannel.name = scriptPannelObj.name;
-			scriptPannel.path = path;
+            scriptPannel.jsInfo.name = Path.GetFileNameWithoutExtension(path);
+            scriptPannel.jsInfo.code = File.ReadAllText(path);
+            scriptPannelObj.GetComponentInChildren<Text>().text = scriptPannel.jsInfo.name;
+            scriptPannelObj.name = scriptPannel.jsInfo.name;
 		}
 	}
 
 	string[] LoadJavascripts(){
 		string[] javascriptPaths = Directory.GetFiles(Directory.GetCurrentDirectory() + @"/Script/", "*.js");
-		for (int i = 0; i < javascriptPaths.Length; i++)
-			javascriptPaths [i] = javascriptPaths [i];
+        for (int i = 0; i < javascriptPaths.Length; i++)
+        {
+            javascriptPaths[i] = javascriptPaths[i];
+        }
 
 	    javascriptCount = javascriptPaths.Length;
 
