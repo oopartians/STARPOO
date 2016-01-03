@@ -7,7 +7,10 @@ using System;
 
 
 
-public class Server {
+public class Server
+{
+    public delegate void OnMessageReceived(TcpClient client,NetworkDecorator.NetworkMessage message);
+    public List<OnMessageReceived> onMessageReceived = new List<OnMessageReceived>();
 	public static Server instance{
 		get{
 			if(_instance == null){
@@ -24,10 +27,40 @@ public class Server {
     ManualResetEvent tcpClientConnected = new ManualResetEvent(false);
     public void Start()
     {
-        Debug.Log("server started");
-        server.Start();
-        Debug.Log("server BeginAcceptTcpClient");
-        //server.BeginAcceptTcpClient(new AsyncCallback(DoAcceptTcpClientCallback), server);
+        if(!NetworkValues.isServer){
+            NetworkValues.isServer = true;
+            server = new TcpListener(IPAddress.Parse("127.0.0.1"),NetworkValues.port);
+            server.Start();
+            Debug.Log("Server Started");
+        }
+        else
+        {
+            Debug.LogAssertion("Already Server is Opened");
+        }
+    }
+
+    public void Send(string message)
+    {
+        foreach (TcpClient client in clients)
+        {
+            SendToCleint(client, message);
+        }
+    }
+
+    public void SendToCleint(TcpClient client, string message)
+    {
+        var stream = client.GetStream();
+        byte[] buffer = System.Text.Encoding.Unicode.GetBytes("흙"+message);
+        stream.Write(buffer, 0, buffer.Length);
+    }
+
+    public void Mirroring(TcpClient sender, string message)
+    {
+        foreach (TcpClient client in clients)
+        {
+            if (sender == client) continue;
+            SendToCleint(client, message);
+        }
     }
 
     public void Update()
@@ -38,13 +71,32 @@ public class Server {
         }
         foreach (TcpClient client in clients)
         {
+            if (!client.Connected)
+            {
+                Debug.Log("a client closed connection");
+                clients.Remove(client);
+                continue;
+            }
             var stream = client.GetStream();
             if (stream.DataAvailable)
             {
-                Debug.Log("can read!!!!!!!!!!!!!!!" + stream.CanRead);
-                byte[] buffer = new Byte[256];
-                stream.Read(buffer, 0, (int)256);
-                Debug.Log(System.Text.Encoding.Unicode.GetString(buffer));
+                byte[] buffer = new Byte[client.ReceiveBufferSize];
+                stream.Read(buffer, 0, (int)client.ReceiveBufferSize);
+                var message = System.Text.Encoding.Unicode.GetString(buffer);
+
+                Mirroring(client, message);
+
+                string[] messages = message.Split('흙');
+                foreach (string msg in messages)
+                {
+                    string msg2 = msg.Replace(Convert.ToChar(0x0).ToString(), "");
+                    if (msg2.Length == 0) continue;
+                    foreach (OnMessageReceived fn in onMessageReceived)
+                    {
+                        fn(client, NetworkDecorator.StringToMessage(msg));
+                    }
+                    Debug.Log("Mirroring : " + msg);
+                }
             }
         }
     }
@@ -52,29 +104,9 @@ public class Server {
     public void Close()
     {
         Debug.Log("close server");
+        Send(NetworkDecorator.AttachHeader(NetworkHeader.ClOSESERVER));
+        NetworkValues.isServer = false;
         server.Stop();
     }
 
-    Server()
-    {
-        server = new TcpListener(IPAddress.Parse("127.0.0.1"),NetworkConsts.port);
-    }
-
-    void DoAcceptTcpClientCallback(IAsyncResult ar)
-    {
-        Debug.Log("server DoAcceptTcpClientCallback");
-        // Get the listener that handles the client request.
-        TcpListener listener = (TcpListener)ar.AsyncState;
-
-        // End the operation and display the received data on 
-        // the console.
-        TcpClient client = listener.EndAcceptTcpClient(ar);
-
-        // Process the connection here. (Add the client to a
-        // server table, read data, etc.)
-        Debug.Log("Client connected completed");
-
-        // Signal the calling thread to continue.
-        //tcpClientConnected.Set();
-    }
 }

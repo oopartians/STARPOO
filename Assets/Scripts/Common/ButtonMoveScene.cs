@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -9,7 +10,8 @@ public class ButtonMoveScene : MonoBehaviour {
 		GetComponent<Button> ().onClick.AddListener (MoveScene);
 	}
 
-	void MoveScene(){
-		Application.LoadLevel (sceneName);
-	}
+    void MoveScene()
+    {
+        SceneManager.LoadScene(sceneName);
+    }
 }

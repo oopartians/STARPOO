@@ -7,9 +7,8 @@ using System.Collections.Generic;
 public class Fleet : MonoBehaviour {
 	public GameObject shipPrefab;
 	public Color color;
-	public string javascriptPath{set{
-			_javascriptPath = value;
-			name = Path.GetFileNameWithoutExtension(value);
+	public string jsName{set{
+            name = value;
 			gameObject.name = "Fleet("+name+")";
 			shipName = "Ship(" + name + ")";
 		}}
@@ -27,7 +26,6 @@ public class Fleet : MonoBehaviour {
 		}
 	}
 	
-	string _javascriptPath;
 	public HashSet<Ship> ships = new HashSet<Ship>();
 
 	void Start(){

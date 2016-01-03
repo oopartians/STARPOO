@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
@@ -16,8 +17,8 @@ public class TeamListPannel : MonoBehaviour {
         teamColor.SetColorsList(defaultColorCount); // jsLoader.transform.childCount
         //Debug.Log("[TeamListPannel] JS count : " + jsLoader.transform.childCount);
 
-        AddTeam();
-		AddTeam();
+        AddTeam(false);
+		AddTeam(false);
 	}
 	
 	// Update is called once per frame
@@ -25,7 +26,7 @@ public class TeamListPannel : MonoBehaviour {
 	    
 	}
 
-	public void AddTeam(){
+	public void AddTeam(bool sendMessage = true){
 		GameObject pannel = (GameObject)Instantiate(Resources.Load("TeamPannel"));
 		pannel.transform.SetParent(transform);
 		pannel.transform.localScale = Vector3.one;
@@ -33,6 +34,11 @@ public class TeamListPannel : MonoBehaviour {
         pannel.GetComponent<Image> ().color = teamColor.DequeueTeamColor();
 
         teamPannels.Add(pannel);
+
+        if (NetworkValues.isServer && NetworkValues.isNetwork && sendMessage)
+        {
+            Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.ADDTEAM));
+        }
 	}
 
 	public void RemoveTeam(){
@@ -47,6 +53,11 @@ public class TeamListPannel : MonoBehaviour {
 				break;
 			}
 		}
+
+        if (NetworkValues.isServer)
+        {
+            Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.REMOVETEAM));
+        }
 	}
 
 	public void Complete(){
@@ -57,9 +68,16 @@ public class TeamListPannel : MonoBehaviour {
 
 			foreach(Transform js in pannel.transform){
 				JavascriptPannel jsPannel = js.gameObject.GetComponent<JavascriptPannel>();
-				team.AddJSPath(jsPannel.path);
+				team.AddJSInfo(jsPannel.jsInfo);
 			}
 		}
 		Match.CompleteMakeTeams ();
+
+        if (NetworkValues.isServer)
+        {
+            Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.START));
+        }
+        SceneManager.LoadScene("Playground");
 	}
+
 }

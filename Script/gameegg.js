@@ -6,7 +6,7 @@ function normal(ship,ratio){
 	target_pos.x = (groundRadius-15)*cos(360*ratio);
 	target_pos.y = (groundRadius-15)*sin(360*ratio);
 	
-	if(ship.ammo > 3 && !checkFacingAlly(ship)){
+	if(ship.ammo > 4 && !checkFacingAlly(ship)){
 		ship.shoot();
 	}
 
@@ -60,7 +60,7 @@ function attackEnemy(ship){
 			shootToEnemy(ship,enemy);
 			return true;
 		}
-		else if(d < 10){
+		else if(d < 60){
 			ship.setSpeed(5);
 			shootToEnemy(ship,enemy);
 			return true;
@@ -80,7 +80,7 @@ function evade(ship,array){
 		if(Math.abs(p.angle) > 80){
 			continue;
 		}
-		if(1.5 < sin(Math.abs(p.angle))*p.r || p.r > 13){
+		if(1 < sin(Math.abs(p.angle))*p.r || p.r > 3){
 			continue;
 		}
 
@@ -91,7 +91,7 @@ function evade(ship,array){
 	}
 	if(target != null){
 		var a = polarFrom(ship,target).angle;
-		if(a < 0 || a > 90){
+		if(a < 0 && a > -90 || a > 90 && a < 180){
 			lookPos(ship,target,-90);
 		}
 		else{
@@ -166,15 +166,23 @@ function lookPos(ship,pos,angle){
 		angle = 0;
 	}
 	p = polarFrom(ship,pos);
-	var v = (p.angle - angle)/dt;
+	var a = p.angle-angle;
+	a %= 360;
+	if(a > 180){
+		a -= 360;
+	}
+	else if(a < -180){
+		a += 360;
+	}
+	var v = a/dt;
 	ship.setAngleSpeed(v);
 	return v < 360;
 }
 
 function shootToEnemy(ship,enemy){
-	pos = virtualPos(enemy,Math.min(dist(enemy,ship),Math.random(1)));
+	pos = virtualPos(enemy,Math.min(dist(enemy,ship),1.2));
 	shootable = lookPos(ship,pos);
-	if(shootable)
+	if(shootable && dist(ship,enemy)<4 && !checkFacingAlly(ship))
 		ship.shoot();
 }
 
