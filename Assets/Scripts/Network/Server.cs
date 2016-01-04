@@ -29,7 +29,7 @@ public class Server
     {
         if(!NetworkValues.isServer){
             NetworkValues.isServer = true;
-            server = new TcpListener(IPAddress.Parse("127.0.0.1"),NetworkValues.port);
+            server = new TcpListener(IPAddress.Parse("0.0.0.0"),NetworkValues.port);
             server.Start();
             Debug.Log("Server Started");
         }
