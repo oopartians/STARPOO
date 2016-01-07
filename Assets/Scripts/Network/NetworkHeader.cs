@@ -13,5 +13,7 @@ public class NetworkHeader
     public const string START = "S";
     public const string ADDTEAM = "T";
     public const string REMOVETEAM = "R";
-    public const string NEWBIE = "N";
+	public const string NEWBIE = "N";
+	public const string CHANGEGROUNDSIZE = "G";
+	public const string CHANGESHIPSPERFLEET = "F";
 }

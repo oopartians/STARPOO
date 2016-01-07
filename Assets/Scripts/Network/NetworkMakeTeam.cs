@@ -4,9 +4,34 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Net.Sockets;
 
-public class NetworkTeamList : MonoBehaviour {
+public class NetworkMakeTeam : MonoBehaviour {
+	public GameObject teamList;
 
-    public void SendMessagesToNewbie(TcpClient client, NetworkDecorator.NetworkMessage message)
+	public Text textGroundSize;
+	public Text textShipsPerFleet;
+
+
+	public void ChangeGroundSize(string groundSize){
+		if(NetworkValues.isServer){
+			Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.CHANGEGROUNDSIZE,groundSize));
+		}
+		else{
+			GameValueSetter.groundSize = int.Parse(groundSize);
+			textGroundSize.text = groundSize;
+		}
+	}
+	public void ChangeShipsPerFleet(string shipsPerFleet){
+		if(NetworkValues.isServer){
+			Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.CHANGESHIPSPERFLEET,shipsPerFleet));
+		}
+		else{
+			GameValueSetter.numShipsPerFleet = int.Parse(shipsPerFleet);
+			textShipsPerFleet.text = shipsPerFleet;
+		}
+	}
+
+
+    void SendMessagesToNewbie(TcpClient client, NetworkDecorator.NetworkMessage message)
     {
         Debug.Log("NEWBIE COMES! : " + message.header + message.message);
         if (message.header != NetworkHeader.NEWBIE) return;
@@ -30,7 +55,6 @@ public class NetworkTeamList : MonoBehaviour {
                 Server.instance.SendToCleint(client, str);
             }
         }
-
     } 
 
 	// Use this for initialization
@@ -62,20 +86,25 @@ public class NetworkTeamList : MonoBehaviour {
                 RemoveJS(int.Parse(strings2[0]), strings2[1]);
                 break;
             case NetworkHeader.ADDTEAM:
-                GetComponent<TeamListPannel>().AddTeam();
+				teamList.GetComponent<TeamListPannel>().AddTeam();
                 break;
             case NetworkHeader.REMOVETEAM:
-                GetComponent<TeamListPannel>().RemoveTeam();
+				teamList.GetComponent<TeamListPannel>().RemoveTeam();
                 break;
             case NetworkHeader.START:
-                GetComponent<TeamListPannel>().Complete();
+				teamList.GetComponent<TeamListPannel>().Complete();
                 SceneManager.LoadScene("Playground");
                 break;
             case NetworkHeader.ClOSESERVER:
                 Client.instance.Close();
                 SceneManager.LoadScene("SelectMode");
-                break;
-
+				break;
+			case NetworkHeader.CHANGEGROUNDSIZE:
+				ChangeGroundSize(m.message);
+				break;
+			case NetworkHeader.CHANGESHIPSPERFLEET:
+				ChangeShipsPerFleet(m.message);
+				break;
         }
     }
 
@@ -83,7 +112,7 @@ public class NetworkTeamList : MonoBehaviour {
     {
         GameObject scriptPannelObj = (GameObject)Instantiate(Resources.Load("ScriptPannel"));
         scriptPannelObj.GetComponent<DragHandler>().enabled = false;
-        scriptPannelObj.transform.SetParent(transform.GetChild(index));
+		scriptPannelObj.transform.SetParent(teamList.transform.GetChild(index));
         scriptPannelObj.transform.localScale = Vector3.one;
 
         var scriptPannel = scriptPannelObj.GetComponent<JavascriptPannel>();
@@ -95,7 +124,7 @@ public class NetworkTeamList : MonoBehaviour {
 
     void RemoveJS(int index, string name)
     {
-        Destroy(transform.GetChild(index).FindChild(name).gameObject);
+		Destroy(teamList.transform.GetChild(index).FindChild(name).gameObject);
     }
 
     void OnDestroy()

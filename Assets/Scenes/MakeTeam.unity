@@ -377,7 +377,6 @@ GameObject:
   - 114: {fileID: 376058393}
   - 114: {fileID: 376058392}
   - 114: {fileID: 376058395}
-  - 114: {fileID: 376058396}
   m_Layer: 5
   m_Name: TeamList
   m_TagString: Untagged
@@ -464,17 +463,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad71c90f318e4489c9f761daf119070a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &376058396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 376058390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eda0291b775f32b42b2e6c7745ca7e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &428015830
@@ -1611,12 +1599,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 1329656609}
   - 114: {fileID: 1329656608}
+  - 114: {fileID: 1329656610}
   m_Layer: 0
   m_Name: NetworkHelper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &1329656608
 MonoBehaviour:
@@ -1641,6 +1630,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!114 &1329656610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1329656607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d417e9533f7c4531a253a02bcbce727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamList: {fileID: 376058390}
+  textGroundSize: {fileID: 0}
+  textShipsPerFleet: {fileID: 0}
 --- !u!1 &1425433229
 GameObject:
   m_ObjectHideFlags: 0
@@ -2278,6 +2281,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1329656610}
+        m_MethodName: ChangeGroundSize
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.InputField+SubmitEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_OnValueChanged:
@@ -2486,6 +2500,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1115232937}
         m_MethodName: SetNumShipsPerFleet
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1329656610}
+        m_MethodName: ChangeShipsPerFleet
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
