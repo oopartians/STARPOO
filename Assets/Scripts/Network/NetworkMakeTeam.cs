@@ -73,7 +73,6 @@ public class NetworkMakeTeam : MonoBehaviour {
 
     void OnMessageReceived(NetworkDecorator.NetworkMessage m)
     {
-        Debug.Log("OnMessageReceived : " + m.message);
         switch (m.header)
         {
             case NetworkHeader.ADDJS:

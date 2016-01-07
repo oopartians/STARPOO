@@ -23,8 +23,6 @@ public class NetworkDecorator
     {
         NetworkMessage nm;
         nm.header = str.Split(':')[0];
-        Debug.Log(str);
-        Debug.Log(str.Length);
         nm.message = str.Remove(0,2);
 
         return nm;
