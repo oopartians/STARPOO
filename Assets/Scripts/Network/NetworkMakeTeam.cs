@@ -38,7 +38,7 @@ public class NetworkMakeTeam : MonoBehaviour {
 
         Debug.Log("NEWBIE COMES!");
 
-        int numTeam = transform.childCount;
+        int numTeam = teamList.transform.childCount;
         if (numTeam > 2)
         {
             for (int i = 0; i < numTeam - 2; ++i)
@@ -46,7 +46,7 @@ public class NetworkMakeTeam : MonoBehaviour {
                 Server.instance.SendToCleint(client,NetworkDecorator.AttachHeader(NetworkHeader.ADDTEAM));
             }
         }
-        foreach (Transform team in transform)
+        foreach (Transform team in teamList.transform)
         {
             foreach (Transform fleet in team)
             {
