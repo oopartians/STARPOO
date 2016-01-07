@@ -1,0 +1,44 @@
+===========================================
+
+상수
+dt : delta time(고정 0.02)
+groundRadius : 경기장 반지름
+
+===========================================
+
+정보들
+
+enemyShips : 레이더에 감지된 적 배의 배열 array<ship>
+allyShips : 아군 배의 배열 array<ship>
+myShips : 내 함대의 배열 array<myShip>
+bullets : 레이더에 감지된 총알 배열 array<bullet>
+-------------------------------------------
+myShip : {x,y,angle,speed,angleSpeed,hp,ammo}
+myShip.shoot() <- 총알쏨
+myShip.setSpeed(number) : 초당 배의 전진속력(0~5)
+myShip.setAngleSpeed(number) : 초당 회전속도(-360~360)
+-------------------------------------------
+
+ship : {x,y,angle,hp}
+bullet : {x,y,speed,angle}
+
+============================================
+
+함수
+-------------------------------------------
+polarFrom(center,target) -> {angle, r}
+center : {x,y,angle}
+target : {x,y}
+angle : center의 angle을 중심으로 계산한 target의 극좌표 각도
+r : center 와 target의 거리
+-------------------------------------------
+cos(n) : degree cos
+-------------------------------------------
+sin(n) : degree sin
+-------------------------------------------
+d2r(n) : degree to radian
+-------------------------------------------
+r2d(n) : radian to degree
+-------------------------------------------
+dist({x,y},{x,y}) : 두 점 사이의 거리
+-------------------------------------------
