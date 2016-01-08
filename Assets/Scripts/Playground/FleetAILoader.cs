@@ -1,14 +1,22 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using Jurassic;
 using Jurassic.Library;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.IO;
 using System;
+using System;
 
 public class FleetAILoader : MonoBehaviour {
 
 	public string code;
+	public bool isMine;
+	public string consoleText;
+	[Serializable]
+	public class UnityEventString : UnityEvent<string>{};
+	public UnityEventString onLog = new UnityEventString();
+
 	public ScriptEngine GetEngine(){return engine;}
 
 
@@ -91,6 +99,7 @@ public class FleetAILoader : MonoBehaviour {
 	// This set of methods implment the functions we exposed to javaScript.
 	public void Log(string str){
 		Debug.Log("JS LOG : "+str);
+		consoleText += "\nJS LOG : "+str;
 	}
 	
 	public double Cos(double v){
@@ -184,6 +193,11 @@ public class FleetAILoader : MonoBehaviour {
 	}
 	
 	#endregion
+
+	public void ExcuteCommand(string command){
+		engine.Execute(command);
+	}
+
 	void InitJSValues(){
 		myShipsJS = engine.Array.New();
 		allyShipsJS = engine.Array.New();

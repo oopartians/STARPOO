@@ -41,6 +41,7 @@ public class Team : MonoBehaviour {
 			Fleet fleet = fleetObject.GetComponent<Fleet>();
 			FleetAILoader fleetAILoader = fleetObject.GetComponent<FleetAILoader>();
 			fleetAILoader.code = info.code;
+			fleetAILoader.isMine = info.isMine;
 			fleet.team = this;
 			fleet.color = color;
 			fleet.jsName = info.name;
@@ -54,7 +55,6 @@ public class Team : MonoBehaviour {
 			fleet.positionAngle = positionAngle + ((i++) - (_fleets.Count-1)/2) * 20;
 		}
 	}
-
 
 	void Awake(){
 		aiInfor = gameObject.GetComponent<TeamAIInformation> ();

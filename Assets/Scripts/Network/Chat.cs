@@ -13,7 +13,6 @@ public class Chat : MonoBehaviour {
         string message = NetworkValues.name + ":" + input.text;
         Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.CHAT, message));
         AddMessage(message);
-        input.text = "";
     }
 
     void Start()
