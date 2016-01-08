@@ -99,7 +99,7 @@ public class FleetAILoader : MonoBehaviour {
 	// This set of methods implment the functions we exposed to javaScript.
 	public void Log(string str){
 		Debug.Log("JS LOG : "+str);
-		consoleText += "\nJS LOG : "+str;
+        onLog.Invoke("JS LOG : " + str);
 	}
 	
 	public double Cos(double v){
@@ -195,7 +195,16 @@ public class FleetAILoader : MonoBehaviour {
 	#endregion
 
 	public void ExcuteCommand(string command){
-		engine.Execute(command);
+        try
+        {
+            engine.Execute(command);
+        }
+        catch (System.Exception e)
+        {
+            Log(e.ToString());
+            throw;
+        }
+		
 	}
 
 	void InitJSValues(){

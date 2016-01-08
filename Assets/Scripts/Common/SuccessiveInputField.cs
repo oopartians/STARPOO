@@ -20,7 +20,8 @@ public class SuccessiveInputField : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Return)){
 			if(inputField.text.Length > 0){
 				onReturn.Invoke(inputField.text);
-				inputField.text = "";
+                inputField.text = "";
+                inputField.ActivateInputField();
 			}
 			if(focusWithEnterKey){
 				inputField.ActivateInputField();
