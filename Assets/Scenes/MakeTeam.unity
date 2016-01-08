@@ -2773,7 +2773,6 @@ GameObject:
   - 222: {fileID: 1928562061}
   - 114: {fileID: 1928562060}
   - 114: {fileID: 1928562062}
-  - 114: {fileID: 1928562063}
   m_Layer: 5
   m_Name: Chat Panel
   m_TagString: Untagged
@@ -2846,17 +2845,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 705740309}
   chatText: {fileID: 428015832}
---- !u!114 &1928562063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1928562058}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -146154839, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1950915511
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MakeTeamNetworkHelper : MonoBehaviour
+public class NetworkHider : MonoBehaviour
 {
     public List<GameObject> objectForServer;
     public List<GameObject> objectForClient;
