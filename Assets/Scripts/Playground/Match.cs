@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class Match {
@@ -7,7 +8,10 @@ public class Match {
 	public static List<Team> loseTeams = new List<Team> ();
 	public static List<Team> myTeam = new List<Team>();
 
+    public static bool isGameOver;
+
 	public static void Init(){
+        isGameOver = false;
 		namingNumber = 1;
         teams.Clear ();
 		loseTeams.Clear();
@@ -23,7 +27,6 @@ public class Match {
 		obj.AddComponent<TeamAIInformation>();
 		GameObject.DontDestroyOnLoad(obj);
 		Team team = obj.AddComponent<Team>();
-//		Team team = new Team ();
 		team.name = name;
 		teams.Add (team);
 		return team;
@@ -47,7 +50,8 @@ public class Match {
 
     public static void GameOver()
     {
-        Application.LoadLevel("Score");
+        isGameOver = true;
+        SceneManager.LoadScene("Score");
     }
 }
 

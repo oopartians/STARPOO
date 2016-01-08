@@ -189,6 +189,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 		}
 
         destroyed = true;
-		fleet.ReportDestroy (this);
+        if(!Match.isGameOver)
+		    fleet.ReportDestroy (this);
     }
 }
