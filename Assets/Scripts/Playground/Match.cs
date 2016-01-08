@@ -5,10 +5,13 @@ public class Match {
 	public static int namingNumber = 1;
 	public static List<Team> teams = new List<Team>();
 	public static List<Team> loseTeams = new List<Team> ();
+	public static List<Team> myTeam = new List<Team>();
 
 	public static void Init(){
 		namingNumber = 1;
         teams.Clear ();
+		loseTeams.Clear();
+		myTeam.Clear();
 	}
 
 	public static Team MakeTeam(string name = null){
@@ -32,16 +35,7 @@ public class Match {
 			team.positionAngle = (i++)*360/teams.Count;
 		}
 	}
-
-	public static void RemoveTeam(Team team){
-		teams.Remove (team);
-	}
-
-	public static int GetNumTeams(){
-		Debug.Log (teams.Count);
-		return teams.Count;
-	}
-
+		
     public static void ReportDestroy(Team team)
     {
 		loseTeams.Add (team);

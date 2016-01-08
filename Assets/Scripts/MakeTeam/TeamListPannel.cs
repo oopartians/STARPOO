@@ -69,6 +69,11 @@ public class TeamListPannel : MonoBehaviour {
 			foreach(Transform js in pannel.transform){
 				JavascriptPannel jsPannel = js.gameObject.GetComponent<JavascriptPannel>();
 				team.AddJSInfo(jsPannel.jsInfo);
+
+				//if team contains my fleet, this team is my team.
+				if(jsPannel.jsInfo.isMine && !Match.myTeam.Contains(team)){
+					Match.myTeam.Add(team);
+				}
 			}
 		}
 		Match.CompleteMakeTeams ();

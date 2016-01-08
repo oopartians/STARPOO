@@ -118,6 +118,7 @@ public class NetworkMakeTeam : MonoBehaviour {
         var scriptPannel = scriptPannelObj.GetComponent<JavascriptPannel>();
         scriptPannel.jsInfo.name = name;
         scriptPannel.jsInfo.code = code;
+		scriptPannel.jsInfo.isMine = false;
         scriptPannelObj.GetComponentInChildren<Text>().text = scriptPannel.jsInfo.name;
         scriptPannelObj.name = scriptPannel.jsInfo.name;
     }
