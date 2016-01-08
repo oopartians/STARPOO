@@ -1642,8 +1642,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamList: {fileID: 376058390}
-  textGroundSize: {fileID: 0}
-  textShipsPerFleet: {fileID: 0}
+  textGroundSize: {fileID: 495580073}
+  textShipsPerFleet: {fileID: 1555912145}
 --- !u!1 &1425433229
 GameObject:
   m_ObjectHideFlags: 0
