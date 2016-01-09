@@ -49,7 +49,6 @@ public class Fleet : MonoBehaviour {
 			float distance = column * 4;
 
 			float rad = Mathf.PI * angle / 180 * 60 / GameValueSetter.groundSize;
-			Debug.Log ("rad : " + rad);
 			int size = GameValueSetter.groundSize * 2 / 3;
 			float x = Mathf.Cos (rad) * (size + distance);
 			float y = Mathf.Sin (rad) * (size + distance);
