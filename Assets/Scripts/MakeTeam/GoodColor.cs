@@ -50,11 +50,9 @@ public class GoodColor
     private static void InitDefaultColorList(params Color[] colors)
     {
         defaultColors.Clear();
-        Debug.Log(colors.Length);
         for (int i = 0; i < colors.Length; i++)
         {
             defaultColors.Add(colors[i]);
-            Debug.Log(i);
         }
     }
 

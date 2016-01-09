@@ -9,7 +9,7 @@ public class Score : MonoBehaviour {
 	Color loseColor = new Color(255 / 255.0F, 133 / 255.0F, 133 / 255.0F, 1.0f);
 	// Use this for initialization
 	void Start () {
-		Cleaner.onClean.AddListener(CleanDataEvent);
+		Cleaner.onClean.AddListener(Match.Init);
 		foreach (Team team in Match.teams)
 		{
 			foreach (Fleet fleet in team.fleets)
@@ -116,10 +116,5 @@ public class Score : MonoBehaviour {
 		if (Match.loseTeams.Last().Equals(fleet.team) == false)
 			return false;
 		return true;
-	}
-
-	static void CleanDataEvent()
-	{
-		Match.Init();
 	}
 }
