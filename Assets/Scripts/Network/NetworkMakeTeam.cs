@@ -55,6 +55,8 @@ public class NetworkMakeTeam : MonoBehaviour {
                 Server.instance.SendToCleint(client, str);
             }
         }
+        Server.instance.SendToCleint(client, NetworkDecorator.AttachHeader(NetworkHeader.CHANGEGROUNDSIZE, GameValueSetter.groundSize.ToString()));
+        Server.instance.SendToCleint(client, NetworkDecorator.AttachHeader(NetworkHeader.CHANGESHIPSPERFLEET, GameValueSetter.numShipsPerFleet.ToString()));
     } 
 
 	// Use this for initialization
