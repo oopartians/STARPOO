@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Random = UnityEngine.Random;
 
-public class TeamColor
+public class GoodColor
 {
     private static Color red = new Color(196 / 255.0F, 31 / 255.0F, 59 / 255.0F, 0.5f);
     private static Color orange = new Color(255 / 255.0F, 125 / 255.0F, 10 / 255.0F, 0.5f);
@@ -23,29 +23,39 @@ public class TeamColor
     public static List<Color> defaultColors = new List<Color>(); 
     public static Queue<Color> colors = new Queue<Color>();
 
-    public TeamColor()
+    static GoodColor()
+    {
+        Init();
+    }
+
+    public static void Init()
     {
         InitDefaultColorList(
-            red, 
-            orange, 
-            yellow,
-            lightGreen, 
-            fluoreGreen,
-            green,
-            skyBlue,
-            blue,
-            pink, 
-            lightPurple, 
-            purple, 
-            lightBrown, 
-            white
-            );
+        red,
+        orange,
+        yellow,
+        lightGreen,
+        fluoreGreen,
+        green,
+        skyBlue,
+        blue,
+        pink,
+        lightPurple,
+        purple,
+        lightBrown,
+        white
+        );
     }
 
     private static void InitDefaultColorList(params Color[] colors)
     {
+        defaultColors.Clear();
+        Debug.Log(colors.Length);
         for (int i = 0; i < colors.Length; i++)
+        {
             defaultColors.Add(colors[i]);
+            Debug.Log(i);
+        }
     }
 
     public static void SetColorsList(int matchSize)
@@ -73,20 +83,19 @@ public class TeamColor
         }
     }
 
-    public static Color DequeueTeamColor()
+    public static Color DequeueColor()
     {
-        try
+        if(colors.Count > 0) // 기본 13색 이상도 커버하는게 '기본스펙' 이므로 에러가 아님. 그래서 try문에서 if문으로 변경.
         {
             return colors.Dequeue();
         }
-        catch (Exception ex)
+        else
         {
-            Debug.Log("[TeamColor] Error catched : " + ex.Message);
             return new Color(Random.Range(0.2f, 1), Random.Range(0.2f, 1), Random.Range(0.2f, 1), 0.5f);
         }
     }
 
-    public static void EnQueueTeamColor(Color color)
+    public static void EnQueueColor(Color color)
     {
         colors.Enqueue(color);
     }

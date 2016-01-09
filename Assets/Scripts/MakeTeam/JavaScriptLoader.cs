@@ -19,9 +19,9 @@ public class JavaScriptLoader : MonoBehaviour
 			var scriptPannel = scriptPannelObj.GetComponent<JavascriptPannel>();
             scriptPannel.jsInfo.name = Path.GetFileNameWithoutExtension(path);
             scriptPannel.jsInfo.code = File.ReadAllText(path);
+            scriptPannel.jsInfo.color = GoodColor.DequeueColor();
 			scriptPannel.jsInfo.isMine = true;
-            scriptPannelObj.GetComponentInChildren<Text>().text = scriptPannel.jsInfo.name;
-            scriptPannelObj.name = scriptPannel.jsInfo.name;
+            scriptPannel.UpdateInfo();
 		}
 	}
 

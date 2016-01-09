@@ -43,7 +43,7 @@ public class Team : MonoBehaviour {
 			fleetAILoader.code = info.code;
 			fleetAILoader.isMine = info.isMine;
 			fleet.team = this;
-			fleet.color = color;
+			fleet.color = info.color;
 			fleet.jsName = info.name;
 			_fleets.Add(fleet);
 		}

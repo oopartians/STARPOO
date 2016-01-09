@@ -3,25 +3,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 using Random = UnityEngine.Random;
 
 public class TeamListPannel : MonoBehaviour {
 	List<GameObject> teamPannels = new List<GameObject>();
-    TeamColor teamColor = new TeamColor();
     private int defaultColorCount = 13;
 
-	// Use this for initialization
-	void Start () {
-
-        //GameObject jsLoader = GameObject.Find("ScriptList");
-        teamColor.SetColorsList(defaultColorCount); // jsLoader.transform.childCount
-        //Debug.Log("[TeamListPannel] JS count : " + jsLoader.transform.childCount);
+    void Start()
+    {
+        GoodColor.Init();
+        GoodColor.SetColorsList(defaultColorCount);
 
         AddTeam(false);
-		AddTeam(false);
-	}
+        AddTeam(false);
+    }
 	
-	// Update is called once per frame
 	void Update () {
 	    
 	}
@@ -30,8 +27,8 @@ public class TeamListPannel : MonoBehaviour {
 		GameObject pannel = (GameObject)Instantiate(Resources.Load("TeamPannel"));
 		pannel.transform.SetParent(transform);
 		pannel.transform.localScale = Vector3.one;
-        
-        pannel.GetComponent<Image> ().color = teamColor.DequeueTeamColor();
+
+        pannel.GetComponent<Image>().color = GoodColor.DequeueColor();
 
         teamPannels.Add(pannel);
 
@@ -47,7 +44,7 @@ public class TeamListPannel : MonoBehaviour {
 		}
 		foreach(GameObject pannel in teamPannels){
 			if(pannel.transform.childCount <= 0){
-                teamColor.EnQueueTeamColor(pannel.GetComponent<Image>().color);
+                GoodColor.EnQueueColor(pannel.GetComponent<Image>().color);
 				teamPannels.Remove(pannel);
 				Destroy (pannel);
 				break;
@@ -70,7 +67,6 @@ public class TeamListPannel : MonoBehaviour {
 				JavascriptPannel jsPannel = js.gameObject.GetComponent<JavascriptPannel>();
 				team.AddJSInfo(jsPannel.jsInfo);
 
-				//if team contains my fleet, this team is my team.
 				if(jsPannel.jsInfo.isMine && !Match.myTeam.Contains(team)){
 					Match.myTeam.Add(team);
 				}

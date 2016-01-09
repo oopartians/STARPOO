@@ -119,14 +119,16 @@ public class NetworkMakeTeam : MonoBehaviour {
         var scriptPannel = scriptPannelObj.GetComponent<JavascriptPannel>();
         scriptPannel.jsInfo.name = name;
         scriptPannel.jsInfo.code = code;
+        scriptPannel.jsInfo.color = GoodColor.DequeueColor();
 		scriptPannel.jsInfo.isMine = false;
-        scriptPannelObj.GetComponentInChildren<Text>().text = scriptPannel.jsInfo.name;
-        scriptPannelObj.name = scriptPannel.jsInfo.name;
+        scriptPannel.UpdateInfo();
     }
 
     void RemoveJS(int index, string name)
     {
-		Destroy(teamList.transform.GetChild(index).FindChild(name).gameObject);
+        GameObject removingObj = teamList.transform.GetChild(index).FindChild(name).gameObject;
+        GoodColor.EnQueueColor(removingObj.GetComponent<JavascriptPannel>().jsInfo.color);
+        Destroy(removingObj);
     }
 
     void OnDestroy()

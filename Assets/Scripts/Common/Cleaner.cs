@@ -2,14 +2,16 @@
 using UnityEngine.Events;
 using System.Collections;
 
-public class Cleaner : MonoBehaviour {
-	public static UnityEvent onClean;
+public class Cleaner : MonoBehaviour
+{
+    public static UnityEvent onClean = new UnityEvent();
+    public static UnityEvent onCleanPermanently = new UnityEvent();
 
 	// Use this for initialization
-	void Start () {
-		if(onClean != null){
-			onClean.Invoke();
-			onClean.RemoveAllListeners();
-		}
+    void Awake()
+    {
+        onClean.Invoke();
+        onClean.RemoveAllListeners();
+        onCleanPermanently.Invoke();
 	}
 }
