@@ -10,6 +10,10 @@ public class Match {
 
     public static bool isGameOver;
 
+    Match(){
+		Cleaner.onClean.AddListener(Init);
+    }
+
 	public static void Init(){
         isGameOver = false;
 		namingNumber = 1;
