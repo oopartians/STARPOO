@@ -24,6 +24,7 @@ public class Fleet : MonoBehaviour {
 		if (ships.Count == 0) {
 			team.ReportDestroy(this);
 		}
+		TimeCounter.ReSetBoringTime();
 	}
 	
 	public HashSet<Ship> ships = new HashSet<Ship>();

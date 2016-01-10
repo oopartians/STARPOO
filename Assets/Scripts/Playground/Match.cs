@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-public class Match {
+public static class Match {
 	public static int namingNumber = 1;
 	public static List<Team> teams = new List<Team>();
 	public static List<Team> loseTeams = new List<Team> ();
@@ -10,7 +10,8 @@ public class Match {
 
     public static bool isGameOver;
 
-    Match(){
+    static Match(){
+		Debug.Log ("one call Match init()");
 		Cleaner.onCleanPermanently.AddListener(Init);
     }
 
@@ -57,6 +58,18 @@ public class Match {
         isGameOver = true;
         SceneManager.LoadScene("Score");
     }
+
+	public static void DamageToAllShips(float damage)
+	{
+		TimeCounter.ReSetBoringTime ();
+		foreach (Team team in teams) {
+			foreach (Fleet fleet in team.fleets) {
+				foreach (Ship ship in fleet.ships) {
+					ship.Damage (damage);
+				}
+			}
+		}
+	}
 }
 
 
