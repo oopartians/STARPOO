@@ -22,7 +22,8 @@ function update(){
 
 //enemyShips : array<ship>
 //allyShips : array<ship>
-//myShips : array<ship>
+//myShips : array<myship> 
+//myship : x,y,angle,speed,angleSpeed,hp,ammo
 //bullets : array<bulley>
 
 

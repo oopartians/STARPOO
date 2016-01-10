@@ -19,7 +19,7 @@ for (var i = myShips.length - 1; i >= 0; i--) {
 	// 	log(ship.angle)
 	// 	log(p.angle)
 	// }
-	ship.setAngleSpeed(360)
+	// ship.setAngleSpeed(360)
 	// if(p.angle > 90){
 	// 	ship.setAngleSpeed(-5)
 	// }
