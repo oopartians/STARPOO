@@ -20,7 +20,7 @@ public class FleetAILoader : MonoBehaviour {
 	public ScriptEngine GetEngine(){return engine;}
 
 
-	Fleet fleet;
+	public Fleet fleet;
 	TeamAIInformation teamAIInfo;
 	ScriptEngine engine;
 	
@@ -222,7 +222,7 @@ public class FleetAILoader : MonoBehaviour {
 	void FixedUpdate () {
 		if (!ready)
 			return;
-		if(NetworkValues.isNetwork && NetworkValues.waiting) return;
+		if(NetworkValues.isNetwork && NetworkValues.currentTick >= NetworkValues.acceptedTick) return;
 		ExportMyShips ();
 		ExportCollectionToJS (teamAIInfo.allyShips, allyShipsJS);
 		ExportCollectionToJS (teamAIInfo.scannedEnemyShips.Keys, enemyShipsJS);
@@ -230,7 +230,7 @@ public class FleetAILoader : MonoBehaviour {
 		ExcuteScript();
 
 		if(NetworkValues.isNetwork){
-			NetworkValues.aiTick += 1f/(float)Match.numWholeFleets;
+			NetworkValues.currentTick += 1f/(float)Match.numWholeFleets;
 		}
 	}
 	

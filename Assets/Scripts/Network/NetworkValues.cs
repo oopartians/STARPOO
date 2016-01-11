@@ -7,15 +7,16 @@ public static class NetworkValues {
     public static string ip = "127.0.0.1";
     public static bool isServer = false;
     public static bool isNetwork = false;
-    public static bool waiting = false;
     public static string name;
-    public static float aiTick;
+    public static float currentTick=0;
+    public static int acceptedTick=0;
     
 
 	static NetworkValues()
     {
 		Cleaner.onCleanPermanently.AddListener(()=>{
-    		aiTick = 0;
+    		currentTick = 0;
+            acceptedTick = 0;
 		});
     }
 }

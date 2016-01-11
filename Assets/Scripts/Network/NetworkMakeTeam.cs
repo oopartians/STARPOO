@@ -133,6 +133,11 @@ public class NetworkMakeTeam : MonoBehaviour {
 
     void OnDestroy()
     {
+        if (!NetworkValues.isNetwork)
+        {
+            return;
+        }
+
         Client.instance.onMessageReceived.Remove(OnMessageReceived);
     }
 }

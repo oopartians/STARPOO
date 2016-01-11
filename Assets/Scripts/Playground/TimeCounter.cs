@@ -11,7 +11,7 @@ public class TimeCounter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(NetworkValues.isNetwork && NetworkValues.waiting) return;
+		if(NetworkValues.isNetwork && NetworkValues.currentTick >= NetworkValues.acceptedTick) return;
 		boringTime += Time.fixedDeltaTime;
 		if (boringTime > timeOver) {
 			Match.DamageToAllShips (1);
