@@ -50,7 +50,7 @@ public class Server
     public void SendToCleint(TcpClient client, string message)
     {
         var stream = client.GetStream();
-        byte[] buffer = System.Text.Encoding.UTF8.GetBytes("흙"+message);
+        byte[] buffer = System.Text.Encoding.UTF8.GetBytes("뷁"+message);
         stream.Write(buffer, 0, buffer.Length);
     }
 
@@ -86,7 +86,7 @@ public class Server
 
                 Mirroring(client, message);
 
-                string[] messages = message.Split('흙');
+                string[] messages = message.Split('뷁');
                 foreach (string msg in messages)
                 {
                     string msg2 = msg.Replace(Convert.ToChar(0x0).ToString(), "");

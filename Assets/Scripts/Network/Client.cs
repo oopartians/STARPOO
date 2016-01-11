@@ -46,7 +46,7 @@ public class Client {
     public void Send(string message = "empty message")
     {
         Debug.Log("SendMessage : " + message);
-        byte[] buffer = System.Text.Encoding.UTF8.GetBytes("흙" + message);
+        byte[] buffer = System.Text.Encoding.UTF8.GetBytes("뷁" + message);
         Debug.Log("SendMessage : "+ buffer.Length + ":" + message);
         client.GetStream().Write(buffer, 0, buffer.Length);
     }
@@ -65,7 +65,7 @@ public class Client {
             var message = System.Text.Encoding.UTF8.GetString(buffer, 0, buffer.Length);
             Debug.Log("Got Message buffer size : " + buffer.Length);
 
-            string[] messages = message.Split('흙');
+            string[] messages = message.Split('뷁');
             foreach (string msg in messages)
             {
                 string msg2 = msg.Replace(Convert.ToChar(0x0).ToString(), "");
