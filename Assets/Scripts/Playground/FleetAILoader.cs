@@ -222,11 +222,16 @@ public class FleetAILoader : MonoBehaviour {
 	void FixedUpdate () {
 		if (!ready)
 			return;
+		if(NetworkValues.isNetwork && NetworkValues.waiting) return;
 		ExportMyShips ();
 		ExportCollectionToJS (teamAIInfo.allyShips, allyShipsJS);
 		ExportCollectionToJS (teamAIInfo.scannedEnemyShips.Keys, enemyShipsJS);
 		ExportCollectionToJS (teamAIInfo.scannedBullets.Keys, bulletsJS);
 		ExcuteScript();
+
+		if(NetworkValues.isNetwork){
+			NetworkValues.aiTick += 1f/(float)Match.numWholeFleets;
+		}
 	}
 	
 	void ExcuteScript(){

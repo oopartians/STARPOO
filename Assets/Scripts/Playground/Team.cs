@@ -45,6 +45,7 @@ public class Team : MonoBehaviour {
 			fleet.team = this;
 			fleet.color = info.color;
 			fleet.jsName = info.name;
+			++Match.numWholeFleets;
 			_fleets.Add(fleet);
 		}
 	}

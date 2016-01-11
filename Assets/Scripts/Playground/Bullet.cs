@@ -24,6 +24,8 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 	}
 
 	void FixedUpdate () {
+		if(NetworkValues.isNetwork && NetworkValues.waiting) return;
+		
 		float dt = Time.deltaTime;
 
 

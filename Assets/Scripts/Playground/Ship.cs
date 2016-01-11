@@ -49,6 +49,8 @@ public class Ship : MonoBehaviour,IJSONExportable {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		if(NetworkValues.isNetwork && NetworkValues.waiting) return;
+		
         float dt = Time.deltaTime;
 
 		angle += angleSpeed * dt;
