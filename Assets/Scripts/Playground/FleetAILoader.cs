@@ -219,19 +219,14 @@ public class FleetAILoader : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	public void FixedUpdate2 () {
 		if (!ready)
 			return;
-		if(NetworkValues.isNetwork && NetworkValues.currentTick >= NetworkValues.acceptedTick) return;
 		ExportMyShips ();
 		ExportCollectionToJS (teamAIInfo.allyShips, allyShipsJS);
 		ExportCollectionToJS (teamAIInfo.scannedEnemyShips.Keys, enemyShipsJS);
 		ExportCollectionToJS (teamAIInfo.scannedBullets.Keys, bulletsJS);
 		ExcuteScript();
-
-		if(NetworkValues.isNetwork){
-			NetworkValues.currentTick += 1f/(float)Match.numWholeFleets;
-		}
 	}
 	
 	void ExcuteScript(){

@@ -8,7 +8,7 @@ public static class NetworkValues {
     public static bool isServer = false;
     public static bool isNetwork = false;
     public static string name;
-    public static float currentTick=0;
+    public static int currentTick=0;
     public static int acceptedTick=0;
     
 

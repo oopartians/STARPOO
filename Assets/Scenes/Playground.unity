@@ -395,6 +395,46 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 690506803}
+--- !u!1 &787115373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 787115375}
+  - 114: {fileID: 787115374}
+  m_Layer: 0
+  m_Name: PlaygroundUpdater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &787115374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 787115373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 099eb5e0450284374b576d535eafb47b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeCounter: {fileID: 530232850}
+--- !u!4 &787115375
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 787115373}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -60}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &905862706
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +661,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1002739031}
   - 114: {fileID: 1002739030}
+  - 114: {fileID: 1002739032}
   m_Layer: 0
   m_Name: NetworkHelper
   m_TagString: Untagged
@@ -651,6 +692,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!114 &1002739032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1002739029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2642e730631f84e5ca64e9241ec0789b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  console: {fileID: 2067680343}
 --- !u!1 &1055482661
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,7 +975,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2067680343}
-        m_MethodName: ExcuteCommand
+        m_MethodName: ExcuteCommandForUI
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1984,3 +2037,4 @@ MonoBehaviour:
   btnGroup: {fileID: 1213992827}
   consoleBtnPrefab: {fileID: 162400, guid: 63e085c2fe1d5434a90adf73d182bed0, type: 2}
   textfield: {fileID: 684765233}
+  sendingCommand: 

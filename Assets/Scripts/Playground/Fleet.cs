@@ -15,6 +15,7 @@ public class Fleet : MonoBehaviour {
 	public string shipName;
 	public string name;
 	public Team team;
+	public FleetAILoader aiLoader;
 
 	public float positionAngle;
 
@@ -31,7 +32,8 @@ public class Fleet : MonoBehaviour {
 
 	void Start(){
 		MakeShips ();
-		GetComponent<FleetAILoader>().Ready();
+		aiLoader = GetComponent<FleetAILoader>();
+		aiLoader.Ready();
 	}
 
 

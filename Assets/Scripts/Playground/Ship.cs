@@ -48,8 +48,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
     }
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-		if(NetworkValues.isNetwork && NetworkValues.currentTick >= NetworkValues.acceptedTick) return;
+	public void FixedUpdate2 () {
 		
         float dt = Time.deltaTime;
 

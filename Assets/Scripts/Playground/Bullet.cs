@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 
 public class Bullet : MonoBehaviour,IJSONExportable {
+	public static List<Bullet> list = new List<Bullet>();
 
 	public const float speed = 10;
 	public const float damage = 1;
@@ -21,17 +22,14 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 		exportableValues.Add("y",transform.localPosition.y);
 		exportableValues.Add("angle",angle);
 		exportableValues.Add("speed",speed);
+		list.Add(this);
 	}
 
-	void FixedUpdate () {
-		if(NetworkValues.isNetwork && NetworkValues.currentTick >= NetworkValues.acceptedTick) return;
-		
+	public void FixedUpdate2 () {
 		float dt = Time.deltaTime;
-
 
 		transform.localRotation = Quaternion.Euler (Vector3.forward * angle);
 		transform.localPosition += (transform.localRotation * Vector3.right * dt * speed);
-
 		
 		exportableValues["x"] = transform.localPosition.x;
 		exportableValues["y"] = transform.localPosition.y;
@@ -101,5 +99,9 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 		}
 		destroyed = true;
 		Destroy (gameObject);
+	}
+
+	void OnDestroy(){
+		list.Remove(this);
 	}
 }

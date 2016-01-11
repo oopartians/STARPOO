@@ -1,17 +1,38 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Text;
 
 public class Console : MonoBehaviour {
     public ToggleGroup btnGroup;
     public GameObject consoleBtnPrefab;
     public Text textfield;
 
-	public void ExcuteCommand(string command){
+    public string sendingCommand = "";
+
+    struct PendingCommand{
+        public int tick;
+        public string command;
+    }
+
+    public void ExcuteCommandForUI(string networkCommand){
+		ExcuteCommand(networkCommand);
+    }
+
+	public void ExcuteCommand(string command, bool syncronized = false){
         if (selectedAI != null)
         {
-            selectedAI.ExcuteCommand(command);
-            WriteLog(command);
+            if(NetworkValues.isNetwork && !syncronized){
+				StringBuilder b = new StringBuilder("뷁");
+                b.Append(selectedAI.fleet.name);
+                b.Append("콛");
+				b.Append(command);
+				sendingCommand += b.ToString();
+            }
+            else{
+                selectedAI.ExcuteCommand(command);
+                WriteLog(command);
+            }
         }
 	}
 
