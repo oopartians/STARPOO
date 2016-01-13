@@ -47,7 +47,6 @@ public class Client {
     {
         Debug.Log("SendMessage : " + message);
         byte[] buffer = System.Text.Encoding.UTF8.GetBytes("뷁" + message);
-        Debug.Log("SendMessage : "+ buffer.Length + ":" + message);
         client.GetStream().Write(buffer, 0, buffer.Length);
     }
 
@@ -68,12 +67,12 @@ public class Client {
             string[] messages = message.Split('뷁');
             foreach (string msg in messages)
             {
-                string msg2 = msg.Replace(Convert.ToChar(0x0).ToString(), "");
-                Debug.Log("Got Message : " + msg2);
-                if (onMessageReceived.Count == 0 || msg2.Length == 0)
+                
+                Debug.Log("Got Message : " + msg);
+                if (onMessageReceived.Count == 0 || msg.Length == 0)
                     continue;
 
-                NetworkDecorator.NetworkMessage m = NetworkDecorator.StringToMessage(msg2);
+                NetworkDecorator.NetworkMessage m = NetworkDecorator.StringToMessage(msg);
                 foreach (OnMessageReceived fn in onMessageReceived)
                 {
                     fn(m);

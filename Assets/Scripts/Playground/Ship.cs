@@ -28,7 +28,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 
     bool destroyed = false;
 	bool wantToShoot = false;
-	ShipJSObject json;
+	public ShipJSObject json;
 
     // Use this for initialization
     void Start () {
@@ -37,8 +37,6 @@ public class Ship : MonoBehaviour,IJSONExportable {
 		angleSpeed = 0;
 		ammo = maxAmmo;
 		fireDelay = 0;
-
-		json = GetComponent<ShipJSObject> ();
 		
 		json.UpdateProperties ();
 		exportableValues.Add ("x", GetPos ().x);

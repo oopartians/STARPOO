@@ -7,15 +7,14 @@ public class PlaygroundUpdater : MonoBehaviour {
 	public TimeCounter timeCounter;
 
 	void Start(){
-
 	}
 
 	void FixedUpdate(){
-		if(NetworkValues.currentTick >= NetworkValues.acceptedTick && NetworkValues.isNetwork) return;
+		//if(NetworkValues.currentTick >= NetworkValues.acceptedTick && NetworkValues.isNetwork) return;
 
 		foreach (Team team in Match.teams) {
 			foreach (Fleet fleet in team.fleets) {
-				fleet.aiLoader.FixedUpdate2();
+				    fleet.aiLoader.FixedUpdate2();
 			}
 		}
 
@@ -33,5 +32,15 @@ public class PlaygroundUpdater : MonoBehaviour {
 		timeCounter.FixedUpdate2();
 
 		++NetworkValues.currentTick;
+
+        if (NetworkValues.isNetwork)
+        {
+            if (NetworkValues.currentTick + NetworkValues.networkTickTerm >= NetworkValues.acceptedTick && NetworkValues.requestedTick <= NetworkValues.acceptedTick)
+            {
+                NetworkValues.requestedTick = NetworkValues.acceptedTick + NetworkValues.networkTickTerm;
+                Debug.Log(NetworkValues.acceptedTick + ":" + NetworkValues.currentTick);
+                Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.REQUESTTICK, (NetworkValues.requestedTick).ToString()));
+            }
+        }
 	}
 }

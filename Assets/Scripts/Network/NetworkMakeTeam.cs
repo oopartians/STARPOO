@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System;
 
 public class NetworkMakeTeam : MonoBehaviour {
 	public GameObject teamList;
@@ -33,7 +34,6 @@ public class NetworkMakeTeam : MonoBehaviour {
 
     void SendMessagesToNewbie(TcpClient client, NetworkDecorator.NetworkMessage message)
     {
-        Debug.Log("NEWBIE COMES! : " + message.header + message.message);
         if (message.header != NetworkHeader.NEWBIE) return;
 
         Debug.Log("NEWBIE COMES!");
@@ -50,7 +50,7 @@ public class NetworkMakeTeam : MonoBehaviour {
         {
             foreach (Transform fleet in team)
             {
-                string str = team.gameObject.GetComponent<NetworkTeamPannel>().MakeNetworkMessage(fleet.gameObject, true);
+                string str = team.gameObject.GetComponent<NetworkTeamPannel>().MakeNetworkMessage(NetworkHeader.ADDJS,fleet.gameObject, true);
                 Debug.Log("NEWBIE : " + str);
                 Server.instance.SendToCleint(client, str);
             }
@@ -118,7 +118,7 @@ public class NetworkMakeTeam : MonoBehaviour {
 
         var scriptPannel = scriptPannelObj.GetComponent<JavascriptPannel>();
         scriptPannel.jsInfo.name = name;
-        scriptPannel.jsInfo.code = code;
+        scriptPannel.jsInfo.code = code.Replace(Convert.ToChar(0x0).ToString(), "");;
         scriptPannel.jsInfo.color = GoodColor.DequeueColor();
 		scriptPannel.jsInfo.isMine = false;
         scriptPannel.UpdateInfo();

@@ -32,7 +32,6 @@ public class Fleet : MonoBehaviour {
 
 	void Start(){
 		MakeShips ();
-		aiLoader = GetComponent<FleetAILoader>();
 		aiLoader.Ready();
 	}
 

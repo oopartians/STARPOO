@@ -33,7 +33,8 @@ public class Chat : MonoBehaviour {
         if (chatText.text.Length > 0) {
             chatText.text += "\n";
         }
-        chatText.text += m;
+        string m2 = m.Replace(Convert.ToChar(0x0).ToString(), "");
+        chatText.text += m2;
     }
 
 

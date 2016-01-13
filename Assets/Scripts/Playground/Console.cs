@@ -52,8 +52,6 @@ public class Console : MonoBehaviour {
                     continue;
                 }
 				commandableFleets.Add(fleet.GetComponent<FleetAILoader>());
-				//TODO:create btn and addListener :
-                Debug.Log(fleet.name);
 
                 var btnObj = (GameObject)Instantiate(consoleBtnPrefab);
                 btnObj.transform.SetParent(btnGroup.transform);
