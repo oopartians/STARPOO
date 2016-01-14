@@ -423,6 +423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeCounter: {fileID: 530232850}
+  console: {fileID: 2067680343}
 --- !u!4 &787115375
 Transform:
   m_ObjectHideFlags: 0
