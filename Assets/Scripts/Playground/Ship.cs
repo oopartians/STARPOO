@@ -15,16 +15,17 @@ public class Ship : MonoBehaviour,IJSONExportable {
     public const float reloadFrequency = 0.3f;
 
 
-    public float hp;
+    public float hp = maxHp;
     public float angle = 0;
-    public float speed;
-    public float angleSpeed;
-    public float ammo;
-    public float fireDelay;
+    public float speed = 0;
+    public float angleSpeed = 0;
+    public float ammo = maxAmmo;
+    public float fireDelay = 0;
 	public Fleet fleet;
 
 	public Dictionary<string,double> exportableValues = new Dictionary<string,double> ();
 	public Dictionary<string,double> GetExportableValues(){return exportableValues;}
+	public List<Ship> crashedShips = new List<Ship>();
 
     bool destroyed = false;
 	bool wantToShoot = false;
@@ -32,17 +33,11 @@ public class Ship : MonoBehaviour,IJSONExportable {
 
     // Use this for initialization
     void Start () {
-		hp = maxHp;
-		speed = 0;
-		angleSpeed = 0;
-		ammo = maxAmmo;
-		fireDelay = 0;
-		
 		json.UpdateProperties ();
-		exportableValues.Add ("x", GetPos ().x);
-		exportableValues.Add ("y", GetPos ().y);
-		exportableValues.Add ("angle", angle);
-		exportableValues.Add ("hp", hp);
+		exportableValues ["x"] = GetPos().x;
+		exportableValues ["y"] = GetPos().y;
+		exportableValues ["angle"] = angle;
+		exportableValues ["hp"] = hp;
     }
 	
 	// Update is called once per frame
@@ -69,12 +64,28 @@ public class Ship : MonoBehaviour,IJSONExportable {
 			wantToShoot = false;
 		}
 
+		PushedByCrashedShips();
+
 		json.UpdateProperties ();
 		
 		exportableValues ["x"] = GetPos().x;
 		exportableValues ["y"] = GetPos().y;
 		exportableValues ["angle"] = angle;
 		exportableValues ["hp"] = hp;
+    }
+
+    void PushedByCrashedShips(){
+    	crashedShips.RemoveAll(item => item == null);
+		Vector3 pos = new Vector3(0,0,0);
+    	foreach(Ship ship in crashedShips){
+			pos.x += ship.GetPos().x;
+			pos.y += ship.GetPos().y;
+    	}
+		pos.x /= crashedShips.Count;
+		pos.y /= crashedShips.Count;
+
+		transform.localPosition = GetPos() + (GetPos() - pos).normalized * 0.05f;
+    	
     }
 
 	void ShootBullet(){
@@ -132,10 +143,10 @@ public class Ship : MonoBehaviour,IJSONExportable {
             break;
 
         case "Ship":
+        	// crashedShips.Add(cd.gameObject.GetComponent<Ship>());
             break;
 
 		case "Radar":
-//                Debug.Log("[Ship] Radar hit" + Random.Range(0, 1000).ToString());
             if (cd.gameObject.GetComponentInParent<Ship>().fleet.team != fleet.team)
             {
 				Dictionary<IJSONExportable,int> scannedEnemyShips = cd.gameObject.GetComponentInParent<Ship>().fleet.team.aiInfor.scannedEnemyShips;
@@ -161,6 +172,10 @@ public class Ship : MonoBehaviour,IJSONExportable {
             Record.Kill (fleet, fleet);
             Destroy (gameObject);
             break;
+
+        case "Ship":
+        	crashedShips.Remove(cd.gameObject.GetComponent<Ship>());
+        	break;
 
         case "Radar":
             if (cd.gameObject.GetComponentInParent<Ship>().fleet.team != fleet.team)

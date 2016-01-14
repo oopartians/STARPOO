@@ -4,10 +4,9 @@ function update(){
 	for (var i = myShips.length - 1; i >= 0; i--) {
 		// myShips[i].shoot()
 		ship = myShips[i]
-		ship.shoot()
 		ship.setSpeed(5)
 
-		var goodR = 20;
+		var goodR = 4;
 		var goodAngle = 90;
 
 		p = polarFrom(ship,{x:0,y:0});
