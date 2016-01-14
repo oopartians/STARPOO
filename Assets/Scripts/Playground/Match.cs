@@ -70,6 +70,16 @@ public static class Match {
 			}
 		}
 	}
+
+	public static Fleet FindFleet(string fleetName){
+		foreach (Team team in teams) {
+			foreach (Fleet fleet in team.fleets) {
+				if(fleet.name == fleetName){
+					return fleet;
+				}
+			}
+		}
+	}
 }
 
 

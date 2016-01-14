@@ -18,13 +18,8 @@ public class NetworkPlayground : MonoBehaviour {
                 break;
             case NetworkHeader.REQUESTTICK:
                 numRequest++;
-                Debug.Log("RRRRRRRRRRRRRRR");
-                Debug.Log(numRequest >= Server.instance.GetNumClients());
-                Debug.Log(NetworkValues.requestedTick > NetworkValues.acceptedTick);
-                Debug.Log(numRequest >= Server.instance.GetNumClients() && NetworkValues.requestedTick > NetworkValues.acceptedTick);
                 if (numRequest >= Server.instance.GetNumClients() && NetworkValues.requestedTick > NetworkValues.acceptedTick)
                 {
-                    Debug.Log("ACCEPT!!!!!!!!!!!!!" + NetworkValues.requestedTick);
                     Server.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.ACCEPTTICK, NetworkValues.requestedTick.ToString()));
                     numRequest = 0;
                 }
@@ -55,12 +50,11 @@ public class NetworkPlayground : MonoBehaviour {
                 SceneManager.LoadScene("SelectMode");
                 break;
             case NetworkHeader.ACCEPTTICK:
-
                 Debug.Log("accepted" + m.message+":"+NetworkValues.currentTick);
                 NetworkValues.acceptedTick = int.Parse(m.message);
                 break;
             case NetworkHeader.CONSOLE:
-
+				console.AddPendingCommand(m.message);
                 break;
         }
     }

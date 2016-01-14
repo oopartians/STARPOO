@@ -20,18 +20,21 @@ public class Console : MonoBehaviour {
 		ExcuteCommand(networkCommand);
     }
 
-	public void ExcuteCommand(string command, bool syncronized = false){
-        if (selectedAI != null)
+	public void ExcuteCommand(string command, bool syncronized = false, FleetAILoader ai = null){
+		if(ai == null){
+			ai = selectedAI;
+		}
+        if (ai != null)
         {
             if(NetworkValues.isNetwork && !syncronized){
 				StringBuilder b = new StringBuilder("뷁");
-                b.Append(selectedAI.fleet.name);
+                b.Append(ai.fleet.name);
                 b.Append("콛");
 				b.Append(command);
-				sendingCommand += b.ToString();
+				Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.CONSOLE,b.ToString()));
             }
             else{
-                selectedAI.ExcuteCommand(command);
+                ai.ExcuteCommand(command);
                 WriteLog(command);
             }
         }
@@ -39,8 +42,15 @@ public class Console : MonoBehaviour {
 
 	public void FixedUpdate2 () {
 		if(pendingCommands.ContainsKey(NetworkValues.currentTick)){
-			ExcuteCommand(pendingCommands[NetworkValues.currentTick],true);
+			string[] nameAndCode = pendingCommands[NetworkValues.currentTick].Split('콛');
+			FleetAILoader ai = Match.FindFleet(nameAndCode[0]).aiLoader;
+			ExcuteCommand(nameAndCode[1],true,ai);
 		}
+	}
+
+	public void AddPendingCommand(string command){
+		pendingCommands.Add(NetworkValues.acceptedTick,command);
+
 	}
 
 
