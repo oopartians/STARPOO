@@ -84,6 +84,8 @@ public class Server
 
                 Mirroring(client, message);
 
+                //Debug.Log("Mirroring : " + message);
+
                 string[] messages = message.Split('뷁');
                 foreach (string msg in messages)
                 {
@@ -98,7 +100,6 @@ public class Server
                             removingClients.Add(client);
                         }
                     }
-                    Debug.Log("Mirroring : " + msg);
                 }
             }
         }

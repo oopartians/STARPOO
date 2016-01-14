@@ -50,7 +50,6 @@ public class NetworkPlayground : MonoBehaviour {
                 SceneManager.LoadScene("SelectMode");
                 break;
             case NetworkHeader.ACCEPTTICK:
-                Debug.Log("accepted" + m.message+":"+NetworkValues.currentTick);
                 NetworkValues.acceptedTick = int.Parse(m.message);
                 break;
             case NetworkHeader.CONSOLE:

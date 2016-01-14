@@ -45,7 +45,7 @@ public class Client {
 
     public void Send(string message = "empty message")
     {
-        Debug.Log("SendMessage : " + message);
+        //Debug.Log("SendMessage : " + message);
         byte[] buffer = System.Text.Encoding.UTF8.GetBytes("뷁" + message);
         client.GetStream().Write(buffer, 0, buffer.Length);
     }
@@ -62,13 +62,13 @@ public class Client {
             byte[] buffer = new Byte[client.ReceiveBufferSize+1];
             stream.Read(buffer, 0, buffer.Length);
             var message = System.Text.Encoding.UTF8.GetString(buffer, 0, buffer.Length);
-            Debug.Log("Got Message buffer size : " + buffer.Length);
+            //Debug.Log("Got Message buffer size : " + buffer.Length);
 
             string[] messages = message.Split('뷁');
             foreach (string msg in messages)
             {
                 
-                Debug.Log("Got Message : " + msg);
+                //Debug.Log("Got Message : " + msg);
                 if (onMessageReceived.Count == 0 || msg.Length == 0)
                     continue;
 

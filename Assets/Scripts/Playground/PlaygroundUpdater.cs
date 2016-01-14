@@ -41,7 +41,6 @@ public class PlaygroundUpdater : MonoBehaviour {
             if (NetworkValues.currentTick + NetworkValues.networkTickTerm >= NetworkValues.acceptedTick && NetworkValues.requestedTick <= NetworkValues.acceptedTick)
             {
                 NetworkValues.requestedTick = NetworkValues.acceptedTick + NetworkValues.networkTickTerm;
-                Debug.Log(NetworkValues.acceptedTick + ":" + NetworkValues.currentTick);
                 Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.REQUESTTICK, (NetworkValues.requestedTick).ToString()));
             }
         }
