@@ -23,11 +23,15 @@ public class Server
 
     TcpListener server;
     List<TcpClient> clients = new List<TcpClient>();
+    List<TcpClient> removingClients = new List<TcpClient>();
 
     ManualResetEvent tcpClientConnected = new ManualResetEvent(false);
     public void Start()
     {
-        if(!NetworkValues.isServer){
+        if (!NetworkValues.isServer)
+        {
+            clients.Clear();
+            removingClients.Clear();
             NetworkValues.isServer = true;
             server = new TcpListener(IPAddress.Parse("0.0.0.0"),NetworkValues.port);
             server.Start();
@@ -71,12 +75,6 @@ public class Server
         }
         foreach (TcpClient client in clients)
         {
-            if (!client.Connected)
-            {
-                Debug.Log("a client closed connection");
-                clients.Remove(client);
-                continue;
-            }
             var stream = client.GetStream();
             if (stream.DataAvailable)
             {
@@ -89,16 +87,31 @@ public class Server
                 string[] messages = message.Split('뷁');
                 foreach (string msg in messages)
                 {
-                    string msg2 = msg.Replace(Convert.ToChar(0x0).ToString(), "");
-                    if (msg2.Length == 0) continue;
+                    //string msg2 = msg.Replace(Convert.ToChar(0x0).ToString(), "");
+                    if (msg.Length == 0) continue;
                     foreach (OnMessageReceived fn in onMessageReceived)
                     {
-                        fn(client, NetworkDecorator.StringToMessage(msg));
+                        NetworkDecorator.NetworkMessage m = NetworkDecorator.StringToMessage(msg);
+                        fn(client, m);
+                        if (m.header == NetworkHeader.ClOSE)
+                        {
+                            removingClients.Add(client);
+                        }
                     }
                     Debug.Log("Mirroring : " + msg);
                 }
             }
         }
+        foreach (TcpClient client in removingClients)
+        {
+            clients.Remove(client);
+        }
+        removingClients.Clear();
+    }
+
+    public int GetNumClients()
+    {
+        return clients.Count;
     }
 
     public void Close()
@@ -107,6 +120,8 @@ public class Server
         Send(NetworkDecorator.AttachHeader(NetworkHeader.ClOSESERVER));
         NetworkValues.isServer = false;
         server.Stop();
+        clients.Clear();
+        removingClients.Clear();
     }
 
 }

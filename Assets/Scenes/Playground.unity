@@ -529,9 +529,9 @@ RectTransform:
   m_Father: {fileID: 1055482665}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -367.4, y: -185}
-  m_SizeDelta: {x: -743.141, y: -439.1392}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 103.100006, y: 115}
+  m_SizeDelta: {x: 197.85901, y: 160.86081}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &952528763
 MonoBehaviour:

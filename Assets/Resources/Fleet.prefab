@@ -24,7 +24,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 145902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.0500962809, y: 2.26077414, z: -57.9510231}
+  m_LocalPosition: {x: -0.05009628, y: 2.2607741, z: -57.951023}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -40,7 +40,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5297504ba282b439fcdf950514f1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stringCode: 
+  code: 
+  isMine: 0
+  consoleText: 
+  onLog:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: FleetAILoader+UnityEventString, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  fleet: {fileID: 0}
 --- !u!114 &11477054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,11 +60,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c394a7d81ab6584d9e80131fd69b2fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceShipPrefab: {fileID: 133960, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
+  shipPrefab: {fileID: 0}
   color: {r: 0, g: 0, b: 0, a: 0}
-  spaceShipName: 
+  shipName: 
   name: 
   team: {fileID: 0}
+  aiLoader: {fileID: 11471666}
   positionAngle: 0
 --- !u!1001 &100100000
 Prefab:

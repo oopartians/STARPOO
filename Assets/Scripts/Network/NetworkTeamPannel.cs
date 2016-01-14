@@ -5,7 +5,7 @@ using System.Text;
 public class NetworkTeamPannel : MonoBehaviour {
 
 
-    public string MakeNetworkMessage(GameObject pannel, bool code = false)
+    public string MakeNetworkMessage(string header,GameObject pannel, bool code = false)
     {
         StringBuilder b = new StringBuilder(transform.GetSiblingIndex().ToString());
         b.Append(":");
@@ -16,7 +16,7 @@ public class NetworkTeamPannel : MonoBehaviour {
             b.Append(pannel.GetComponent<JavascriptPannel>().jsInfo.code);
         }
 
-        return NetworkDecorator.AttachHeader(NetworkHeader.ADDJS, b.ToString());
+        return NetworkDecorator.AttachHeader(header, b.ToString());
     }
 
     DragDropSlot slot;
@@ -33,11 +33,11 @@ public class NetworkTeamPannel : MonoBehaviour {
 
     void OnHi(GameObject jsPannel)
     {
-        Client.instance.Send(MakeNetworkMessage(jsPannel,true));
+        Client.instance.Send(MakeNetworkMessage(NetworkHeader.ADDJS,jsPannel,true));
     }
 
     void OnBye(GameObject jsPannel)
     {
-        Client.instance.Send(MakeNetworkMessage(jsPannel));
+        Client.instance.Send(MakeNetworkMessage(NetworkHeader.REMOVEJS,jsPannel));
     }
 }
