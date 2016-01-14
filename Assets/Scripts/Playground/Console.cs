@@ -9,6 +9,7 @@ public class Console : MonoBehaviour {
     public Text textfield;
 
     public string sendingCommand = "";
+	Dictionary<int,string> pendingCommands = new Dictionary<int,string>();
 
     struct PendingCommand{
         public int tick;
@@ -35,6 +36,13 @@ public class Console : MonoBehaviour {
             }
         }
 	}
+
+	public void FixedUpdate2 () {
+		if(pendingCommands.ContainsKey(NetworkValues.currentTick)){
+			ExcuteCommand(pendingCommands[NetworkValues.currentTick],true);
+		}
+	}
+
 
 	List<FleetAILoader> commandableFleets = new List<FleetAILoader>();
 
@@ -97,9 +105,4 @@ public class Console : MonoBehaviour {
     {
         textfield.text += "\n" + text;
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class PlaygroundUpdater : MonoBehaviour {
 	public TimeCounter timeCounter;
+	public Console console;
 
 	void Start(){
 
@@ -18,6 +19,8 @@ public class PlaygroundUpdater : MonoBehaviour {
 				fleet.aiLoader.FixedUpdate2();
 			}
 		}
+
+		console.FixedUpdate2();
 
 		foreach (Team team in Match.teams) {
 			foreach (Fleet fleet in team.fleets) {
