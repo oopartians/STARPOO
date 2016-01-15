@@ -22,17 +22,19 @@ public class Ship : MonoBehaviour,IJSONExportable {
     public float ammo = maxAmmo;
     public float fireDelay = 0;
 	public Fleet fleet;
+    public ShipCollider collider;
 
-	public Dictionary<string,double> exportableValues = new Dictionary<string,double> ();
+    public Dictionary<string, double> exportableValues = new Dictionary<string, double>();
 	public Dictionary<string,double> GetExportableValues(){return exportableValues;}
-	public List<Ship> crashedShips = new List<Ship>();
 
     bool destroyed = false;
+    public bool isDestroyed { get { return destroyed; } }
 	bool wantToShoot = false;
 	public ShipJSObject json;
 
     // Use this for initialization
     void Start () {
+        hp = maxHp;
 		json.UpdateProperties ();
 		exportableValues ["x"] = GetPos().x;
 		exportableValues ["y"] = GetPos().y;
@@ -75,6 +77,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
     }
 
     void PushedByCrashedShips(){
+        var crashedShips = collider.crashedShips;
     	crashedShips.RemoveAll(item => item == null);
 		Vector3 pos = new Vector3(0,0,0);
     	foreach(Ship ship in crashedShips){
@@ -84,7 +87,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 		pos.x /= crashedShips.Count;
 		pos.y /= crashedShips.Count;
 
-		transform.localPosition = GetPos() + (GetPos() - pos).normalized * 0.05f;
+		transform.localPosition = GetPos() + (GetPos() - pos).normalized * 0.1f;
     	
     }
 
@@ -131,77 +134,9 @@ public class Ship : MonoBehaviour,IJSONExportable {
         return transform.localPosition;
     }
 
-	void OnTriggerEnter2D(Collider2D cd)
-    {
-        if (destroyed)
-        {
-            return;
-        }
-        switch (cd.tag)
-        {
-        case "Bullet":
-            break;
-
-        case "Ship":
-        	// crashedShips.Add(cd.gameObject.GetComponent<Ship>());
-            break;
-
-		case "Radar":
-            if (cd.gameObject.GetComponentInParent<Ship>().fleet.team != fleet.team)
-            {
-				Dictionary<IJSONExportable,int> scannedEnemyShips = cd.gameObject.GetComponentInParent<Ship>().fleet.team.aiInfor.scannedEnemyShips;
-				if (scannedEnemyShips.ContainsKey(this))
-					++scannedEnemyShips[this];
-				else
-					scannedEnemyShips.Add(this,1);
-            }
-                
-
-            break;
-            
-        }
-    }
-
-	void OnTriggerExit2D(Collider2D cd){
-		if (destroyed)
-		{
-			return;
-		}
-		switch (cd.tag) {
-        case "Ground":
-            Record.Kill (fleet, fleet);
-            Destroy (gameObject);
-            break;
-
-        case "Ship":
-        	crashedShips.Remove(cd.gameObject.GetComponent<Ship>());
-        	break;
-
-        case "Radar":
-            if (cd.gameObject.GetComponentInParent<Ship>().fleet.team != fleet.team)
-			{
-				Dictionary<IJSONExportable,int> scannedEnemyShips = cd.gameObject.GetComponentInParent<Ship>().fleet.team.aiInfor.scannedEnemyShips;
-				if (scannedEnemyShips.ContainsKey(this)){
-					if(scannedEnemyShips[this] > 1)
-						--scannedEnemyShips[this];
-					else
-						scannedEnemyShips.Remove(this);
-				}
-	        }
-            break;
-        }
-	}
 
     void OnDestroy()
     {
-		this.fleet.team.aiInfor.allyShips.Remove(this);
-		foreach(Team team in Match.teams){
-			if(team == fleet.team)
-				continue;
-			if (team.aiInfor.scannedEnemyShips.ContainsKey(this))
-				team.aiInfor.scannedEnemyShips.Remove(this);
-		}
-
         destroyed = true;
         if(!Match.isGameOver)
 		    fleet.ReportDestroy (this);

@@ -45,7 +45,7 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 		}
 		switch (cd.tag) {
 	        case "Ship":
-		        Ship ship = cd.GetComponent<Ship> ();
+		        Ship ship = cd.GetComponent<ShipCollider> ().ship;
                 Record.Damage(fleet,ship.fleet);
 		        if(ship.hp <= 1){
 			        Record.Kill(fleet,ship.fleet);

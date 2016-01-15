@@ -43,8 +43,8 @@ public class Radar : MonoBehaviour {
 			break;
 			
 		case "Ship":
-			if(cd.gameObject.GetComponent<Ship>().fleet.team != team)
-				ships.Add(cd.gameObject.GetComponent<Ship>());
+			if(cd.gameObject.GetComponent<ShipCollider>().ship.fleet.team != team)
+                ships.Add(cd.gameObject.GetComponent<ShipCollider>().ship);
 			break;
 			
 		}
@@ -59,8 +59,8 @@ public class Radar : MonoBehaviour {
 			break;
 			
 		case "Ship":
-			if(cd.gameObject.GetComponent<Ship>().fleet.team != team)
-				ships.Remove(cd.gameObject.GetComponent<Ship>());
+            if (cd.gameObject.GetComponent<ShipCollider>().ship.fleet.team != team)
+                ships.Remove(cd.gameObject.GetComponent<ShipCollider>().ship);
 			break;
 			
 		}
