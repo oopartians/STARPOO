@@ -23,6 +23,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
     public float fireDelay = 0;
 	public Fleet fleet;
     public ShipCollider collider;
+	public ShipHpBar hpBarDrawer;
 
     public Dictionary<string, double> exportableValues = new Dictionary<string, double>();
 	public Dictionary<string,double> GetExportableValues(){return exportableValues;}
@@ -128,6 +129,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 		if (hp <= 0) {
 			Destroy(gameObject);
 		}
+		hpBarDrawer.UpdateHpDraw ();
 	}
 
     public Vector3 GetPos()

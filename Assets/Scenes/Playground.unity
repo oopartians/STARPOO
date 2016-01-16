@@ -1297,6 +1297,7 @@ MonoBehaviour:
   zoomMin: 0
   zoomSpeed: 1
   moveSpeed: 0.4
+  farClipZ: 7
 --- !u!1 &1349988034
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,6 +1681,7 @@ MonoBehaviour:
   lineWidth: 1
   r: 60
   theta_scale: 0.05
+  drawRate: 1
 --- !u!120 &1643489245
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1833,7 +1835,7 @@ LineRenderer:
   - {x: 59.46868, y: -7.967197, z: 0}
   - {x: 59.792553, y: -4.9850335, z: 0}
   - {x: 59.966976, y: -1.9904099, z: 0}
-  - {x: 60, y: 0, z: 0}
+  - {x: 60, y: 0.000010490733, z: 0}
   m_Parameters:
     startWidth: 1
     endWidth: 1

@@ -3,16 +3,22 @@ using System.Collections;
 
 public class ShipHpBar : MonoBehaviour {
 	public Ship ship;
+	private float currentRate = 1.0f;
+	CircleDrawer circle;
 
     // Use this for initialization
     void Start ()
     {
-
+		circle = GetComponent<CircleDrawer> ();
+		circle.lineColor = ship.fleet.color;
     }
 	
 	// Update is called once per frame
 	void Update () {
-		RectTransform rt = GetComponent<RectTransform> ();
-		rt.localScale = Vector3.one - Vector3.right * (1- ship.hp / Ship.maxHp);
+	}
+
+	public void UpdateHpDraw()
+	{
+		circle.Draw(ship.hp / Ship.maxHp);
 	}
 }
