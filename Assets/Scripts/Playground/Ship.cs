@@ -29,6 +29,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 
     bool destroyed = false;
     public bool isDestroyed { get { return destroyed; } }
+	public bool destroyedByTimePenalty = false;
 	bool wantToShoot = false;
 	public ShipJSObject json;
 

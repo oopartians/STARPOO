@@ -108,12 +108,12 @@ public class Score : MonoBehaviour {
 
 	bool IsGameWin(Fleet fleet)
 	{
-		Debug.Log ("loseTeams Contain fleet team? : " + Match.loseTeams.Contains (fleet.team).ToString ());
+		// Debug.Log ("loseTeams Contain fleet team? : " + Match.loseTeams.Contains (fleet.team).ToString ());
 		// TODO: 왜인지 모르겠는데 GameOver 함수가 호출된뒤 Score Scene으로 넘어오면 loseTeam 마지막에 최후의 이긴 승리팀이 add되게 된다.
 		// 구조상 그렇게되면 안되는데 원인을 알수가없다. 추측해보자면 Scene이 넘어가면서 모든 Object가 Destroy되면서 add되는건지.. 
 		// 일다는 임시방편으로 loseTeams의 맨마지막 Team인지 아닌지에 따라 승패를 체크한다.
-		if (Match.loseTeams.Last().Equals(fleet.team) == false)
-			return false;
-		return true;
+		if (Match.loseTeams.Last().Equals(fleet.team) == true && !fleet.team.destroyedByTimePenalty)
+			return true;
+		return false;
 	}
 }

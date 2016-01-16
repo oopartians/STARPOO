@@ -62,12 +62,18 @@ public static class Match {
 	public static void DamageToAllShips(float damage)
 	{
 		TimeCounter.ReSetBoringTime ();
+		List<Ship> tmpShips = new List<Ship> ();
 		foreach (Team team in teams) {
 			foreach (Fleet fleet in team.fleets) {
 				foreach (Ship ship in fleet.ships) {
-					ship.Damage (damage);
+					tmpShips.Add (ship);
+					break;
 				}
+				fleet.destroyedByTimePenalty = true;
 			}
+		}
+		foreach (Ship ship in tmpShips) {
+			ship.Damage (damage);
 		}
 	}
 
@@ -82,5 +88,3 @@ public static class Match {
 		return null;
 	}
 }
-
-

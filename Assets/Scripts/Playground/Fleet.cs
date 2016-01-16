@@ -18,11 +18,13 @@ public class Fleet : MonoBehaviour {
 	public FleetAILoader aiLoader;
 
 	public float positionAngle;
-
+	public bool destroyedByTimePenalty = false;
 
 	public void ReportDestroy(Ship ship){
 		ships.Remove (ship);
 		if (ships.Count == 0) {
+			if (ship.destroyedByTimePenalty)
+				this.destroyedByTimePenalty = true;
 			team.ReportDestroy(this);
 		}
 		TimeCounter.ReSetBoringTime();

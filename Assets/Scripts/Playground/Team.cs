@@ -13,6 +13,7 @@ public class Team : MonoBehaviour {
 	public List<Fleet> fleets{get{return _fleets;}}
 	public TeamAIInformation aiInfor;
     private int destroyedfleetcount = 0;
+	public bool destroyedByTimePenalty = false;
 
     List<Fleet> _fleets = new List<Fleet>();
     List<JSInfo> jsInfos = new List<JSInfo>();
@@ -31,6 +32,8 @@ public class Team : MonoBehaviour {
 	    destroyedfleetcount++;
         if (_fleets.Count == destroyedfleetcount)
         {
+			if (fleet.destroyedByTimePenalty)
+				this.destroyedByTimePenalty = true;
             Match.ReportDestroy(fleet.team);
         }
     }
