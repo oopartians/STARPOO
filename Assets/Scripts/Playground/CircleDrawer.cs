@@ -9,9 +9,13 @@ public class CircleDrawer : MonoBehaviour {
 	public float lineWidth;
 	public float r;
 	public float theta_scale = 0.2f;
+	public float drawRate = 1f;
+	private float currentRate = 1.0f;
+
 	// Use this for initialization
-	public void Draw () {
-		int size = Mathf.CeilToInt((2.0f * Mathf.PI) / theta_scale)+1;
+	public void Draw (float drawRate) {
+		float drawRadian = 2.0f * Mathf.PI * drawRate;
+		int size = Mathf.CeilToInt((drawRadian) / theta_scale)+1;
 
 		LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
 		lineRenderer.SetColors(lineColor, lineColor);
@@ -20,7 +24,7 @@ public class CircleDrawer : MonoBehaviour {
 		lineRenderer.useWorldSpace = false;
 
 		int i = 0;
-		for(float theta = 0; theta <= 2 * Mathf.PI; theta += theta_scale) {
+		for(float theta = 0; theta <= drawRadian; theta += theta_scale) {
 			float x = r*Mathf.Cos(theta);
 			float y = r*Mathf.Sin(theta);
 
@@ -28,15 +32,14 @@ public class CircleDrawer : MonoBehaviour {
 			lineRenderer.SetPosition(i, pos);
 			i+=1;
 		}
-		lineRenderer.SetPosition(size-1, new Vector3(r,0,0));
+		lineRenderer.SetPosition(size-1, new Vector3(Mathf.Cos(drawRadian)*r,Mathf.Sin(drawRadian)*r,0));
 	}
 
 	void Start() {
-		Draw ();
+		Draw (drawRate);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 }
