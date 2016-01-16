@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour {
 	public float zoomMin;
 	public float zoomSpeed = 1f;
 	public float moveSpeed = 0.4f;
+	public float farClipZ = 7;
 
 	Camera cam;
 	// Use this for initialization
@@ -18,10 +19,10 @@ public class CameraController : MonoBehaviour {
 	void Update () {
 		if (Input.GetAxis ("Mouse ScrollWheel") > 0) {
 			transform.Translate(Vector3.forward*zoomSpeed);
-			cam.farClipPlane = -transform.localPosition.z + 2;
+			cam.farClipPlane = -transform.localPosition.z + farClipZ;
 		} else if (Input.GetAxis ("Mouse ScrollWheel") < 0) {
 			transform.Translate(Vector3.back*zoomSpeed);
-			cam.farClipPlane = -transform.localPosition.z + 2;
+			cam.farClipPlane = -transform.localPosition.z + farClipZ;
 		}
 
 
