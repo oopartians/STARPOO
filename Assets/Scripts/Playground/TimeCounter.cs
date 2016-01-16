@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TimeCounter : MonoBehaviour {
 	public static float boringTime = 0;
-	private static float timeOver = 30;
+	private static float timeOver = 10;
 
 	// Use this for initialization
 	void Start () {
