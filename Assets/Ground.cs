@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Ground : MonoBehaviour {
 
-
+	private float circleDrawRate = 1.0f;
 
 	// Use this for initialization
 	void Awake () {
@@ -13,7 +13,7 @@ public class Ground : MonoBehaviour {
 		col.radius = GameValueSetter.groundSize;
 		circle.r = GameValueSetter.groundSize;
 
-		circle.Draw ();
+		circle.Draw (circleDrawRate);
 	}
 	
 	// Update is called once per frame
