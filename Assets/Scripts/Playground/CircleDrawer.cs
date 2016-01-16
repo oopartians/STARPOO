@@ -24,6 +24,7 @@ public class CircleDrawer : MonoBehaviour {
 		lineRenderer.useWorldSpace = false;
 
 		int i = 0;
+
 		for(float theta = 0; theta <= drawRadian; theta += theta_scale) {
 			float x = r*Mathf.Cos(theta);
 			float y = r*Mathf.Sin(theta);
