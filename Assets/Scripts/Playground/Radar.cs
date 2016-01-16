@@ -27,12 +27,31 @@ public class Radar : MonoBehaviour {
 		switch (cd.tag)
 		{
 		case "Bullet":
-			bullets.Add(cd.gameObject.GetComponent<Bullet>());
+			var scannedBullets = team.aiInfor.scannedBullets;
+			var target = cd.GetComponent<Bullet>();
+
+			if(scannedBullets.ContainsKey(target))
+				++scannedBullets[target];
+			else
+				scannedBullets.Add(target,1);
+			
+			bullets.Add(target);
 			break;
 			
 		case "Ship":
-			if(cd.gameObject.GetComponent<ShipCollider>().ship.fleet.team != team)
-                ships.Add(cd.gameObject.GetComponent<ShipCollider>().ship);
+
+			var enemyShipCollider = cd.gameObject.GetComponent<ShipCollider>();
+			if (enemyShipCollider.ship.fleet.team != team)
+			{
+				var scannedEnemyShips = team.aiInfor.scannedEnemyShips;
+				if (scannedEnemyShips.ContainsKey(enemyShipCollider.ship))
+					++scannedEnemyShips[enemyShipCollider.ship];
+				else
+					scannedEnemyShips.Add(enemyShipCollider.ship, 1);
+
+				ships.Add(enemyShipCollider.ship);
+			}
+
 			break;
 			
 		}
@@ -43,10 +62,34 @@ public class Radar : MonoBehaviour {
 		switch (cd.tag)
 		{
 		case "Bullet":
-			bullets.Remove(cd.gameObject.GetComponent<Bullet>());
+			var scannedBullets = team.aiInfor.scannedBullets;
+			var target = cd.GetComponent<Bullet>();
+
+			if(scannedBullets[target] > 1)
+				--scannedBullets[target];
+			else
+				scannedBullets.Remove(target);
+			
+			bullets.Remove(target);
 			break;
 			
 		case "Ship":
+
+
+			var enemyShipCollider = cd.gameObject.GetComponent<ShipCollider>();
+			if (enemyShipCollider.ship.fleet.team != team)
+			{
+				var scannedEnemyShips = team.aiInfor.scannedEnemyShips;
+				if(scannedEnemyShips.ContainsKey(enemyShipCollider.ship)){
+					if (scannedEnemyShips[enemyShipCollider.ship] > 1)
+						--scannedEnemyShips[enemyShipCollider.ship];
+					else
+						scannedEnemyShips.Remove(enemyShipCollider.ship);
+				}
+				ships.Add(enemyShipCollider.ship);
+			}
+
+
             if (cd.gameObject.GetComponent<ShipCollider>().ship.fleet.team != team)
                 ships.Remove(cd.gameObject.GetComponent<ShipCollider>().ship);
 			break;

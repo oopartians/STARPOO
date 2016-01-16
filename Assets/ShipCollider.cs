@@ -22,20 +22,6 @@ public class ShipCollider : MonoBehaviour {
             case "Ship":
                 crashedShips.Add(cd.gameObject.GetComponent<ShipCollider>().ship);
                 break;
-
-            case "Radar":
-                if (cd.gameObject.GetComponentInParent<Ship>().fleet.team != ship.fleet.team)
-                {
-                    Dictionary<IJSONExportable, int> scannedEnemyShips = cd.gameObject.GetComponentInParent<Ship>().fleet.team.aiInfor.scannedEnemyShips;
-                    if (scannedEnemyShips.ContainsKey(ship))
-                        ++scannedEnemyShips[ship];
-                    else
-                        scannedEnemyShips.Add(ship, 1);
-                }
-
-
-                break;
-
         }
     }
 
@@ -54,20 +40,6 @@ public class ShipCollider : MonoBehaviour {
 
             case "Ship":
                 crashedShips.Remove(cd.gameObject.GetComponent<ShipCollider>().ship);
-                break;
-
-            case "Radar":
-                if (cd.gameObject.GetComponentInParent<Ship>().fleet.team != ship.fleet.team)
-                {
-                    Dictionary<IJSONExportable, int> scannedEnemyShips = cd.gameObject.GetComponentInParent<Ship>().fleet.team.aiInfor.scannedEnemyShips;
-                    if (scannedEnemyShips.ContainsKey(ship))
-                    {
-                        if (scannedEnemyShips[ship] > 1)
-                            --scannedEnemyShips[ship];
-                        else
-                            scannedEnemyShips.Remove(ship);
-                    }
-                }
                 break;
         }
     }
