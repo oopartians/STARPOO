@@ -20,18 +20,6 @@ public class Radar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//        bullets = GameObject.FindObjectsOfType<Bullet>();
-////        Debug.Log("[Radar] Current Bullets count : " + bullets.Length);
-//        
-//        Ship[] ships = GameObject.FindObjectsOfType<Ship>();
-//        ships_alliancea = GameObject.FindObjectsOfType<Ship>();
-//        foreach (Ship _ship in ships)
-//        {
-//            if (_ship.fleet.name.Equals(ship.fleet.name))
-//                ships_alliance.Add(_ship);
-//            else
-//                ships_enemy.Add(_ship);
-//        }
     }
 
 	void OnTriggerEnter2D(Collider2D cd)
