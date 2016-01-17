@@ -38,10 +38,12 @@ public class ShipJSObject : MonoBehaviour {
 
 	
 	public void UpdateProperties(){
-		jsobj.UpdateProperties ();
+        if(jsobj != null)
+    		jsobj.UpdateProperties ();
 	}
 	public void UpdateProperty(string key, float value){
-		jsobj.UpdateProperty(key,value);
+        if (jsobj != null)
+		    jsobj.UpdateProperty(key,value);
 	}
 
 	public class JSObject : ObjectInstance

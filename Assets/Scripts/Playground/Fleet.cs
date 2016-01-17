@@ -58,6 +58,15 @@ public class Fleet : MonoBehaviour {
 			float y = Mathf.Sin (rad) * (size + distance);
 			Ship.transform.position = new Vector2(x,y);
 			Ship.GetComponent<Ship>().angle = positionAngle - 180;
+
+            if (ScanUtils.IsVisible(team))
+            {
+                ScanUtils.ChangeLayersRecursively(Ship.transform,"Scanned");
+            }
+            else
+            {
+                ScanUtils.ChangeLayersRecursively(Ship.transform, "Unscanned");
+            }
 		}
 	}
 

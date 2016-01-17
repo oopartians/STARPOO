@@ -10,7 +10,14 @@ public class ShipHpBar : MonoBehaviour {
     void Start ()
     {
 		circle = GetComponent<CircleDrawer> ();
-		circle.lineColor = ship.fleet.color;
+        if (ship.fleet != null)
+        {
+            circle.lineColor = ship.fleet.color;
+        }
+        else
+        {
+            circle.lineColor = Color.green;
+        }
     }
 	
 	// Update is called once per frame

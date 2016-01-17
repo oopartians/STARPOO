@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.IO;
 using System;
-using System;
+
 
 public class FleetAILoader : MonoBehaviour {
 

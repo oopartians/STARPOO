@@ -46,7 +46,8 @@ public class ShipCollider : MonoBehaviour {
 
     void OnDestroy()
     {
-        ship.fleet.team.aiInfor.allyShips.Remove(ship);
+        if(ship.fleet != null)
+            ship.fleet.team.aiInfor.allyShips.Remove(ship);
         foreach (Team team in Match.teams)
         {
             if (team == ship.fleet.team)

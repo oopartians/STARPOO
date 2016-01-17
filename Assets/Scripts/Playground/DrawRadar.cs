@@ -18,6 +18,7 @@ public class DrawRadar : MonoBehaviour
 	{   
 		for(int i = 0; i < numPart; ++i){
 			var part = (GameObject)Instantiate(Resources.Load("DrawRadarPart"));
+            part.layer = gameObject.layer;
 			parts.Add(part.transform);
 			part.transform.SetParent(transform);
 			part.transform.localPosition = Vector3.zero;

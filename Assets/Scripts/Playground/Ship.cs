@@ -103,6 +103,15 @@ public class Ship : MonoBehaviour,IJSONExportable {
 			bullet.transform.localPosition = transform.localPosition + (transform.localRotation * Vector3.right * 1);
 			bullet.GetComponent<Bullet>().angle = angle;
 			bullet.GetComponent<Bullet>().fleet = fleet;
+
+            if (ScanUtils.IsVisible(fleet.team))
+            {
+                ScanUtils.ChangeLayersRecursively(bullet.transform,"Scanned");
+            }
+            else
+            {
+                ScanUtils.ChangeLayersRecursively(bullet.transform, "Unscanned");
+            }
 		}
 	}
 
@@ -141,7 +150,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
     void OnDestroy()
     {
         destroyed = true;
-        if(!Match.isGameOver)
+        if(!Match.isGameOver && fleet != null)
 		    fleet.ReportDestroy (this);
     }
 }
