@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Threading;
 using System;
+using System.IO;
 
 
 
@@ -58,14 +59,6 @@ public class Server
         stream.Write(buffer, 0, buffer.Length);
     }
 
-    public void Mirroring(TcpClient sender, string message)
-    {
-        foreach (TcpClient client in clients)
-        {
-            if (sender == client) continue;
-            SendToCleint(client, message);
-        }
-    }
 
     public void Update()
     {
@@ -78,28 +71,50 @@ public class Server
             var stream = client.GetStream();
             if (stream.DataAvailable)
             {
-                byte[] buffer = new Byte[client.ReceiveBufferSize];
-                stream.Read(buffer, 0, (int)client.ReceiveBufferSize);
-                var message = System.Text.Encoding.UTF8.GetString(buffer);
-
-                Mirroring(client, message);
-
-                //Debug.Log("Mirroring : " + message);
-
-                string[] messages = message.Split('뷁');
-                foreach (string msg in messages)
+                using (var ms = new MemoryStream())
                 {
-                    //string msg2 = msg.Replace(Convert.ToChar(0x0).ToString(), "");
-                    if (msg.Length == 0) continue;
-                    foreach (OnMessageReceived fn in onMessageReceived)
+                    byte[] part = new byte[client.ReceiveBufferSize];
+                    int bytesRead;
+                    int readed = 0;
+
+                    while((bytesRead = stream.Read(part, 0, part.Length)) > 0)
                     {
-                        NetworkDecorator.NetworkMessage m = NetworkDecorator.StringToMessage(msg);
-                        fn(client, m);
-                        if (m.header == NetworkHeader.ClOSE)
-                        {
-                            removingClients.Add(client);
+                        ms.Write(part, 0, bytesRead);
+                        readed += bytesRead;
+                        if(part.Length > bytesRead){
+                            break;
                         }
                     }
+                    byte[] buffer = ms.ToArray();
+
+
+
+                    // byte[] buffer = new Byte[client.ReceiveBufferSize];
+                    // stream.Read(buffer, 0, (int)client.ReceiveBufferSize);
+                    var message = System.Text.Encoding.UTF8.GetString(buffer);
+
+                    Mirroring(client, buffer);
+
+                    //Debug.Log("Mirroring : " + message);
+
+                    string[] messages = message.Split('뷁');
+                    foreach (string msg in messages)
+                    {
+                        //string msg2 = msg.Replace(Convert.ToChar(0x0).ToString(), "");
+                        if (msg.Length == 0) continue;
+                        foreach (OnMessageReceived fn in onMessageReceived)
+                        {
+                            NetworkDecorator.NetworkMessage m = NetworkDecorator.StringToMessage(msg);
+                            fn(client, m);
+                            if (m.header == NetworkHeader.ClOSE)
+                            {
+                                removingClients.Add(client);
+                            }
+                        }
+                    }
+
+
+
                 }
             }
         }
@@ -123,6 +138,15 @@ public class Server
         server.Stop();
         clients.Clear();
         removingClients.Clear();
+    }
+
+    void Mirroring(TcpClient sender, byte[] buffer)
+    {
+        foreach (TcpClient client in clients)
+        {
+            if (sender == client) continue;
+            client.GetStream().Write(buffer, 0, buffer.Length);
+        }
     }
 
 }

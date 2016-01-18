@@ -11,7 +11,7 @@ public class PlaygroundUpdater : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		//if(NetworkValues.currentTick >= NetworkValues.acceptedTick && NetworkValues.isNetwork) return;
+		if(NetworkValues.currentTick >= NetworkValues.acceptedTick && NetworkValues.isNetwork) return;
 
 		foreach (Team team in Match.teams) {
 			foreach (Fleet fleet in team.fleets) {

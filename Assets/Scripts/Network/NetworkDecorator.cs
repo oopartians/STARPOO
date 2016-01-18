@@ -22,7 +22,7 @@ public class NetworkDecorator
     public static NetworkMessage StringToMessage(string str)
     {
         NetworkMessage nm;
-        nm.header = str.Split(':')[0];
+		nm.header = Char.ToString(str[0]);
         nm.message = str.Remove(0,2);
 
         return nm;
