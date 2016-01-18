@@ -4,18 +4,20 @@ using System.Collections.Generic;
 [RequireComponent (typeof (TrailRenderer))]
 public class DrawRadar : MonoBehaviour
 {
-	public float radius = 3f;
 	public float width = 1f;
 	public int numPart = 1;
 	public float speed;
 	public List<Transform> parts;
 	public Ship ship;
+	public Radar radar;
 
+	private float radius = 3f;
 	private float realRaduis;
 	private float inverseCount;
 
 	void Start ()
 	{   
+		radius = radar.radarRadius;
 		for(int i = 0; i < numPart; ++i){
 			var part = (GameObject)Instantiate(Resources.Load("DrawRadarPart"));
             part.layer = gameObject.layer;
@@ -31,7 +33,7 @@ public class DrawRadar : MonoBehaviour
 				color = Color.green;
 			renderer.lineColor = color;
 			if(numPart != 1){
-				renderer.drawRate = (1-0.5f)/numPart;
+				renderer.drawRate = (0.5f)/numPart;
 			}
 
 			realRaduis = radius - width/2f;
@@ -46,6 +48,13 @@ public class DrawRadar : MonoBehaviour
 			float radian = Time.fixedTime*speed + 2*i*Mathf.PI*inverseCount;
 			var part = parts[i];
 			part.rotation = Quaternion.AngleAxis(radian * Mathf.Rad2Deg,Vector3.forward);
+			Vector3 pos = new Vector3(Mathf.Cos(radian)*realRaduis,Mathf.Sin(radian)*realRaduis,0) + part.position;
+
+			foreach(Transform other in radar.ourRadars){
+				bool active = Vector3.Distance(other.position,pos) > radius-width*2;
+				part.gameObject.SetActive(active);
+				if(!active) break;
+			}
 //			Vector3 pos = new Vector3(Mathf.Cos(radian)*realRaduis,Mathf.Sin(radian)*realRaduis,0);
 //			part.localPosition = pos;
 		}

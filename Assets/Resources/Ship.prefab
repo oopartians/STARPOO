@@ -453,12 +453,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a45d62e2948a14425b6a7e7e417df18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 15
   width: 0.2
   numPart: 15
   speed: 1
   parts: []
   ship: {fileID: 11483964}
+  radar: {fileID: 11463006}
 --- !u!120 &12097694
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -520,8 +520,8 @@ LineRenderer:
   - {x: 1.1958504, y: -0.09970923, z: 0}
   - {x: 1.2, y: 0.00000020981467, z: 0}
   m_Parameters:
-    startWidth: 0.2
-    endWidth: 0.2
+    startWidth: 0.5
+    endWidth: 0.5
     m_StartColor:
       serializedVersion: 2
       rgba: 3538764

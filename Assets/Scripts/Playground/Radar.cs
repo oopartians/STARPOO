@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class Radar : MonoBehaviour {
     public float radarRadius;
+	public HashSet<Transform> ourRadars = new HashSet<Transform>();
 	
 	private HashSet<IJSONExportable> ships = new HashSet<IJSONExportable>();
 	private HashSet<IJSONExportable> bullets = new HashSet<IJSONExportable>();
@@ -29,6 +30,12 @@ public class Radar : MonoBehaviour {
 	{
 		switch (cd.tag)
 		{
+		case "Radar":
+			var radar = cd.gameObject.GetComponent<Radar>();
+			if(radar.team == team){
+				ourRadars.Add(radar.transform);
+			}
+			break;
 		case "Bullet":
 			var scannedBullets = team.aiInfor.scannedBullets;
 			var target = cd.GetComponent<Bullet>();
@@ -52,9 +59,6 @@ public class Radar : MonoBehaviour {
 			var enemyShipCollider = cd.gameObject.GetComponent<ShipCollider>();
 			if (enemyShipCollider.ship.fleet.team != team)
             {
-                Debug.Log(team);
-                Debug.Log(team.aiInfor);
-                Debug.Log(team.aiInfor.scannedEnemyShips);
 				var scannedEnemyShips = team.aiInfor.scannedEnemyShips;
                 if (scannedEnemyShips.ContainsKey(enemyShipCollider.ship))
                     ++scannedEnemyShips[enemyShipCollider.ship];
@@ -79,6 +83,14 @@ public class Radar : MonoBehaviour {
 
 		switch (cd.tag)
 		{
+
+		case "Radar":
+			var radar = cd.gameObject.GetComponent<Radar>();
+			if(radar.team == team){
+				ourRadars.Remove(radar.transform);
+			}
+			break;
+
 		case "Bullet":
 			var scannedBullets = team.aiInfor.scannedBullets;
 			var target = cd.GetComponent<Bullet>();
