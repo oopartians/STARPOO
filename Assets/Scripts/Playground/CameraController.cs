@@ -17,13 +17,16 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetAxis ("Mouse ScrollWheel") > 0) {
-			transform.Translate(Vector3.forward*zoomSpeed);
-			cam.farClipPlane = -transform.localPosition.z + farClipZ;
-		} else if (Input.GetAxis ("Mouse ScrollWheel") < 0) {
-			transform.Translate(Vector3.back*zoomSpeed);
-			cam.farClipPlane = -transform.localPosition.z + farClipZ;
-		}
+		//if (Input.GetAxis ("Mouse ScrollWheel") > 0) {
+			//transform.Translate(Vector3.forward*zoomSpeed);
+			//cam.farClipPlane = -transform.localPosition.z + farClipZ;
+            cam.orthographicSize += Input.GetAxis("Mouse ScrollWheel");
+		//} else if (Input.GetAxis ("Mouse ScrollWheel") < 0) {
+			//transform.Translate(Vector3.back*zoomSpeed);
+            //cam.farClipPlane = -transform.localPosition.z + farClipZ;
+            cam.orthographicSize += Input.GetAxis("Mouse ScrollWheel");
+       // }
+        cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel")*zoomSpeed;
 
 
 		if (Input.GetKey (KeyCode.RightArrow)) {

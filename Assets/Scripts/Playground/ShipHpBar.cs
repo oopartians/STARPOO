@@ -12,7 +12,7 @@ public class ShipHpBar : MonoBehaviour {
 		circle = GetComponent<CircleDrawer> ();
         if (ship.fleet != null)
         {
-            circle.lineColor = ship.fleet.color;
+            circle.lineColor = new Color(ship.fleet.color.r * 0.8f, ship.fleet.color.g * 0.8f, ship.fleet.color.b * 0.8f, 1.0f);
         }
         else
         {

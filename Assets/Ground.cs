@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Ground : MonoBehaviour {
 
+    public Transform earth;
+
 	private float circleDrawRate = 1.0f;
 
 	// Use this for initialization

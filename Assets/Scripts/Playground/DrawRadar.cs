@@ -28,12 +28,13 @@ public class DrawRadar : MonoBehaviour
 			renderer.lineWidth = width;
 			Color color;
 			if(ship.fleet)
-				color = new Color(ship.fleet.color.r,ship.fleet.color.g,ship.fleet.color.b,0.5f);
+                color = new Color(ship.fleet.team.color.r, ship.fleet.team.color.g, ship.fleet.team.color.b,0.5f);
 			else
 				color = Color.green;
 			renderer.lineColor = color;
 			if(numPart != 1){
-				renderer.drawRate = (0.5f)/numPart;
+				renderer.drawRate = (0.1f)/numPart;
+                renderer.theta_scale = 0.1f;
 			}
 
 			realRaduis = radius - width/2f;
