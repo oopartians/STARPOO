@@ -3,7 +3,6 @@ using System.Collections;
 
 public class ShipHpBar : MonoBehaviour {
 	public Ship ship;
-	private float currentRate = 1.0f;
 	CircleDrawer circle;
 
     // Use this for initialization

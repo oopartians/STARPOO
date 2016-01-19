@@ -10,7 +10,6 @@ public class CircleDrawer : MonoBehaviour {
 	public float r;
 	public float theta_scale = 0.2f;
 	public float drawRate = 1f;
-	private float currentRate = 1.0f;
 
 	// Use this for initialization
 	public void Draw (float drawRate) {
