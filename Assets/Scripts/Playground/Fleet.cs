@@ -26,6 +26,10 @@ public class Fleet : MonoBehaviour {
 			if (ship.destroyedByTimePenalty)
 				this.destroyedByTimePenalty = true;
 			team.ReportDestroy(this);
+            if (aiLoader.isMine && NetworkValues.isNetwork)
+            {
+                Instantiate(Resources.Load("HelloLooser"));
+            }
 		}
 		TimeCounter.ReSetBoringTime();
 	}
@@ -43,7 +47,7 @@ public class Fleet : MonoBehaviour {
 
 
 		for (int i = 0; i < GameValueSetter.numShipsPerFleet; ++i) {
-			GameObject Ship = MakeShip ();
+			GameObject ship = MakeShip ();
 
 			int numRow = Mathf.CeilToInt (Mathf.Sqrt((float)GameValueSetter.numShipsPerFleet));
 			float row = i%numRow;
@@ -56,16 +60,12 @@ public class Fleet : MonoBehaviour {
 			int size = GameValueSetter.groundSize * 2 / 3;
 			float x = Mathf.Cos (rad) * (size + distance);
 			float y = Mathf.Sin (rad) * (size + distance);
-			Ship.transform.position = new Vector2(x,y);
-			Ship.GetComponent<Ship>().angle = positionAngle - 180;
+            ship.transform.position = new Vector2(x, y);
+            ship.GetComponent<Ship>().angle = positionAngle - 180;
 
-            if (ScanUtils.IsVisible(team))
+            if (ScanUtils.NeedScanning(team))
             {
-                ScanUtils.ChangeLayersRecursively(Ship.transform,"Scanned");
-            }
-            else
-            {
-                ScanUtils.ChangeLayersRecursively(Ship.transform, "Unscanned");
+                ship.GetComponent<Scannable>().ChangeScanCount(1);
             }
 		}
 	}

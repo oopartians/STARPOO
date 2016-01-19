@@ -35,7 +35,7 @@ public class ShipCollider : MonoBehaviour {
         {
             case "Ground":
                 Record.Kill(ship.fleet, ship.fleet);
-			Destroy(ship.gameObject);
+                ship.Damage(Ship.maxHp);
                 break;
 
             case "Ship":

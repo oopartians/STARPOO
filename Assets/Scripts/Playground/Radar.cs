@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 public class Radar : MonoBehaviour {
     public float radarRadius;
-	public HashSet<Transform> ourRadars = new HashSet<Transform>();
+    public HashSet<Transform> ourRadars = new HashSet<Transform>();
+    public CircleCollider2D circleCollider2D;
 	
 	private HashSet<IJSONExportable> ships = new HashSet<IJSONExportable>();
 	private HashSet<IJSONExportable> bullets = new HashSet<IJSONExportable>();
 
-    private CircleCollider2D circleCollider2D;
 	private Team team;
 
     // Use this for initialization
@@ -17,9 +17,10 @@ public class Radar : MonoBehaviour {
         if (GetComponentInParent<Ship>().fleet != null)
         {
             team = GetComponentInParent<Ship>().fleet.team;
+            Debug.Log("TEAM!");
+            circleCollider2D.enabled = true;
+            circleCollider2D.radius = radarRadius;
         }
-        circleCollider2D = transform.GetComponent<CircleCollider2D>();
-        circleCollider2D.radius = radarRadius;
     }
 	
 	// Update is called once per frame
@@ -44,9 +45,9 @@ public class Radar : MonoBehaviour {
                 ++scannedBullets[target];
             else
             {
-                if (ScanUtils.IsVisible(team))
+                if (ScanUtils.NeedScanning(team))
                 {
-                    ScanUtils.ChangeLayersRecursively(target.transform, "Scanned");
+                    target.GetComponent<Scannable>().ChangeScanCount(1);
                 }
                 scannedBullets.Add(target, 1);
             }
@@ -64,9 +65,9 @@ public class Radar : MonoBehaviour {
                     ++scannedEnemyShips[enemyShipCollider.ship];
                 else
                 {
-                    if (ScanUtils.IsVisible(team))
+                    if (ScanUtils.NeedScanning(team,enemyShipCollider.ship.fleet.team))
                     {
-                        ScanUtils.ChangeLayersRecursively(enemyShipCollider.ship.transform, "Scanned");
+                        enemyShipCollider.ship.GetComponent<Scannable>().ChangeScanCount(1);
                     }
                     scannedEnemyShips.Add(enemyShipCollider.ship, 1);
                 }
@@ -99,9 +100,9 @@ public class Radar : MonoBehaviour {
                 --scannedBullets[target];
             else
             {
-                if (ScanUtils.IsVisible(team))
+                if (ScanUtils.NeedScanning(team))
                 {
-                    ScanUtils.ChangeLayersRecursively(target.transform, "Unscanned");
+                    target.GetComponent<Scannable>().ChangeScanCount(-1);
                 }
                 scannedBullets.Remove(target);
             }
@@ -121,9 +122,9 @@ public class Radar : MonoBehaviour {
                         --scannedEnemyShips[enemyShipCollider.ship];
                     else
                     {
-                        if (ScanUtils.IsVisible(team))
+                        if (ScanUtils.NeedScanning(team,enemyShipCollider.ship.fleet.team))
                         {
-                            ScanUtils.ChangeLayersRecursively(enemyShipCollider.ship.transform, "Unscanned");
+                            enemyShipCollider.ship.GetComponent<Scannable>().ChangeScanCount(-1);
                         }
                         scannedEnemyShips.Remove(enemyShipCollider.ship);
                     }

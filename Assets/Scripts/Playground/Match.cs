@@ -56,6 +56,10 @@ public static class Match {
 
     public static void GameOver()
     {
+        if (NetworkValues.isNetwork)
+        {
+            Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.GAMEOVER, NetworkValues.name));
+        }
         isGameOver = true;
         SceneManager.LoadScene("Score");
     }

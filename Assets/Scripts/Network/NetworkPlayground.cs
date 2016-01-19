@@ -24,18 +24,23 @@ public class NetworkPlayground : MonoBehaviour {
                     numRequest = 0;
                 }
                 break;
+            case NetworkHeader.GAMEOVER:
+                NetworkValues.acceptedTick += 1000;
+                break;
 
         }
 
-    } 
+    }
 
+    bool shouldRemoveListener = false;
     // Use this for initialization
     void Start () {
         if (!NetworkValues.isNetwork)
         {
             return;
         }
-
+        shouldRemoveListener = true;
+        DontDestroyOnLoad(gameObject);
         Client.instance.onMessageReceived.Add(OnMessageReceived);
         if(NetworkValues.isServer)
             Server.instance.onMessageReceived.Add(OnMessageReceivedAsServer);
@@ -60,11 +65,11 @@ public class NetworkPlayground : MonoBehaviour {
 
     void OnDestroy()
     {
-        if (!NetworkValues.isNetwork)
+        if (shouldRemoveListener)
         {
-            return;
+            Client.instance.onMessageReceived.Remove(OnMessageReceived);
         }
 
-        Client.instance.onMessageReceived.Remove(OnMessageReceived);
+        
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 
 public class Ship : MonoBehaviour,IJSONExportable {
+    public ShipSoundPlayer sfx;
 
     public const float hitRange = 1;
     public const float maxSpeed = 5;
@@ -37,6 +38,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
     // Use this for initialization
     void Start () {
         hp = maxHp;
+        ammo = maxAmmo;
 		json.UpdateProperties ();
 		exportableValues ["x"] = GetPos().x;
 		exportableValues ["y"] = GetPos().y;
@@ -95,6 +97,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 
 	void ShootBullet(){
 		if (ammo >= 1 && fireDelay <= 0) {
+            sfx.PlayShoot();
 			--ammo;
 			fireDelay = 1/fireFrequency;
 			GameObject bullet = (GameObject)Instantiate(Resources.Load("Bullet"));
@@ -104,13 +107,9 @@ public class Ship : MonoBehaviour,IJSONExportable {
 			bullet.GetComponent<Bullet>().angle = angle;
 			bullet.GetComponent<Bullet>().fleet = fleet;
 
-            if (ScanUtils.IsVisible(fleet.team))
+            if (ScanUtils.NeedScanning(fleet.team))
             {
-                ScanUtils.ChangeLayersRecursively(bullet.transform,"Scanned");
-            }
-            else
-            {
-                ScanUtils.ChangeLayersRecursively(bullet.transform, "Unscanned");
+                bullet.GetComponent<Scannable>().ChangeScanCount(1);
             }
 		}
 	}
@@ -134,10 +133,21 @@ public class Ship : MonoBehaviour,IJSONExportable {
 	}
 
 	public void Damage(float damage){
-		hp -= damage;
-		if (hp <= 0) {
-			Destroy(gameObject);
+        hp -= damage;
+        if (hp <= 0)
+        {
+            sfx.PlayDie();
+
+            destroyed = true;
+            Destroy(gameObject);
+            if (!Match.isGameOver && fleet != null)
+                fleet.ReportDestroy(this);
+            return;
 		}
+        else
+        {
+            sfx.PlayAh();
+        }
 		hpBarDrawer.UpdateHpDraw ();
 	}
 
@@ -146,11 +156,4 @@ public class Ship : MonoBehaviour,IJSONExportable {
         return transform.localPosition;
     }
 
-
-    void OnDestroy()
-    {
-        destroyed = true;
-        if(!Match.isGameOver && fleet != null)
-		    fleet.ReportDestroy (this);
-    }
 }

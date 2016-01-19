@@ -3,9 +3,17 @@ using System.Collections;
 
 public static class ScanUtils {
 
-    public static bool IsVisible(Team team)
+    public static bool NeedScanning(Team team, Team otherTeam = null)
     {
-        return Match.myTeam.Contains(team) || Match.myTeam.Count == 0 || Match.myTeam.Count == Match.teams.Count;
+        var cond1 = (Match.myTeam.Contains(team) || Match.myTeam.Count == 0 || Match.myTeam.Count == Match.teams.Count);
+        if (otherTeam != null)
+        {
+            return cond1 && !Match.myTeam.Contains(otherTeam);
+        }
+        else
+        {
+            return cond1;
+        }
     }
 
     public static void ChangeLayersRecursively(this Transform trans, string name)

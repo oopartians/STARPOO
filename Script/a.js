@@ -2,9 +2,10 @@
 
 function update(){
 	for (var i = myShips.length - 1; i >= 0; i--) {
-		// myShips[i].shoot()
+		
 		ship = myShips[i]
 		ship.setSpeed(5)
+		ship.shoot()
 
 		var goodR = 4;
 		var goodAngle = 90;

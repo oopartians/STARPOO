@@ -19,4 +19,5 @@ public class NetworkHeader
     public const string ACCEPTTICK = "A";
     public const string REQUESTTICK = "Q";
     public const string CONSOLE = "L";
+    public const string GAMEOVER = "V";
 }

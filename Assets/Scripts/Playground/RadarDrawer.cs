@@ -15,13 +15,17 @@ public class RadarDrawer : MonoBehaviour {
 	void Start () {
         renderer.material.shader = shader;
 
-        renderer.material.SetColor("_Color", ship.fleet.team.color);
+        if (ship.fleet != null)
+        {
+            renderer.material.SetColor("_Color", ship.fleet.team.color);
+        }
+        else
+        {
+            renderer.material.SetColor("_Color", Color.green);
+        }
 
         transform.localScale = Vector3.one * radar.radarRadius * 2;
         renderer.enabled = true;
-
-        halo.range = radar.radarRadius*2;
-        halo.color = ship.fleet.team.color;
 
 	}
 

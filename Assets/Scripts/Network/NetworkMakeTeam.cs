@@ -14,6 +14,7 @@ public class NetworkMakeTeam : MonoBehaviour {
     public Chat chat;
 
 
+
 	public void ChangeGroundSize(string groundSize){
 		if(NetworkValues.isServer){
 			Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.CHANGEGROUNDSIZE,groundSize));
@@ -33,6 +34,8 @@ public class NetworkMakeTeam : MonoBehaviour {
 		}
 	}
 
+
+    bool shouldRemoveListener = false;
 
     void SendMessagesToNewbie(TcpClient client, NetworkDecorator.NetworkMessage message)
     {
@@ -67,7 +70,7 @@ public class NetworkMakeTeam : MonoBehaviour {
         {
             return;
         }
-
+        shouldRemoveListener = true;
         Client.instance.onMessageReceived.Add(OnMessageReceived);
         if(NetworkValues.isServer)
             Server.instance.onMessageReceived.Add(SendMessagesToNewbie);
@@ -141,11 +144,9 @@ public class NetworkMakeTeam : MonoBehaviour {
 
     void OnDestroy()
     {
-        if (!NetworkValues.isNetwork)
+        if (shouldRemoveListener)
         {
-            return;
+            Client.instance.onMessageReceived.Remove(OnMessageReceived);
         }
-
-        Client.instance.onMessageReceived.Remove(OnMessageReceived);
     }
 }
