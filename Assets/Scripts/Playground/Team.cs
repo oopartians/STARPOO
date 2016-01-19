@@ -43,6 +43,7 @@ public class Team : MonoBehaviour {
 			GameObject fleetObject = (GameObject)Instantiate(Resources.Load("Fleet"));
 			Fleet fleet = fleetObject.GetComponent<Fleet>();
 			FleetAILoader fleetAILoader = fleetObject.GetComponent<FleetAILoader>();
+			GameObject.DontDestroyOnLoad(fleetObject);
 			fleetAILoader.code = info.code;
 			fleetAILoader.isMine = info.isMine;
 			fleet.team = this;
