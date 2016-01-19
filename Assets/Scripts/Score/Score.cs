@@ -13,7 +13,6 @@ public class Score : MonoBehaviour {
 		{
 			foreach (Fleet fleet in team.fleets)
 			{
-				Debug.Log (fleet);
 				CreateScoreInfo(fleet);
 			}
 		}
@@ -29,7 +28,7 @@ public class Score : MonoBehaviour {
 		GameObject scoreInfoObj = (GameObject)UnityEngine.GameObject.Instantiate(Resources.Load("ScoreInfo"));
 		RectTransform rt = scoreInfoObj.GetComponent<RectTransform> ();
 		rt.SetParent (transform);
-		// rt.localScale = Vector3.one;
+		rt.localScale = Vector3.one;
 		
 		ScoreStat scoreStat = scoreInfoObj.GetComponent<ScoreStat>();
 		scoreStat.teamColor.color = fleet.team.color;
