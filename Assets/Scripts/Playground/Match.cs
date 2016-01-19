@@ -18,6 +18,7 @@ public static class Match {
 	public static void Init(){
         isGameOver = false;
 		namingNumber = 1;
+		CleanAllFleet ();
         teams.Clear ();
 		loseTeams.Clear();
 		myTeam.Clear();
@@ -86,5 +87,14 @@ public static class Match {
 			}
 		}
 		return null;
+	}
+
+	private static void CleanAllFleet()
+	{
+		foreach (Team team in teams) {
+			foreach (Fleet fleet in team.fleets) {
+				GameObject.DestroyObject (fleet);
+			}
+		}
 	}
 }

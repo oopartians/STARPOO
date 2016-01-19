@@ -17,26 +17,26 @@ function update(){
 		var ship = myShips[i]
 		ship.setSpeed(5)
 
-		var p = polarFrom(ship,getCenter());
-		// var p2 = polarFrom({x:0,y:0},ship);
-		// if(ship.angle != null){
-		// 	log("ship.angle : "+ship.angle)
+		// var p = polarFrom(ship,getCenter());
+		// // var p2 = polarFrom({x:0,y:0},ship);
+		// // if(ship.angle != null){
+		// // 	log("ship.angle : "+ship.angle)
+		// // }
+		// // else{
+		// // 	log("ship.angle not exist")
+		// // }
+		// // p = polar(ship)
+		// // if(i == 0){
+		// // 	log(ship.angle)
+		// // 	log(p.angle)
+		// // }
+		// // ship.setAngleSpeed(360)
+		// if(p.angle > 50){
+		// 	ship.setAngleSpeed(360);
 		// }
-		// else{
-		// 	log("ship.angle not exist")
+		// else if(p.angle < 50){
+		// 	ship.setAngleSpeed(-360);
 		// }
-		// p = polar(ship)
-		// if(i == 0){
-		// 	log(ship.angle)
-		// 	log(p.angle)
-		// }
-		// ship.setAngleSpeed(360)
-		if(p.angle > 50){
-			ship.setAngleSpeed(360);
-		}
-		else if(p.angle < 50){
-			ship.setAngleSpeed(-360);
-		}
 		// log(JSON.stringify(myShips[i]))
 		// myShips[i].name = "a"
 	};

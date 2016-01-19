@@ -13,6 +13,7 @@ public class Score : MonoBehaviour {
 		{
 			foreach (Fleet fleet in team.fleets)
 			{
+				Debug.Log (fleet);
 				CreateScoreInfo(fleet);
 			}
 		}
