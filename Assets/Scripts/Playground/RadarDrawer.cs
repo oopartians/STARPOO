@@ -24,5 +24,9 @@ public class RadarDrawer : MonoBehaviour {
         halo.color = ship.fleet.team.color;
 
 	}
+
+	void Update(){
+		transform.rotation = Quaternion.identity;
+	}
 	
 }
