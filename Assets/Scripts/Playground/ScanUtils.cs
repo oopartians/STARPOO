@@ -5,7 +5,7 @@ public static class ScanUtils {
 
     public static bool IsVisible(Team team)
     {
-        return Match.myTeam.Contains(team) || Match.myTeam.Count == 0;
+        return Match.myTeam.Contains(team) || Match.myTeam.Count == 0 || Match.myTeam.Count == Match.teams.Count;
     }
 
     public static void ChangeLayersRecursively(this Transform trans, string name)
