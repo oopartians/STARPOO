@@ -15,6 +15,17 @@ public class Chat : MonoBehaviour {
         AddMessage(message);
     }
 
+
+    public void AddMessage(string m)
+    {
+        if (chatText.text.Length > 0)
+        {
+            chatText.text += "\n";
+        }
+        string m2 = m.Replace(Convert.ToChar(0x0).ToString(), "");
+        chatText.text += m2;
+    }
+
     void Start()
     {
         Client.instance.onMessageReceived.Add(OnMessageReceived);
@@ -26,15 +37,6 @@ public class Chat : MonoBehaviour {
         {
             AddMessage(m.message);
         }
-    }
-
-    void AddMessage(string m)
-    {
-        if (chatText.text.Length > 0) {
-            chatText.text += "\n";
-        }
-        string m2 = m.Replace(Convert.ToChar(0x0).ToString(), "");
-        chatText.text += m2;
     }
 
 

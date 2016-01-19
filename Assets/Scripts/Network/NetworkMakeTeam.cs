@@ -11,6 +11,8 @@ public class NetworkMakeTeam : MonoBehaviour {
 	public Text textGroundSize;
 	public Text textShipsPerFleet;
 
+    public Chat chat;
+
 
 	public void ChangeGroundSize(string groundSize){
 		if(NetworkValues.isServer){
@@ -70,7 +72,7 @@ public class NetworkMakeTeam : MonoBehaviour {
         if(NetworkValues.isServer)
             Server.instance.onMessageReceived.Add(SendMessagesToNewbie);
         else
-            Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.NEWBIE));
+            Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.NEWBIE,NetworkValues.name));
 	}
 
     void OnMessageReceived(NetworkDecorator.NetworkMessage m)
@@ -105,7 +107,13 @@ public class NetworkMakeTeam : MonoBehaviour {
 				break;
 			case NetworkHeader.CHANGESHIPSPERFLEET:
 				ChangeShipsPerFleet(m.message);
-				break;
+                break;
+            case NetworkHeader.NEWBIE:
+                chat.AddMessage("<color='#ffff00'>" + m.message + " entered" + "</color>");
+                break;
+            case NetworkHeader.ClOSE:
+                chat.AddMessage("<color='#ff0000'>" + m.message + " gone.." + "</color>");
+                break;
         }
     }
 

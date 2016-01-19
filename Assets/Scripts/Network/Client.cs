@@ -107,7 +107,7 @@ public class Client {
     public void Close()
     {
         Debug.Log("close client");
-        Send(NetworkDecorator.AttachHeader(NetworkHeader.ClOSE));
+        Send(NetworkDecorator.AttachHeader(NetworkHeader.ClOSE,NetworkValues.name));
         NetworkValues.isNetwork = false;
         client.GetStream().Close();
         client.Close();
