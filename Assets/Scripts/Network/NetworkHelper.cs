@@ -8,13 +8,13 @@ public class NetworkHelper : MonoBehaviour {
     {
         Server.instance.Start();
         Client.instance.Connect("127.0.0.1");
-        SceneManager.LoadScene("MakeTeam");
+		ScreenFader.MoveSceneGlobal("MakeTeam");
     }
 
     public void Connect()
     {
         Client.instance.Connect();
-        SceneManager.LoadScene("MakeTeam");
+		ScreenFader.MoveSceneGlobal("MakeTeam");
     }
 
     public void Close()

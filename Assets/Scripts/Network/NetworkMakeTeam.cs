@@ -103,7 +103,7 @@ public class NetworkMakeTeam : MonoBehaviour {
                 break;
             case NetworkHeader.ClOSESERVER:
                 Client.instance.Close();
-                SceneManager.LoadScene("SelectMode");
+			SceneManager.LoadScene("MainMenu");
 				break;
 			case NetworkHeader.CHANGEGROUNDSIZE:
 				ChangeGroundSize(m.message);

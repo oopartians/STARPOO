@@ -52,7 +52,7 @@ public class NetworkPlayground : MonoBehaviour {
         {
             case NetworkHeader.ClOSESERVER:
                 Client.instance.Close();
-                SceneManager.LoadScene("SelectMode");
+                SceneManager.LoadScene("MainMenu");
                 break;
             case NetworkHeader.ACCEPTTICK:
                 NetworkValues.acceptedTick = int.Parse(m.message);
