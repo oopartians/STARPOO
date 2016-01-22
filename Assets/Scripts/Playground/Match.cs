@@ -72,12 +72,16 @@ public static class Match {
 			foreach (Fleet fleet in team.fleets) {
 				foreach (Ship ship in fleet.ships) {
 					tmpShips.Add (ship);
+					if(fleet.ships.Count <= 1 &&  ship.hp <= damage)
+						fleet.destroyedByTimePenalty = true;
 					break;
 				}
-				fleet.destroyedByTimePenalty = true;
+
 			}
 		}
 		foreach (Ship ship in tmpShips) {
+			if (ship.hp <= damage)
+				ship.destroyedByTimePenalty = true;
 			ship.Damage (damage);
 		}
 	}
