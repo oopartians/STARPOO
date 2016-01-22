@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Bullet : MonoBehaviour,IJSONExportable {
 	public static List<Bullet> list = new List<Bullet>();
 
-	public const float speed = 10;
+	public const float speed = 15;
 	public const float damage = 1;
 	public float angle;
 	public Fleet fleet;
