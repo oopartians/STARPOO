@@ -15,7 +15,8 @@ public class PlaygroundUpdater : MonoBehaviour {
 
 		foreach (Team team in Match.teams) {
 			foreach (Fleet fleet in team.fleets) {
-				    fleet.aiLoader.FixedUpdate2();
+				if(fleet == null) continue;
+			    fleet.aiLoader.FixedUpdate2();
 			}
 		}
 
@@ -24,6 +25,7 @@ public class PlaygroundUpdater : MonoBehaviour {
 		foreach (Team team in Match.teams) {
 			foreach (Fleet fleet in team.fleets) {
 				foreach (Ship ship in fleet.ships) {
+					if(ship == null) continue;
 					ship.FixedUpdate2();
 				}
 			}
