@@ -4,8 +4,12 @@ using System.Collections;
 
 public class TimeCounter : MonoBehaviour {
 	public Text timer;
+	public AudioSource source;
+	public AudioClip beep;
+	public AudioClip thunder;
+
 	public static float boringTime = 0;
-	private static float timeOver = 30;
+	private static float timeOver = 10;
 
 	static bool colorRed = false;
 
@@ -20,9 +24,19 @@ public class TimeCounter : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void FixedUpdate2 () {
+		
 		boringTime += Time.fixedDeltaTime;
-		timer.text = (timeOver - boringTime).ToString("00.00");
-		if(timeOver-boringTime < 3 && !colorRed){
+		float lastTime = timeOver-boringTime;
+		timer.text = (Mathf.Max(0,lastTime)).ToString("00.00");
+
+		if(Mathf.Floor(lastTime) != Mathf.Floor(lastTime + Time.fixedDeltaTime) && lastTime < 3){
+			if(lastTime > 0)
+				source.PlayOneShot(beep);
+			else
+				source.PlayOneShot(thunder);
+		}
+
+		if(lastTime < 3 && !colorRed){
 			if(!colorRed){
 				colorRed = true;
 				timer.color = red;

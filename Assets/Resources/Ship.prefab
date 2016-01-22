@@ -69,6 +69,7 @@ GameObject:
   - 96: {fileID: 9686326}
   - 114: {fileID: 11471860}
   - 114: {fileID: 11452454}
+  - 114: {fileID: 11472850}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -697,6 +698,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8870112c88760e54393b36a27d6f5b0a, type: 3}
   shoot:
   - {fileID: 8300000, guid: 354020f9a2ce21a42824fb65b908a435, type: 3}
+--- !u!114 &11472850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81b70221d98da4d8d989b219afec6fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eff: {fileID: 196664}
 --- !u!114 &11478024
 MonoBehaviour:
   m_ObjectHideFlags: 1

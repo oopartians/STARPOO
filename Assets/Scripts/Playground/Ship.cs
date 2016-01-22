@@ -165,9 +165,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
         return transform.localPosition;
     }
 
-	public void ShowLightingEffect()
-	{
-		// LightingController lc = gameObject.transform.GetComponentsInChildren<LightingController> ();
-		// lc.ShowLightingEffect ();
+	void OnDestroy(){
+		GetComponentInChildren<LightningEffect>().gameObject.transform.SetParent(transform.parent);
 	}
 }

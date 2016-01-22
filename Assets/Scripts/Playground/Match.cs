@@ -72,8 +72,10 @@ public static class Match {
 			foreach (Fleet fleet in team.fleets) {
 				foreach (Ship ship in fleet.ships) {
 					tmpShips.Add (ship);
-					if (ship.hp <= damage)
+					if (ship.hp <= damage){
 						ship.destroyedByTimePenalty = true;
+						ship.gameObject.GetComponent<LightningEffect>().Show();
+					}
 					if (fleet.ships.Count <= 1) 
 						fleet.destroyedByTimePenalty = true;
 					break;
@@ -83,6 +85,7 @@ public static class Match {
 		}
 		foreach (Ship ship in tmpShips) {
 			ship.Damage (damage);
+			ship.gameObject.GetComponent<LightningEffect>().Show();
 		}
 	}
 
