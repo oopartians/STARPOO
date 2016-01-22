@@ -34,6 +34,8 @@ public class Ship : MonoBehaviour,IJSONExportable {
 	bool wantToShoot = false;
 	public ShipJSObject json;
 
+	Vector3 pushing;
+
     // Use this for initialization
     void Start () {
         hp = maxHp;
@@ -69,8 +71,6 @@ public class Ship : MonoBehaviour,IJSONExportable {
 			wantToShoot = false;
 		}
 
-		PushedByCrashedShips();
-
 		json.UpdateProperties ();
 		
 		exportableValues ["x"] = GetPos().x;
@@ -79,20 +79,26 @@ public class Ship : MonoBehaviour,IJSONExportable {
 		exportableValues ["hp"] = hp;
     }
 
-    void PushedByCrashedShips(){
+    public void ComputePushing(){
         var crashedShips = collider.crashedShips;
     	crashedShips.RemoveAll(item => item == null);
-		Vector3 pos = new Vector3(0,0,0);
-    	foreach(Ship ship in crashedShips){
-			pos.x += ship.GetPos().x;
-			pos.y += ship.GetPos().y;
-    	}
-		pos.x /= crashedShips.Count;
-		pos.y /= crashedShips.Count;
 
-		transform.localPosition = GetPos() + (GetPos() - pos).normalized * 0.1f;
-    	
+    	foreach(Ship ship in crashedShips){
+			pushing.x += ship.GetPos().x;
+			pushing.y += ship.GetPos().y;
+    	}
+		pushing.x /= crashedShips.Count;
+		pushing.y /= crashedShips.Count;
     }
+
+	public void ApplyPushing(){
+		transform.localPosition = GetPos() + (GetPos() - pushing).normalized * 0.05f;
+		pushing.x = 0;
+		pushing.y = 0;
+
+		exportableValues ["x"] = GetPos().x;
+		exportableValues ["y"] = GetPos().y;
+	}
 
 	void ShootBullet(){
 		if (ammo >= 1 && fireDelay <= 0) {

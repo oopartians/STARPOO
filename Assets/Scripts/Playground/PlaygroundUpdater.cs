@@ -30,6 +30,22 @@ public class PlaygroundUpdater : MonoBehaviour {
 				}
 			}
 		}
+		foreach (Team team in Match.teams) {
+			foreach (Fleet fleet in team.fleets) {
+				foreach (Ship ship in fleet.ships) {
+					if(ship == null) continue;
+					ship.ComputePushing();
+				}
+			}
+		}
+		foreach (Team team in Match.teams) {
+			foreach (Fleet fleet in team.fleets) {
+				foreach (Ship ship in fleet.ships) {
+					if(ship == null) continue;
+					ship.ApplyPushing();
+				}
+			}
+		}
 		foreach (Bullet bullet in Bullet.list) {
 			bullet.FixedUpdate2();
 		}
