@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof (LineRenderer))]
+[ExecuteInEditMode]
 public class LightingController : MonoBehaviour {
 	LineRenderer line;
 	// Use this for initialization
 	void Start () {
-		line = GetComponents<LineRenderer> ();
+		line = gameObject.GetComponent<LineRenderer> ();
 		line.enabled = false;
 	}
 	

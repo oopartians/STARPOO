@@ -5,7 +5,7 @@ using System.Collections;
 public class TimeCounter : MonoBehaviour {
 	public Text timer;
 	public static float boringTime = 0;
-	private static float timeOver = 30;
+	private static float timeOver = 10;
 
 	static bool colorRed = false;
 

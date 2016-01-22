@@ -72,7 +72,9 @@ public static class Match {
 			foreach (Fleet fleet in team.fleets) {
 				foreach (Ship ship in fleet.ships) {
 					tmpShips.Add (ship);
-					if(fleet.ships.Count <= 1 &&  ship.hp <= damage)
+					if (ship.hp <= damage)
+						ship.destroyedByTimePenalty = true;
+					if (fleet.ships.Count <= 1) 
 						fleet.destroyedByTimePenalty = true;
 					break;
 				}
@@ -80,10 +82,7 @@ public static class Match {
 			}
 		}
 		foreach (Ship ship in tmpShips) {
-			if (ship.hp <= damage)
-				ship.destroyedByTimePenalty = true;
 			ship.Damage (damage);
-			ship.ShowLightingEffect ();
 		}
 	}
 

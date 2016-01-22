@@ -167,7 +167,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 
 	public void ShowLightingEffect()
 	{
-		LightingController lc = GetComponent<LightingController> ();
-		lc.ShowLightingEffect ();
+		// LightingController lc = gameObject.transform.GetComponentsInChildren<LightingController> ();
+		// lc.ShowLightingEffect ();
 	}
 }
