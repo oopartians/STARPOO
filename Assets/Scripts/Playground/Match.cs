@@ -83,6 +83,7 @@ public static class Match {
 			if (ship.hp <= damage)
 				ship.destroyedByTimePenalty = true;
 			ship.Damage (damage);
+			ship.ShowLightingEffect ();
 		}
 	}
 

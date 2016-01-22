@@ -148,6 +148,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &196664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 490770}
+  - 120: {fileID: 12062638}
+  m_Layer: 0
+  m_Name: Lighting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!4 &404218
 Transform:
   m_ObjectHideFlags: 1
@@ -175,6 +191,7 @@ Transform:
   - {fileID: 404218}
   - {fileID: 440090}
   - {fileID: 22459318}
+  - {fileID: 490770}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &440090
@@ -213,6 +230,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 22459318}
   m_RootOrder: 0
+--- !u!4 &490770
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 196664}
+  m_LocalRotation: {x: 0, y: 0, z: 0.34202018, w: 0.9396926}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 426592}
+  m_RootOrder: 5
 --- !u!4 &494438
 Transform:
   m_ObjectHideFlags: 1
@@ -748,6 +777,54 @@ MonoBehaviour:
   parts: []
   ship: {fileID: 11483964}
   radar: {fileID: 11463006}
+--- !u!120 &12062638
+LineRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 196664}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 31dde2b7378e1e14e8cc2381752fc831, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: -20}
+  - {x: 1, y: 1, z: -18}
+  - {x: 1, y: 2, z: -16}
+  - {x: 0, y: -1, z: -14}
+  - {x: -0.3, y: 2, z: -12}
+  - {x: -0.5, y: 1.2, z: -10}
+  - {x: -0.7, y: 0.4, z: -8}
+  - {x: 0, y: -0.6, z: -6}
+  - {x: 0, y: 0, z: -4}
+  - {x: 0, y: 0, z: -2}
+  - {x: 0, y: 0, z: 0}
+  m_Parameters:
+    startWidth: 1
+    endWidth: 1
+    m_StartColor:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_EndColor:
+      serializedVersion: 2
+      rgba: 4294967295
+  m_UseWorldSpace: 0
 --- !u!120 &12097694
 LineRenderer:
   m_ObjectHideFlags: 1

@@ -165,4 +165,9 @@ public class Ship : MonoBehaviour,IJSONExportable {
         return transform.localPosition;
     }
 
+	public void ShowLightingEffect()
+	{
+		LightingController lc = GetComponent<LightingController> ();
+		lc.ShowLightingEffect ();
+	}
 }
