@@ -9,7 +9,7 @@ public class TimeCounter : MonoBehaviour {
 	public AudioClip thunder;
 
 	public static float boringTime = 0;
-	private static float timeOver = 10;
+	private static float timeOver = 30;
 
 	static bool colorRed = false;
 
