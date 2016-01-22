@@ -650,15 +650,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 8287850}
   ah:
-  - {fileID: 8300000, guid: 5c242a59b1716f344b8499c533669caa, type: 3}
-  - {fileID: 8300000, guid: fd6ba9735d578f84787282e9821d7b78, type: 3}
-  - {fileID: 8300000, guid: e9fbfae92787cfc42b84e5fb00f3cbca, type: 3}
-  - {fileID: 8300000, guid: 985f9f8cd2e2c66408981f09538994e3, type: 3}
-  - {fileID: 8300000, guid: ea60bedc7135d204ab17121c7b6807bd, type: 3}
+  - {fileID: 8300000, guid: dc6cdc6f1f4d39b468e43829daa9c2a6, type: 3}
   die:
   - {fileID: 8300000, guid: 8870112c88760e54393b36a27d6f5b0a, type: 3}
   shoot:
-  - {fileID: 8300000, guid: 2051d0100436a3d4a91c7e97920a8b8c, type: 3}
+  - {fileID: 8300000, guid: 354020f9a2ce21a42824fb65b908a435, type: 3}
 --- !u!114 &11478024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -941,6 +937,14 @@ Prefab:
       propertyPath: source
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ah.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: dc6cdc6f1f4d39b468e43829daa9c2a6, type: 3}
+    - target: {fileID: 0}
+      propertyPath: shoot.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 354020f9a2ce21a42824fb65b908a435, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 133960}

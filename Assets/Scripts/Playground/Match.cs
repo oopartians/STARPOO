@@ -61,7 +61,7 @@ public static class Match {
             Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.GAMEOVER, NetworkValues.name));
         }
         isGameOver = true;
-        SceneManager.LoadScene("Score");
+        ScreenFader.MoveSceneGlobal("Score");
     }
 
 	public static void DamageToAllShips(float damage)

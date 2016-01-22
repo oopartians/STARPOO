@@ -19,7 +19,7 @@ public class ShipSoundPlayer : MonoBehaviour {
         if (shootTimer <= 0)
         {
             source.PlayOneShot(shoot[Random.Range(0, shoot.Length - 1)]);
-            shootTimer = 0.1f;
+            shootTimer = 0.2f;
         }
     }
 
@@ -30,7 +30,7 @@ public class ShipSoundPlayer : MonoBehaviour {
         {
             source.PlayOneShot(die[Random.Range(0, die.Length - 1)]);
             Destroy(source.gameObject,3);
-            dieTimer = 0.1f;
+            dieTimer = 0.2f;
         }
         else {
             Destroy(source.gameObject);

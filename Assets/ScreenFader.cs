@@ -12,10 +12,11 @@ public class ScreenFader : MonoBehaviour
     public float fadeDuration = 1.5f;
     public bool sceneStarting = true;
 	public Color color;
+    public AudioSource bgm;
 
 	Color startColor;
 	Color endColor;
-
+    float basicVolume;
 	float duration = 0;
 
     void Awake()
@@ -24,6 +25,8 @@ public class ScreenFader : MonoBehaviour
 		duration = 0;
 		FadeImg.gameObject.SetActive(sceneStarting);
 
+        if (bgm != null)
+            basicVolume = bgm.volume;
 		if(finalColor == Color.clear){
 			finalColor = color;
 		}
@@ -60,8 +63,12 @@ public class ScreenFader : MonoBehaviour
 
 		while(duration < fadeDuration){
 			Fade();
+            if(bgm != null)
+                bgm.volume = basicVolume * (1 - duration) / fadeDuration;
 			yield return null;
 		}
+        if(bgm != null)
+            bgm.volume = 0;
 		finalColor = color;
 		SceneManager.LoadScene(sceneName);
 

@@ -78,7 +78,7 @@ public class TeamListPannel : MonoBehaviour {
         {
             Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.START));
         }
-        SceneManager.LoadScene("Playground");
+        ScreenFader.MoveSceneGlobal("Playground");
 	}
 
 }

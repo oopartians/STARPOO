@@ -36,6 +36,8 @@ public class NetworkHelper : MonoBehaviour {
     public void SetName(string v)
     {
         NetworkValues.name = v;
+
+        PlayerPrefs.SetString("name", v);
     }
 
     public void SetIp(string v)

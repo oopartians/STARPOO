@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour {
 	public float farClipZ = 7;
 
 	Camera cam;
+    bool clicked;
 	// Use this for initialization
 	void Start () {
 		cam = GetComponent<Camera> ();
@@ -17,29 +18,22 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        transform.Translate(Vector3.forward * zoomSpeed * Input.GetAxis("Mouse ScrollWheel"));
+        cam.farClipPlane = -transform.localPosition.z + farClipZ;
 		//if (Input.GetAxis ("Mouse ScrollWheel") > 0) {
 			//transform.Translate(Vector3.forward*zoomSpeed);
 			//cam.farClipPlane = -transform.localPosition.z + farClipZ;
-            cam.orthographicSize += Input.GetAxis("Mouse ScrollWheel");
+            //cam.orthographicSize += Input.GetAxis("Mouse ScrollWheel");
 		//} else if (Input.GetAxis ("Mouse ScrollWheel") < 0) {
 			//transform.Translate(Vector3.back*zoomSpeed);
             //cam.farClipPlane = -transform.localPosition.z + farClipZ;
-            cam.orthographicSize += Input.GetAxis("Mouse ScrollWheel");
        // }
         cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel")*zoomSpeed;
 
-
-		if (Input.GetKey (KeyCode.RightArrow)) {
-			transform.Translate(Vector3.right * moveSpeed);
-		}
-		if (Input.GetKey (KeyCode.LeftArrow)) {
-			transform.Translate(Vector3.left * moveSpeed);
-		}
-		if (Input.GetKey (KeyCode.UpArrow)) {
-			transform.Translate(Vector3.up * moveSpeed);
-		}
-		if (Input.GetKey (KeyCode.DownArrow)) {
-			transform.Translate(Vector3.down * moveSpeed);
-		}
+        if (Input.GetMouseButton(0))
+        {
+            transform.Translate(Vector3.left * Input.GetAxis("Mouse X"));
+            transform.Translate(Vector3.down * Input.GetAxis("Mouse Y"));
+        }
 	}
 }
