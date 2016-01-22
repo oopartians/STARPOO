@@ -13,6 +13,7 @@ GameObject:
   - 58: {fileID: 5870006}
   - 114: {fileID: 11415326}
   - 96: {fileID: 9668512}
+  - 114: {fileID: 11432572}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -184,6 +185,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cb1b185ac995f49a501d1e9e8e83ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11432572
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 465b17feb7e7d483799ff81567f96d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 197546, guid: a7742482221f444a2b98df6314daea7e, type: 2}
 --- !u!114 &11436578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,6 +275,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 197546, guid: a7742482221f444a2b98df6314daea7e, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Autodestruct
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

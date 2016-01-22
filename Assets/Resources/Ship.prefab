@@ -68,6 +68,7 @@ GameObject:
   - 114: {fileID: 11408156}
   - 96: {fileID: 9686326}
   - 114: {fileID: 11471860}
+  - 114: {fileID: 11452454}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -624,6 +625,18 @@ MonoBehaviour:
   mainObject: {fileID: 133960}
   ship: {fileID: 11483964}
   crashedShips: []
+--- !u!114 &11452454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 465b17feb7e7d483799ff81567f96d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 121912, guid: 28dbc0e87446d4901ac8bb8a35a3c992, type: 2}
 --- !u!114 &11463006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -945,6 +958,10 @@ Prefab:
       propertyPath: shoot.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 354020f9a2ce21a42824fb65b908a435, type: 3}
+    - target: {fileID: 0}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 121912, guid: 28dbc0e87446d4901ac8bb8a35a3c992, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 133960}
