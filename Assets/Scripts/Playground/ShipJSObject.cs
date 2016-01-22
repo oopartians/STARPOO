@@ -69,9 +69,9 @@ public class ShipJSObject : MonoBehaviour {
 		}
 		
 		[JSFunction(Name = "shoot")]
-		public void Shoot()
+		public bool Shoot()
 		{
-			ship.Shoot();
+			return ship.Shoot();
 		}
 		[JSFunction(Name = "setSpeed")]
 		public void SetSpeed(double speed)

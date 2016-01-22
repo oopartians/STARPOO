@@ -9,6 +9,10 @@ update 함수를 만듭니다. 이 함수는 매 고정시간마다 호출됩니
 상수
 dt : delta time(고정 0.02)
 groundRadius : 경기장 반지름
+shipMaxAmmo : 배의 최대 소지총알갯수
+shipMaxHp : 배의 최대 체력
+shipMaxSpeed : 배의 최대 속력
+shipMaxAngleSpeed: 배의 최대 회전속력
 
 ===========================================
 

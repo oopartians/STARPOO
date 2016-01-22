@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.Translate(Vector3.forward * zoomSpeed * Input.GetAxis("Mouse ScrollWheel"));
-        cam.farClipPlane = -transform.localPosition.z + farClipZ;
+//        cam.farClipPlane = -transform.localPosition.z + farClipZ + 1000;
 		//if (Input.GetAxis ("Mouse ScrollWheel") > 0) {
 			//transform.Translate(Vector3.forward*zoomSpeed);
 			//cam.farClipPlane = -transform.localPosition.z + farClipZ;

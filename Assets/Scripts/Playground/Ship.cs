@@ -5,16 +5,15 @@ using System.Collections.Generic;
 public class Ship : MonoBehaviour,IJSONExportable {
     public ShipSoundPlayer sfx;
 
-    public const float hitRange = 1;
+//    public const float hitRange = 1;
     public const float maxSpeed = 5;
     public const float maxAngleSpeed = 360;
-    public const float maxHp = 3;
-    public const float raderRadius = 10;
-    public const float raderAngle = 120;
-    public const float maxAmmo = 5;
+    public const float maxHp = 5;
+//    public const float raderRadius = 10;
+//    public const float raderAngle = 120;
+    public const float maxAmmo = 10;
     public const float fireFrequency = 2;
-    public const float reloadFrequency = 0.3f;
-
+    public const float reloadFrequency = 0.2f;
 
     public float hp = maxHp;
     public float angle = 0;
@@ -118,8 +117,12 @@ public class Ship : MonoBehaviour,IJSONExportable {
 
 	}
 
-	public void Shoot(){
-		wantToShoot = true;
+	public bool Shoot(){
+		if (ammo >= 1 && fireDelay <= 0) {
+			wantToShoot = true;
+			return true;
+		}
+		return false;
 	}
 	
 	public void SetAngleSpeed(float aAngleSpeed){

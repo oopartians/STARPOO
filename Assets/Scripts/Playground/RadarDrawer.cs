@@ -26,7 +26,6 @@ public class RadarDrawer : MonoBehaviour {
 
         transform.localScale = Vector3.one * radar.radarRadius * 2;
         renderer.enabled = true;
-
 	}
 
 	void Update(){

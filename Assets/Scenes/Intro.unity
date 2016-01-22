@@ -1971,6 +1971,7 @@ MonoBehaviour:
   fadeDuration: 0.7
   sceneStarting: 0
   color: {r: 1, g: 1, b: 1, a: 1}
+  bgm: {fileID: 0}
 --- !u!224 &325347760
 RectTransform:
   m_ObjectHideFlags: 0
