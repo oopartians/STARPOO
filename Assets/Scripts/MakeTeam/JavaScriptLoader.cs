@@ -7,8 +7,23 @@ public class JavaScriptLoader : MonoBehaviour
 {
     public int javascriptCount;
 
+	public void Reload(){
+		DeleleteChildren();
+		AttachPannels();
+	}
+
 	// Use this for initialization
 	void Start () {
+		AttachPannels();
+	}
+
+	void DeleleteChildren(){
+		foreach(Transform child in transform){
+			Destroy(child.gameObject);
+		}
+	}
+
+	void AttachPannels(){
 		string[] javascriptPaths = LoadJavascripts ();
 
 		foreach (string path in javascriptPaths) {
@@ -17,11 +32,11 @@ public class JavaScriptLoader : MonoBehaviour
 			scriptPannelObj.transform.localScale = Vector3.one;
 
 			var scriptPannel = scriptPannelObj.GetComponent<JavascriptPannel>();
-            scriptPannel.jsInfo.name = Path.GetFileNameWithoutExtension(path);
-            scriptPannel.jsInfo.code = File.ReadAllText(path);
-            scriptPannel.jsInfo.color = GoodColor.DequeueColor();
+			scriptPannel.jsInfo.name = Path.GetFileNameWithoutExtension(path);
+			scriptPannel.jsInfo.code = File.ReadAllText(path);
+			scriptPannel.jsInfo.color = GoodColor.DequeueColor();
 			scriptPannel.jsInfo.isMine = true;
-            scriptPannel.UpdateInfo();
+			scriptPannel.UpdateInfo();
 		}
 	}
 

@@ -5,6 +5,7 @@ public class GameValueSetter : MonoBehaviour {
 	
 	public static int groundSize = 60;
 	public static int numShipsPerFleet = 6;
+	public static bool paused = false;
 
 	
 	public void SetGroundSize(string size){
