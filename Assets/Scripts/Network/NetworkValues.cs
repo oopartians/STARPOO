@@ -3,7 +3,7 @@ using System.Collections;
 using System.Net;
 
 public static class NetworkValues {
-    public const int networkTickTerm = 10;
+    public const int networkTickTerm = 50;
 	public const int port = 55847;
     public static string ip = "127.0.0.1";
     public static bool isServer = false;
