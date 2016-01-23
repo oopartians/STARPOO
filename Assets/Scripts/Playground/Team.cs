@@ -12,7 +12,7 @@ public class Team : MonoBehaviour {
 	public float positionAngle;
 	public List<Fleet> fleets{get{return _fleets;}}
 	public TeamAIInformation aiInfor;
-    private int destroyedfleetcount = 0;
+    public int destroyedfleetcount = 0;
 	public bool destroyedByTimePenalty = false;
 
     List<Fleet> _fleets = new List<Fleet>();
@@ -34,6 +34,7 @@ public class Team : MonoBehaviour {
         {
 			if (fleet.destroyedByTimePenalty)
 				this.destroyedByTimePenalty = true;
+			Debug.Log ("Team destroyed Time Penalty : True");
             Match.ReportDestroy(fleet.team);
         }
     }
