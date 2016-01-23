@@ -19,6 +19,7 @@ public class TimeCounter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		boringTime = 0;
 		timer.color = gray;
 	}
 	
