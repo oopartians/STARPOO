@@ -12,7 +12,7 @@ public class PlaygroundUpdater : MonoBehaviour {
 
 	void FixedUpdate(){
 		if(!NetworkValues.isNetwork && GameValueSetter.paused) return;
-		if(NetworkValues.currentTick >= NetworkValues.acceptedTick && NetworkValues.isNetwork) return;
+		//if(NetworkValues.currentTick >= NetworkValues.acceptedTick && NetworkValues.isNetwork) return;
 
 		foreach (Team team in Match.teams) {
 			foreach (Fleet fleet in team.fleets) {
@@ -52,7 +52,7 @@ public class PlaygroundUpdater : MonoBehaviour {
 		}
 
 		timeCounter.FixedUpdate2();
-
+		/*
 		++NetworkValues.currentTick;
 
         if (NetworkValues.isNetwork)
@@ -62,6 +62,6 @@ public class PlaygroundUpdater : MonoBehaviour {
                 NetworkValues.requestedTick = NetworkValues.acceptedTick + NetworkValues.networkTickTerm;
                 Client.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.REQUESTTICK, (NetworkValues.requestedTick).ToString()));
             }
-        }
+        }*/
 	}
 }

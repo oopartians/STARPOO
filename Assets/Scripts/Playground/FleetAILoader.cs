@@ -113,7 +113,7 @@ public class FleetAILoader : MonoBehaviour {
 	}
 
 	public double Random(){
-		return randoms[randomI++];
+		return randoms[randomI++%randoms.Length];
 	}
 	public double Cos(double v){
 		return (double)Mathf.Cos (Mathf.Deg2Rad * (float)v);
