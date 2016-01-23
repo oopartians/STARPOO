@@ -11,7 +11,7 @@ public class PauseMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(!NetworkValues.isNetwork){
-			if(Input.GetKeyDown(KeyCode.Escape)){
+			if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab)){
 				if(!GameValueSetter.paused){
 					GameValueSetter.paused = true;
 					pauseMenu.SetActive(true);

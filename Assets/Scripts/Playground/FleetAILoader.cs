@@ -82,6 +82,7 @@ public class FleetAILoader : MonoBehaviour {
 		engine.SetGlobalValue("shipMaxHp", engine.Number.Construct((double)Ship.maxHp));
 		engine.SetGlobalValue("shipMaxSpeed", engine.Number.Construct((double)Ship.maxSpeed));
 		engine.SetGlobalValue("shipMaxAngleSpeed", engine.Number.Construct((double)Ship.maxAngleSpeed));
+		engine.SetGlobalValue("bulletSpeed", engine.Number.Construct((double)Bullet.speed));
 		
 		// Examples of exposing some .NET methods with return values to JavaScript.
 		// The generic System.Func delegate is used to define method signatures with return types;
