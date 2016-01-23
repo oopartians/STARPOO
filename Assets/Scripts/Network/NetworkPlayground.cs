@@ -20,7 +20,7 @@ public class NetworkPlayground : MonoBehaviour {
                 numRequest++;
                 if (numRequest >= Server.instance.GetNumClients() && NetworkValues.requestedTick > NetworkValues.acceptedTick)
                 {
-                    Server.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.ACCEPTTICK, NetworkValues.requestedTick.ToString()));
+					Server.instance.Send(NetworkDecorator.AttachHeader(NetworkHeader.ACCEPTTICK, m.message));
                     numRequest = 0;
                 }
                 break;

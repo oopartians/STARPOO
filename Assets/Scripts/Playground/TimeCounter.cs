@@ -49,7 +49,7 @@ public class TimeCounter : MonoBehaviour {
 		}
 		if (boringTime > timeOver) {
 			Match.DamageToAllShips (1);
-			TimeCounter.ReSetBoringTime (0.3f);
+			TimeCounter.ReSetBoringTime (0.05f);
 		}
 	}
 
