@@ -25,6 +25,7 @@ public class Fleet : MonoBehaviour {
 		if (ships.Count == 0) {
 			if (ship.destroyedByTimePenalty)
 				this.destroyedByTimePenalty = true;
+			Debug.Log ("Fleet destroyed Time Penalty : True");
 			team.ReportDestroy(this);
             if (aiLoader.isMine && NetworkValues.isNetwork && Match.myTeam.Count == 1)
             {

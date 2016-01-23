@@ -75,9 +75,12 @@ public static class Match {
 					if (ship.hp <= damage){
 						ship.destroyedByTimePenalty = true;
 						ship.gameObject.GetComponent<LightningEffect>().Show();
+						if (fleet.ships.Count <= 1) {
+							fleet.destroyedByTimePenalty = true;
+							if (fleet.team.fleets.Count == fleet.team.destroyedfleetcount + 1)
+								fleet.team.destroyedByTimePenalty = true;
+						}
 					}
-					if (fleet.ships.Count <= 1) 
-						fleet.destroyedByTimePenalty = true;
 					break;
 				}
 
