@@ -76,9 +76,6 @@ public class Client {
                 }
                 byte[] buffer = ms.ToArray();
 
-
-
-
                 // byte[] buffer = new Byte[client.ReceiveBufferSize+1];
                 // stream.Read(buffer, 0, buffer.Length);
                 var message = System.Text.Encoding.UTF8.GetString(buffer, 0, buffer.Length);

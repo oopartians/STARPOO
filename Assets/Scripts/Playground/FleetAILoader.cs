@@ -162,7 +162,6 @@ public class FleetAILoader : MonoBehaviour {
 		ObjectInstance ret = engine.Object.Construct();
 		if(center == null){
 			var angle = Mathf.Atan2(y,x)*Mathf.Rad2Deg;
-			Debug.Log(angle);
 			angle %= 360;
 			var r = Vector2.Distance(new Vector2(x,y),Vector2.zero);
 			ret["r"] = (double)r;

@@ -87,8 +87,6 @@ public class Server
                     }
                     byte[] buffer = ms.ToArray();
 
-
-
                     // byte[] buffer = new Byte[client.ReceiveBufferSize];
                     // stream.Read(buffer, 0, (int)client.ReceiveBufferSize);
                     var message = System.Text.Encoding.UTF8.GetString(buffer);
