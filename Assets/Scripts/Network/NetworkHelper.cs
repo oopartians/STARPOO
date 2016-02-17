@@ -36,7 +36,6 @@ public class NetworkHelper : MonoBehaviour {
     public void SetName(string v)
     {
         NetworkValues.name = v;
-
         PlayerPrefs.SetString("name", v);
     }
 
@@ -61,5 +60,10 @@ public class NetworkHelper : MonoBehaviour {
     {
         Close();
     }
-
+    
+    void Start(){
+        if(NetworkValues.name == null){
+            SetName(PlayerPrefs.GetString("name",""));
+        }
+    }
 }
