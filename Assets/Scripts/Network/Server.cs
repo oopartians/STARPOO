@@ -21,6 +21,7 @@ public class Server
 		}
 	}
     static Server _instance;
+    string restMessage = "";
 
     TcpListener server;
     List<TcpClient> clients = new List<TcpClient>();
@@ -55,7 +56,7 @@ public class Server
     public void SendToCleint(TcpClient client, string message)
     {
         var stream = client.GetStream();
-        byte[] buffer = System.Text.Encoding.UTF8.GetBytes("뷁"+message);
+        byte[] buffer = System.Text.Encoding.UTF8.GetBytes("뷁"+message+"끊");
         stream.Write(buffer, 0, buffer.Length);
     }
 
@@ -71,48 +72,37 @@ public class Server
             var stream = client.GetStream();
             if (stream.DataAvailable)
             {
-                using (var ms = new MemoryStream())
+                byte[] buffer = NetworkStreamReader.Read(stream,client.ReceiveBufferSize);
+                
+                Mirroring(client, buffer);
+                
+                var message = restMessage + System.Text.Encoding.UTF8.GetString(buffer);
+                restMessage = "";
+                string[] messages = message.Split('뷁');
+                
+                for (int i = 1; i < messages.Length; ++i)
                 {
-                    byte[] part = new byte[client.ReceiveBufferSize];
-                    int bytesRead;
-                    int readed = 0;
-
-                    while((bytesRead = stream.Read(part, 0, part.Length)) > 0)
-                    {
-                        ms.Write(part, 0, bytesRead);
-                        readed += bytesRead;
-                        if(part.Length > bytesRead){
-                            break;
-                        }
+                    string msgRaw = messages[i];
+                    string[] msgs = msgRaw.Split('끊');
+                    
+                    if (msgs.Length == 1){
+                        restMessage = msgs[0];
+                        continue;
                     }
-                    byte[] buffer = ms.ToArray();
-
-                    // byte[] buffer = new Byte[client.ReceiveBufferSize];
-                    // stream.Read(buffer, 0, (int)client.ReceiveBufferSize);
-                    var message = System.Text.Encoding.UTF8.GetString(buffer);
-
-                    Mirroring(client, buffer);
-
-                    //Debug.Log("Mirroring : " + message);
-
-                    string[] messages = message.Split('뷁');
-                    foreach (string msg in messages)
+                    string msg = msgs[0];
+                    
+                    if (msg.Length == 0)
+                        continue;
+                    if (msg.Length == 0) continue;
+                    foreach (OnMessageReceived fn in onMessageReceived)
                     {
-                        //string msg2 = msg.Replace(Convert.ToChar(0x0).ToString(), "");
-                        if (msg.Length == 0) continue;
-                        foreach (OnMessageReceived fn in onMessageReceived)
+                        NetworkDecorator.NetworkMessage m = NetworkDecorator.StringToMessage(msg);
+                        fn(client, m);
+                        if (m.header == NetworkHeader.ClOSE)
                         {
-                            NetworkDecorator.NetworkMessage m = NetworkDecorator.StringToMessage(msg);
-                            fn(client, m);
-                            if (m.header == NetworkHeader.ClOSE)
-                            {
-                                removingClients.Add(client);
-                            }
+                            removingClients.Add(client);
                         }
                     }
-
-
-
                 }
             }
         }

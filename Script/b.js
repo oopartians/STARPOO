@@ -1,13 +1,13 @@
-function getCenter(arr){
+function getCenter(){
 	var x = 0;
 	var y = 0;
-	for (var i = arr.length - 1; i >= 0; i--) {
-		var ship = arr[i];
+	for (var i = myShips.length - 1; i >= 0; i--) {
+		var ship = myShips[i];
 		x += ship.x;
 		y += ship.y;
 	}
-	x /= arr.length;
-	y /= arr.length;
+	x /= myShips.length;
+	y /= myShips.length;
 	return {x:x,y:y};
 }
 
