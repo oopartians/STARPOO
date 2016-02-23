@@ -21,6 +21,7 @@ public class Server
 		}
 	}
     static Server _instance;
+    string restMessage = "";
 
     TcpListener server;
     List<TcpClient> clients = new List<TcpClient>();
@@ -55,7 +56,7 @@ public class Server
     public void SendToCleint(TcpClient client, string message)
     {
         var stream = client.GetStream();
-        byte[] buffer = System.Text.Encoding.UTF8.GetBytes("뷁"+message);
+        byte[] buffer = System.Text.Encoding.UTF8.GetBytes("뷁"+message+"끊");
         stream.Write(buffer, 0, buffer.Length);
     }
 
@@ -75,11 +76,23 @@ public class Server
                 
                 Mirroring(client, buffer);
                 
-                var message = System.Text.Encoding.UTF8.GetString(buffer);
+                var message = restMessage + System.Text.Encoding.UTF8.GetString(buffer);
+                restMessage = "";
                 string[] messages = message.Split('뷁');
                 
-                foreach (string msg in messages)
+                for (int i = 1; i < messages.Length; ++i)
                 {
+                    string msgRaw = messages[i];
+                    string[] msgs = msgRaw.Split('끊');
+                    
+                    if (msgs.Length == 1){
+                        restMessage = msgs[0];
+                        continue;
+                    }
+                    string msg = msgs[0];
+                    
+                    if (msg.Length == 0)
+                        continue;
                     if (msg.Length == 0) continue;
                     foreach (OnMessageReceived fn in onMessageReceived)
                     {
