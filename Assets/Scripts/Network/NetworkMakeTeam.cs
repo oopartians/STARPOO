@@ -99,7 +99,7 @@ public class NetworkMakeTeam : MonoBehaviour {
                 break;
             case NetworkHeader.START:
 				teamList.GetComponent<TeamListPannel>().Complete();
-                SceneManager.LoadScene("Playground");
+                ScreenFader.MoveSceneGlobal("Playground");
                 break;
             case NetworkHeader.ClOSESERVER:
                 Client.instance.Close();

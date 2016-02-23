@@ -34,12 +34,16 @@ public class Fleet : MonoBehaviour {
 		}
 		TimeCounter.ReSetBoringTime();
 	}
-	
-	public HashSet<Ship> ships = new HashSet<Ship>();
 
-	void Start(){
+    public List<Ship> ships = new List<Ship>();
+
+	public void FixedStart(){
 		MakeShips ();
 		aiLoader.Ready();
+
+        foreach(var ship in ships){
+            ship.FixedStart();
+        }
 	}
 
 

@@ -16,6 +16,7 @@ public class Scannable : MonoBehaviour {
     {
         if(!GameValueSetter.fogmode){
             ScanUtils.ChangeLayersRecursively(transform, "Scanned");
+            return;
         }
         scanCount += v;
 

@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 
 	bool destroyed = false;
 
-	void Start () {
+	public void FixedStart () {
 		exportableValues.Add("x",transform.localPosition.x);
 		exportableValues.Add("y",transform.localPosition.y);
 		exportableValues.Add("angle",angle);
@@ -78,11 +78,18 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 				team.aiInfor.scannedBullets.Remove(this);
 			}
 		}
-		destroyed = true;
+        destroyed = true;
+        list.Remove(this);
 		Destroy (gameObject);
 	}
 
-	void OnDestroy(){
-		list.Remove(this);
-	}
+    void OnDestroy()
+    {
+        if(list.Contains(this)){
+            
+            list.Remove(this);
+        }
+        
+    }
+
 }

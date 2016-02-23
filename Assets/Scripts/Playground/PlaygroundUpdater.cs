@@ -7,11 +7,13 @@ public class PlaygroundUpdater : MonoBehaviour {
 	public TimeCounter timeCounter;
 	public Console console;
 
-	void Start(){
-	}
+    bool playing = false;
+    public void Go(){
+        playing = true;
+    }
 
 	void FixedUpdate(){
-		if(!NetworkValues.isNetwork && GameValueSetter.paused) return;
+        if (!NetworkValues.isNetwork && GameValueSetter.paused && !playing) return;
 		//if(NetworkValues.currentTick >= NetworkValues.acceptedTick && NetworkValues.isNetwork) return;
 
 		foreach (Team team in Match.teams) {
@@ -52,9 +54,8 @@ public class PlaygroundUpdater : MonoBehaviour {
 		}
 
 		timeCounter.FixedUpdate2();
+        ++NetworkValues.currentTick;
 		/*
-		++NetworkValues.currentTick;
-
         if (NetworkValues.isNetwork)
         {
             if (NetworkValues.currentTick + NetworkValues.networkTickTerm >= NetworkValues.acceptedTick && NetworkValues.requestedTick <= NetworkValues.acceptedTick)

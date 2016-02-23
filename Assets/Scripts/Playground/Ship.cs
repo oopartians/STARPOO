@@ -37,7 +37,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 	Vector3 pushing;
 
     // Use this for initialization
-    void Start () {
+    public void FixedStart () {
         hp = maxHp;
         ammo = maxAmmo;
 		json.UpdateProperties ();
@@ -109,8 +109,10 @@ public class Ship : MonoBehaviour,IJSONExportable {
 			var p = GameObject.Find("Bullets");
 			bullet.transform.SetParent(p.transform);
 			bullet.transform.localPosition = transform.localPosition + (transform.localRotation * Vector3.right * 1);
-			bullet.GetComponent<Bullet>().angle = angle;
-			bullet.GetComponent<Bullet>().fleet = fleet;
+            bullet.GetComponent<Bullet>().angle = angle;
+            bullet.GetComponent<Bullet>().fleet = fleet;
+            bullet.GetComponent<Bullet>().FixedStart();
+            
 
             if (ScanUtils.NeedScanning(fleet.team))
             {
@@ -123,7 +125,8 @@ public class Ship : MonoBehaviour,IJSONExportable {
 
 	}
 
-	public bool Shoot(){
+    public bool Shoot()
+    {
 		if (ammo >= 1 && fireDelay <= 0) {
 			wantToShoot = true;
 			return true;
@@ -149,6 +152,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 
             destroyed = true;
             Destroy(gameObject);
+            GetComponentInChildren<LightningEffect>().gameObject.transform.SetParent(transform.parent);
             if (!Match.isGameOver && fleet != null)
                 fleet.ReportDestroy(this);
             return;
@@ -164,8 +168,4 @@ public class Ship : MonoBehaviour,IJSONExportable {
     {
         return transform.localPosition;
     }
-
-	void OnDestroy(){
-		GetComponentInChildren<LightningEffect>().gameObject.transform.SetParent(transform.parent);
-	}
 }

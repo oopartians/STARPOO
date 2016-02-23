@@ -3138,6 +3138,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761e2f483d1d363499fa7f58d8cb6e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundSizeText: {fileID: 495580073}
+  numShipPerFleetText: {fileID: 1555912145}
+  groundSizeInput: {fileID: 1601953777}
+  numShipPerFleetInput: {fileID: 1823729875}
 --- !u!4 &1115232938
 Transform:
   m_ObjectHideFlags: 0

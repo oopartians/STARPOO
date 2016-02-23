@@ -79,8 +79,9 @@ public class Radar : MonoBehaviour {
 			
 		}
 	}
-	
-	void OnTriggerExit2D(Collider2D cd){
+
+    void OnTriggerExit2D(Collider2D cd)
+    {
 
 		switch (cd.tag)
 		{
@@ -115,7 +116,7 @@ public class Radar : MonoBehaviour {
 
 			var enemyShipCollider = cd.gameObject.GetComponent<ShipCollider>();
 			if (enemyShipCollider.ship.fleet.team != team)
-			{
+            {
 				var scannedEnemyShips = team.aiInfor.scannedEnemyShips;
 				if(scannedEnemyShips.ContainsKey(enemyShipCollider.ship)){
                     if (scannedEnemyShips[enemyShipCollider.ship] > 1)

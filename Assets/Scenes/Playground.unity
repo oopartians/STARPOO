@@ -1726,6 +1726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1055482666}
+  updator: {fileID: 787115374}
 --- !u!114 &1236467858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2824,11 +2825,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: ab13d6b9568a2964e8d03b5836cf3494, type: 3}
-    m_FontSize: 14
+    m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 1
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 42
     m_Alignment: 6
     m_AlignByGeometry: 0
     m_RichText: 0

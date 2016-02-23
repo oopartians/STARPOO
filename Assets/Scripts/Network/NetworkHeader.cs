@@ -20,4 +20,5 @@ public class NetworkHeader
     public const string REQUESTTICK = "Q";
     public const string CONSOLE = "L";
     public const string GAMEOVER = "V";
+    public const string RESTART = "@";
 }
