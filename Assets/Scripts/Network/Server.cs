@@ -71,48 +71,25 @@ public class Server
             var stream = client.GetStream();
             if (stream.DataAvailable)
             {
-                using (var ms = new MemoryStream())
+                byte[] buffer = NetworkStreamReader.Read(stream,client.ReceiveBufferSize);
+                
+                Mirroring(client, buffer);
+                
+                var message = System.Text.Encoding.UTF8.GetString(buffer);
+                string[] messages = message.Split('뷁');
+                
+                foreach (string msg in messages)
                 {
-                    byte[] part = new byte[client.ReceiveBufferSize];
-                    int bytesRead;
-                    int readed = 0;
-
-                    while((bytesRead = stream.Read(part, 0, part.Length)) > 0)
+                    if (msg.Length == 0) continue;
+                    foreach (OnMessageReceived fn in onMessageReceived)
                     {
-                        ms.Write(part, 0, bytesRead);
-                        readed += bytesRead;
-                        if(part.Length > bytesRead){
-                            break;
-                        }
-                    }
-                    byte[] buffer = ms.ToArray();
-
-                    // byte[] buffer = new Byte[client.ReceiveBufferSize];
-                    // stream.Read(buffer, 0, (int)client.ReceiveBufferSize);
-                    var message = System.Text.Encoding.UTF8.GetString(buffer);
-
-                    Mirroring(client, buffer);
-
-                    //Debug.Log("Mirroring : " + message);
-
-                    string[] messages = message.Split('뷁');
-                    foreach (string msg in messages)
-                    {
-                        //string msg2 = msg.Replace(Convert.ToChar(0x0).ToString(), "");
-                        if (msg.Length == 0) continue;
-                        foreach (OnMessageReceived fn in onMessageReceived)
+                        NetworkDecorator.NetworkMessage m = NetworkDecorator.StringToMessage(msg);
+                        fn(client, m);
+                        if (m.header == NetworkHeader.ClOSE)
                         {
-                            NetworkDecorator.NetworkMessage m = NetworkDecorator.StringToMessage(msg);
-                            fn(client, m);
-                            if (m.header == NetworkHeader.ClOSE)
-                            {
-                                removingClients.Add(client);
-                            }
+                            removingClients.Add(client);
                         }
                     }
-
-
-
                 }
             }
         }
