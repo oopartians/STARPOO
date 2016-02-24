@@ -79,7 +79,6 @@ public class Fleet : MonoBehaviour {
 		GameObject ship = (GameObject)Instantiate(Resources.Load("Ship"),Vector3.right * Random.Range(0,50),Quaternion.identity);
 		ship.GetComponent<Ship> ().fleet = this;
 		ship.name = shipName;
-		Debug.Log ("ship name : " + ship.name);
 		ships.Add (ship.GetComponent<Ship> ());
 		team.aiInfor.allyShips.Add(ship.GetComponent<Ship>());
 		return ship;

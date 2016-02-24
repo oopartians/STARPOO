@@ -15,7 +15,9 @@ public static class Match {
 		Cleaner.onCleanPermanently.AddListener(Init);
     }
 
-	public static void Init(){
+    public static void Init()
+    {
+        Debug.Log("init match");
         isGameOver = false;
 		namingNumber = 1;
 		CleanAllFleet ();
@@ -23,6 +25,7 @@ public static class Match {
 		loseTeams.Clear();
 		myTeam.Clear();
 	}
+
 
 	public static Team MakeTeam(string name = null){
 		if(name == null){
@@ -109,6 +112,7 @@ public static class Match {
 			foreach (Fleet fleet in team.fleets) {
 				GameObject.DestroyObject (fleet);
 			}
+            GameObject.DestroyObject(team);
 		}
 	}
 }

@@ -13,6 +13,8 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 	public Dictionary<string,double> exportableValues = new Dictionary<string,double> ();
 	public Dictionary<string,double> GetExportableValues(){return exportableValues;}
 
+    public Ship master;
+
 
 
 	bool destroyed = false;
@@ -46,6 +48,10 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 		switch (cd.tag) {
 	        case "Ship":
 		        Ship ship = cd.GetComponent<ShipCollider> ().ship;
+                if (ship == master)
+                {
+                    return;
+                }
                 Record.Damage(fleet,ship.fleet);
 		        if(ship.hp <= 1){
 			        Record.Kill(fleet,ship.fleet);

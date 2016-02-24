@@ -244,8 +244,6 @@ public class FleetAILoader : MonoBehaviour {
 	void ExcuteScript(){
 		if(!scriptExcuted){
 
-            Debug.Log("code=================");
-            Debug.Log(code);
             engine.Execute(code);
 			scriptExcuted = true;
 			return;

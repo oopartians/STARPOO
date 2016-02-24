@@ -17,7 +17,6 @@ public class Radar : MonoBehaviour {
         if (GetComponentInParent<Ship>().fleet != null)
         {
             team = GetComponentInParent<Ship>().fleet.team;
-            Debug.Log("TEAM!");
             circleCollider2D.enabled = true;
             circleCollider2D.radius = radarRadius;
         }

@@ -35,6 +35,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &126140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 474602}
+  - 114: {fileID: 11464044}
+  - 58: {fileID: 5877334}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Ship
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &129748
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,8 +62,6 @@ GameObject:
   - 4: {fileID: 494438}
   - 33: {fileID: 3386462}
   - 23: {fileID: 2398252}
-  - 58: {fileID: 5859648}
-  - 114: {fileID: 11448410}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Ship
@@ -70,6 +85,7 @@ GameObject:
   - 114: {fileID: 11471860}
   - 114: {fileID: 11452454}
   - 114: {fileID: 11472850}
+  - 58: {fileID: 5899334}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -172,11 +188,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146604}
   m_LocalRotation: {x: 0.5000001, y: 0.5, z: 0.5, w: 0.49999994}
-  m_LocalPosition: {x: 0.266, y: 0, z: 0}
+  m_LocalPosition: {x: 0.499, y: -0, z: -0}
   m_LocalScale: {x: 0.20787002, y: 0.015271012, z: 1}
   m_Children: []
   m_Father: {fileID: 426592}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &426592
 Transform:
   m_ObjectHideFlags: 1
@@ -187,6 +203,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 474602}
   - {fileID: 497754}
   - {fileID: 494438}
   - {fileID: 404218}
@@ -206,7 +223,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 426592}
-  m_RootOrder: 3
+  m_RootOrder: 4
+--- !u!4 &474602
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126140}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 426592}
+  m_RootOrder: 0
 --- !u!4 &484418
 Transform:
   m_ObjectHideFlags: 1
@@ -242,7 +271,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 426592}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!4 &494438
 Transform:
   m_ObjectHideFlags: 1
@@ -251,10 +280,10 @@ Transform:
   m_GameObject: {fileID: 129748}
   m_LocalRotation: {x: 0.5000001, y: 0.5, z: 0.5, w: 0.49999994}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.3, z: 1}
+  m_LocalScale: {x: 1.5, y: 0.3, z: 1.5}
   m_Children: []
   m_Father: {fileID: 426592}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &497754
 Transform:
   m_ObjectHideFlags: 1
@@ -266,7 +295,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 426592}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!23 &2317438
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -377,11 +406,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_IsKinematic: 1
+  m_GravityScale: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &5821200
 CircleCollider2D:
@@ -397,12 +426,12 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 15
---- !u!58 &5859648
+--- !u!58 &5877334
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129748}
+  m_GameObject: {fileID: 126140}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -410,7 +439,21 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.55
+  m_Radius: 0.8
+--- !u!58 &5899334
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133960}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.25
 --- !u!64 &6493730
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -641,20 +684,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535ee17adec6f4ebcbec8e5f6068686a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11448410
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b0b7acfd01eef44a8efe641f33efbd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainObject: {fileID: 133960}
-  ship: {fileID: 11483964}
-  crashedShips: []
 --- !u!114 &11452454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -680,6 +709,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radarRadius: 15
   circleCollider2D: {fileID: 5821200}
+--- !u!114 &11464044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0b7acfd01eef44a8efe641f33efbd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainObject: {fileID: 133960}
+  ship: {fileID: 11483964}
+  crashedShips: []
 --- !u!114 &11471860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -745,7 +788,7 @@ MonoBehaviour:
   ammo: 0
   fireDelay: 0
   fleet: {fileID: 0}
-  collider: {fileID: 11448410}
+  collider: {fileID: 11464044}
   hpBarDrawer: {fileID: 11494072}
   destroyedByTimePenalty: 0
   json: {fileID: 11427910}
@@ -927,7 +970,7 @@ RectTransform:
   - {fileID: 490390}
   - {fileID: 484418}
   m_Father: {fileID: 426592}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -950,7 +993,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Radius
-      value: 15
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: radarRadius
@@ -966,7 +1009,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_GravityScale

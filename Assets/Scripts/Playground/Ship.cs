@@ -83,9 +83,11 @@ public class Ship : MonoBehaviour,IJSONExportable {
         var crashedShips = collider.crashedShips;
     	crashedShips.RemoveAll(item => item == null);
 
+        var myPos = GetPos();
     	foreach(Ship ship in crashedShips){
-			pushing.x += ship.GetPos().x;
-			pushing.y += ship.GetPos().y;
+            float d = Vector3.Distance(myPos, ship.GetPos());
+			pushing.x += ship.GetPos().x/d;
+			pushing.y += ship.GetPos().y/d;
     	}
 		pushing.x /= crashedShips.Count;
 		pushing.y /= crashedShips.Count;
@@ -108,10 +110,13 @@ public class Ship : MonoBehaviour,IJSONExportable {
 			GameObject bullet = (GameObject)Instantiate(Resources.Load("Bullet"));
 			var p = GameObject.Find("Bullets");
 			bullet.transform.SetParent(p.transform);
-			bullet.transform.localPosition = transform.localPosition + (transform.localRotation * Vector3.right * 1);
-            bullet.GetComponent<Bullet>().angle = angle;
-            bullet.GetComponent<Bullet>().fleet = fleet;
-            bullet.GetComponent<Bullet>().FixedStart();
+            bullet.transform.localPosition = transform.localPosition;// +(transform.localRotation * Vector3.right * 1);
+
+            Bullet b = bullet.GetComponent<Bullet>();
+            b.angle = angle;
+            b.fleet = fleet;
+            b.FixedStart();
+            b.master = this;
             
 
             if (ScanUtils.NeedScanning(fleet.team))

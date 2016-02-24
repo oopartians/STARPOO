@@ -13,5 +13,6 @@ public class Cleaner : MonoBehaviour
         onClean.Invoke();
         onClean.RemoveAllListeners();
         onCleanPermanently.Invoke();
+        Match.Init();
 	}
 }

@@ -16,6 +16,8 @@ public class Score : MonoBehaviour {
 				CreateScoreInfo(fleet);
 			}
 		}
+
+
 	}
 	
 	// Update is called once per frame

@@ -37,7 +37,7 @@ public class PlaygroundUpdater : MonoBehaviour {
 			foreach (Fleet fleet in team.fleets) {
 				foreach (Ship ship in fleet.ships) {
 					if(ship == null) continue;
-					ship.ComputePushing();
+					//ship.ComputePushing();
 				}
 			}
 		}
@@ -45,7 +45,7 @@ public class PlaygroundUpdater : MonoBehaviour {
 			foreach (Fleet fleet in team.fleets) {
 				foreach (Ship ship in fleet.ships) {
 					if(ship == null) continue;
-					ship.ApplyPushing();
+					//ship.ApplyPushing();
 				}
 			}
 		}
