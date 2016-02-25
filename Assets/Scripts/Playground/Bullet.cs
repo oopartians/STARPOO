@@ -3,10 +3,25 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 
 public class Bullet : MonoBehaviour,IJSONExportable {
+	public static Queue<Bullet> readyQueue = new Queue<Bullet>();
 	public static List<Bullet> list = new List<Bullet>();
 
 	public const float speed = 15;
 	public const float damage = 1;
+    
+    public static void GoBullets(){
+        Debug.Log("GoBullets-------------------------------->");
+        while(readyQueue.Count > 0){
+            Bullet b = readyQueue.Dequeue();
+            b.FixedStart();
+            list.Add(b);
+        }
+        foreach (Bullet bullet in list) {
+			bullet.FixedUpdate2();
+		}
+        Debug.Log("GoBullets--------------------------------<");
+    }
+    
 	public float angle;
 	public Fleet fleet;
 	
@@ -14,20 +29,31 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 	public Dictionary<string,double> GetExportableValues(){return exportableValues;}
 
     public Ship master;
-
-
-
-	bool destroyed = false;
+    
+    bool started = false;
+    
+    public void Ready(){
+        Debug.Log("ready bullet");
+        readyQueue.Enqueue(this);
+    }
+    
+    public void Start(){
+        Debug.Log("bullet start");
+        started = true;
+    }
 
 	public void FixedStart () {
+        Debug.Log("bullet fixedstart");
 		exportableValues.Add("x",transform.localPosition.x);
 		exportableValues.Add("y",transform.localPosition.y);
 		exportableValues.Add("angle",angle);
 		exportableValues.Add("speed",speed);
+        GetComponent<Collider2D>().enabled = true;
 		list.Add(this);
 	}
 
 	public void FixedUpdate2 () {
+        
 		float dt = Time.deltaTime;
 
 		transform.localRotation = Quaternion.Euler (Vector3.forward * angle);
@@ -37,14 +63,7 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 		exportableValues["y"] = transform.localPosition.y;
 	}
 
-	void LateUpdate(){
-
-	}
-
 	void OnTriggerEnter2D(Collider2D cd){
-		if (destroyed) {
-			return;
-		}
 		switch (cd.tag) {
 	        case "Ship":
 		        Ship ship = cd.GetComponent<ShipCollider> ().ship;
@@ -67,10 +86,6 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 	}
 	
 	void OnTriggerExit2D(Collider2D cd){
-		if (destroyed)
-		{
-			return;
-		}
 		switch (cd.tag) {
 		case "Ground":
 			Die();
@@ -84,7 +99,9 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 				team.aiInfor.scannedBullets.Remove(this);
 			}
 		}
-        destroyed = true;
+        
+        GetComponent<Collider2D>().enabled = false;
+        
         list.Remove(this);
 		Destroy (gameObject);
 	}
@@ -92,10 +109,12 @@ public class Bullet : MonoBehaviour,IJSONExportable {
     void OnDestroy()
     {
         if(list.Contains(this)){
-            
             list.Remove(this);
         }
-        
+        if(readyQueue.Contains(this)){
+            Debug.Log("??????????");
+            readyQueue.Clear();
+        }
     }
 
 }

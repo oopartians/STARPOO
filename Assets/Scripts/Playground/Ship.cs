@@ -115,7 +115,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
             Bullet b = bullet.GetComponent<Bullet>();
             b.angle = angle;
             b.fleet = fleet;
-            b.FixedStart();
+            b.Ready();
             b.master = this;
             
 
@@ -154,6 +154,11 @@ public class Ship : MonoBehaviour,IJSONExportable {
         if (hp <= 0)
         {
             sfx.PlayDie();
+            
+            Collider2D[] cols = GetComponentsInChildren<Collider2D>();
+            for(int i = 0; i < cols.Length; ++i){
+                cols[i].enabled = false;
+            }
 
             destroyed = true;
             Destroy(gameObject);

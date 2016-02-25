@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ public class PlaygroundUpdater : MonoBehaviour {
 
     bool playing = false;
     public void Go(){
+        Bullet.readyQueue.Clear();
+        Bullet.list.Clear();
         playing = true;
     }
 
@@ -16,6 +19,8 @@ public class PlaygroundUpdater : MonoBehaviour {
         if (!NetworkValues.isNetwork && GameValueSetter.paused && !playing) return;
 		//if(NetworkValues.currentTick >= NetworkValues.acceptedTick && NetworkValues.isNetwork) return;
 
+        Bullet.GoBullets();
+        
 		foreach (Team team in Match.teams) {
 			foreach (Fleet fleet in team.fleets) {
 				if(fleet == null) continue;
@@ -49,9 +54,8 @@ public class PlaygroundUpdater : MonoBehaviour {
 				}
 			}
 		}
-		foreach (Bullet bullet in Bullet.list) {
-			bullet.FixedUpdate2();
-		}
+        
+		
 
 		timeCounter.FixedUpdate2();
         ++NetworkValues.currentTick;

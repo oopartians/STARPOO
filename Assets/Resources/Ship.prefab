@@ -439,7 +439,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.8
+  m_Radius: 0.7
 --- !u!58 &5899334
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -989,11 +989,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Radius
-      value: 0.7
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: radarRadius
