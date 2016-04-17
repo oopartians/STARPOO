@@ -5,10 +5,10 @@ using System.Collections;
 public class CubeColor : MonoBehaviour {
 
     public Color color;
-    public Renderer renderer;
+    //public Renderer renderer;
 	// Use this for initialization
 	void Start () {
-        renderer.sharedMaterial.color = color;
+        GetComponent<Renderer>().sharedMaterial.color = color;
 	}
 	
 }

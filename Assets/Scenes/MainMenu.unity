@@ -128,7 +128,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 24348491}
 --- !u!23 &24348491
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -174,6 +173,56 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 24348487}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &110967743
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 426592, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5069888, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5069888, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b849748ad35a265449e3ee13da9f5136, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &129393371
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,7 +266,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 129393375}
 --- !u!23 &129393375
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -579,7 +627,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 232843016}
 --- !u!23 &232843016
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -730,6 +777,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 10
   m_TargetDisplay: 0
@@ -810,7 +858,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 336841188}
 --- !u!23 &336841188
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1135,7 +1182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 365324509}
 --- !u!23 &365324509
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1345,7 +1391,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 497887851}
 --- !u!23 &497887851
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1501,7 +1546,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 584311118}
 --- !u!23 &584311118
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1590,7 +1634,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 632331352}
 --- !u!23 &632331352
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1836,7 +1879,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 634733552}
 --- !u!23 &634733552
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1925,7 +1967,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 824387599}
 --- !u!23 &824387599
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2014,7 +2055,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 833911492}
 --- !u!23 &833911492
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2103,7 +2143,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 948023730}
 --- !u!23 &948023730
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2253,7 +2292,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1084329443}
 --- !u!23 &1084329443
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2342,7 +2380,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1246152484}
 --- !u!23 &1246152484
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2504,7 +2541,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1284201167}
 --- !u!23 &1284201167
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2666,7 +2702,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1375909924}
 --- !u!23 &1375909924
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2755,7 +2790,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1414318202}
 --- !u!23 &1414318202
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2910,7 +2944,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1485088231}
 --- !u!23 &1485088231
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3026,6 +3059,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -3096,7 +3130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1527331636}
 --- !u!23 &1527331636
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4929,7 +4962,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1720168826}
 --- !u!23 &1720168826
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5018,7 +5050,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1745904521}
 --- !u!23 &1745904521
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5107,7 +5138,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1764958796}
 --- !u!23 &1764958796
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5317,7 +5347,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1848704322}
 --- !u!23 &1848704322
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5479,7 +5508,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1945229370}
 --- !u!23 &1945229370
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5568,7 +5596,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1949671342}
 --- !u!23 &1949671342
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5657,7 +5684,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 1953865895}
 --- !u!23 &1953865895
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5746,7 +5772,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 2029760309}
 --- !u!23 &2029760309
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5835,7 +5860,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 2088539260}
 --- !u!23 &2088539260
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5924,7 +5948,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  renderer: {fileID: 2120716019}
 --- !u!23 &2120716019
 MeshRenderer:
   m_ObjectHideFlags: 0

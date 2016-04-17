@@ -102,7 +102,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 404218}
   - 33: {fileID: 3310450}
-  - 65: {fileID: 6596168}
   - 23: {fileID: 2317438}
   m_Layer: 0
   m_Name: Cube
@@ -405,12 +404,12 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!58 &5821200
 CircleCollider2D:
@@ -432,28 +431,28 @@ CircleCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 126140}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 0.8
 --- !u!58 &5899334
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133960}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.25
+  m_Radius: 1
 --- !u!64 &6493730
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -466,18 +465,6 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &6596168
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 146604}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &8287850
 AudioSource:
   m_ObjectHideFlags: 1
@@ -707,6 +694,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46031470bac11b846aa04fa8889f81ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  number: 7
+  colNum: 0
   radarRadius: 15
   circleCollider2D: {fileID: 5821200}
 --- !u!114 &11464044
@@ -720,8 +709,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b0b7acfd01eef44a8efe641f33efbd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  number: -1
+  colNum: 0
   mainObject: {fileID: 133960}
   ship: {fileID: 11483964}
+  collider: {fileID: 5877334}
   crashedShips: []
 --- !u!114 &11471860
 MonoBehaviour:
@@ -781,6 +773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfx: {fileID: 11471860}
+  radar: {fileID: 11463006}
   hp: 0
   angle: 0
   speed: 0
@@ -789,9 +782,11 @@ MonoBehaviour:
   fireDelay: 0
   fleet: {fileID: 0}
   collider: {fileID: 11464044}
+  pushCollider: {fileID: 5899334}
   hpBarDrawer: {fileID: 11494072}
   destroyedByTimePenalty: 0
   json: {fileID: 11427910}
+  number: 6
 --- !u!114 &11494072
 MonoBehaviour:
   m_ObjectHideFlags: 1

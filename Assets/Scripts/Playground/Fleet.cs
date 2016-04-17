@@ -4,7 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class Fleet : MonoBehaviour {
+public class Fleet : MonoBehaviour
+{
+    public static int shipNumber = 0;
+
+
 	public GameObject shipPrefab;
 	public Color color;
 	public string jsName{set{
@@ -67,6 +71,7 @@ public class Fleet : MonoBehaviour {
 			float y = Mathf.Sin (rad) * (size + distance);
             ship.transform.position = new Vector2(x, y);
             ship.GetComponent<Ship>().angle = positionAngle - 180;
+            ship.GetComponent<Ship>().number = shipNumber++;
 
             if (ScanUtils.NeedScanning(team))
             {

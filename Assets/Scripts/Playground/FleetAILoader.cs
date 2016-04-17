@@ -236,8 +236,8 @@ public class FleetAILoader : MonoBehaviour {
 			return;
 		ExportMyShips ();
 		ExportCollectionToJS (teamAIInfo.allyShips, allyShipsJS);
-		ExportCollectionToJS (teamAIInfo.scannedEnemyShips.Keys, enemyShipsJS);
-		ExportCollectionToJS (teamAIInfo.scannedBullets.Keys, bulletsJS);
+		ExportCollectionToJS (teamAIInfo.scannedEnemyShips, enemyShipsJS);
+		ExportCollectionToJS (teamAIInfo.scannedBullets, bulletsJS);
 		ExcuteScript();
 	}
 	
@@ -255,27 +255,29 @@ public class FleetAILoader : MonoBehaviour {
 		if (myShipsJS.Length == fleet.ships.Count) {
 			return;
 		}
-		int i = 0;
 		myShipsJS.Length = (uint)fleet.ships.Count;
-		foreach (Ship ship in fleet.ships) {
-			myShipsJS[i++] = ship.GetComponent<ShipJSObject>().jsobj as ObjectInstance;
+		for (int i = 0; i < fleet.ships.Count; ++i) {
+            var ship = fleet.ships[i];
+			myShipsJS[i] = ship.GetComponent<ShipJSObject>().jsobj as ObjectInstance;
 		}
 	}
 	
-	void ExportCollectionToJS(ICollection<IJSONExportable> col, ArrayInstance arrjs){
+	void ExportCollectionToJS(List<IJSONExportable> col, ArrayInstance arrjs){
 		arrjs.Length = (uint)col.Count;
-		int i = 0;
-		foreach(IJSONExportable obj in col)
-		{
-			var json = arrjs[i++] as ObjectInstance;
-			if(json == null){
-				json = (arrjs[i-1] = ObjectConstructor.Create(engine,engine.Object.InstancePrototype)) as ObjectInstance;
-			}
-			
-			Dictionary<string,double> values = obj.GetExportableValues();
-			foreach(string key in values.Keys){
-				json.SetPropertyValue(key,values[key],true);
-			}
-		}
+        for (int i = 0; i < col.Count; ++i )
+        {
+            var obj = col[i];
+            var json = arrjs[i] as ObjectInstance;
+            if (json == null)
+            {
+                json = (arrjs[i] = ObjectConstructor.Create(engine, engine.Object.InstancePrototype)) as ObjectInstance;
+            }
+
+            Dictionary<string, double> values = obj.GetExportableValues();
+            foreach (string key in values.Keys)
+            {
+                json.SetPropertyValue(key, values[key], true);
+            }
+        }
 	}
 }

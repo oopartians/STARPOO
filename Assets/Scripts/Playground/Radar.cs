@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Radar : MonoBehaviour {
+public class Radar : CollisionPender {
     public float radarRadius;
     public HashSet<Transform> ourRadars = new HashSet<Transform>();
     public CircleCollider2D circleCollider2D;
@@ -12,22 +12,24 @@ public class Radar : MonoBehaviour {
 	private Team team;
 
     // Use this for initialization
-    void Start () {
+    public void FixedStart () {
 		// Update Radar Radius for develop.
         if (GetComponentInParent<Ship>().fleet != null)
         {
             team = GetComponentInParent<Ship>().fleet.team;
+            DoNumbering();
             circleCollider2D.enabled = true;
             circleCollider2D.radius = radarRadius;
         }
     }
 	
-	// Update is called once per frame
-	void Update () {
-    }
-
-	void OnTriggerEnter2D(Collider2D cd)
+    protected override void VirtualOnTriggerEnter2D(Collider2D cd)
 	{
+        if (cd == null)
+        {
+            Debug.Log("!!!! is null");
+            return;
+        }
 		switch (cd.tag)
 		{
 		case "Radar":
@@ -37,18 +39,19 @@ public class Radar : MonoBehaviour {
 			}
 			break;
 		case "Bullet":
-			var scannedBullets = team.aiInfor.scannedBullets;
+			var scannedBulletsCounter = team.aiInfor.scannedBulletsCounter;
 			var target = cd.GetComponent<Bullet>();
 
-            if (scannedBullets.ContainsKey(target))
-                ++scannedBullets[target];
+            if (scannedBulletsCounter.ContainsKey(target))
+                ++scannedBulletsCounter[target];
             else
             {
                 if (ScanUtils.NeedScanning(team))
                 {
                     target.GetComponent<Scannable>().ChangeScanCount(1);
                 }
-                scannedBullets.Add(target, 1);
+                scannedBulletsCounter.Add(target, 1);
+                team.aiInfor.scannedBullets.Add(target);
             }
 			
 			bullets.Add(target);
@@ -59,16 +62,17 @@ public class Radar : MonoBehaviour {
 			var enemyShipCollider = cd.gameObject.GetComponent<ShipCollider>();
 			if (enemyShipCollider.ship.fleet.team != team)
             {
-				var scannedEnemyShips = team.aiInfor.scannedEnemyShips;
-                if (scannedEnemyShips.ContainsKey(enemyShipCollider.ship))
-                    ++scannedEnemyShips[enemyShipCollider.ship];
+				var scannedEnemyShipsCounter = team.aiInfor.scannedEnemyShipsCounter;
+                if (scannedEnemyShipsCounter.ContainsKey(enemyShipCollider.ship))
+                    ++scannedEnemyShipsCounter[enemyShipCollider.ship];
                 else
                 {
                     if (ScanUtils.NeedScanning(team,enemyShipCollider.ship.fleet.team))
                     {
                         enemyShipCollider.ship.GetComponent<Scannable>().ChangeScanCount(1);
                     }
-                    scannedEnemyShips.Add(enemyShipCollider.ship, 1);
+                    scannedEnemyShipsCounter.Add(enemyShipCollider.ship, 1);
+                    team.aiInfor.scannedEnemyShips.Add(enemyShipCollider.ship);
                 }
 
 				ships.Add(enemyShipCollider.ship);
@@ -79,8 +83,13 @@ public class Radar : MonoBehaviour {
 		}
 	}
 
-    void OnTriggerExit2D(Collider2D cd)
+    protected override void VirtualOnTriggerExit2D(Collider2D cd)
     {
+        if (cd == null)
+        {
+            Debug.Log("!!!! is null");
+            return;
+        }
 
 		switch (cd.tag)
 		{
@@ -93,18 +102,22 @@ public class Radar : MonoBehaviour {
 			break;
 
 		case "Bullet":
-			var scannedBullets = team.aiInfor.scannedBullets;
+			var scannedBulletsCounter = team.aiInfor.scannedBulletsCounter;
 			var target = cd.GetComponent<Bullet>();
 
-            if (scannedBullets[target] > 1)
-                --scannedBullets[target];
-            else
+            if (scannedBulletsCounter.ContainsKey(target))
             {
-                if (ScanUtils.NeedScanning(team))
+                if (scannedBulletsCounter[target] > 1)
+                    --scannedBulletsCounter[target];
+                else
                 {
-                    target.GetComponent<Scannable>().ChangeScanCount(-1);
+                    if (ScanUtils.NeedScanning(team))
+                    {
+                        target.GetComponent<Scannable>().ChangeScanCount(-1);
+                    }
+                    scannedBulletsCounter.Remove(target);
+                    team.aiInfor.scannedBullets.Remove(target);
                 }
-                scannedBullets.Remove(target);
             }
 			
 			bullets.Remove(target);
@@ -116,17 +129,18 @@ public class Radar : MonoBehaviour {
 			var enemyShipCollider = cd.gameObject.GetComponent<ShipCollider>();
 			if (enemyShipCollider.ship.fleet.team != team)
             {
-				var scannedEnemyShips = team.aiInfor.scannedEnemyShips;
-				if(scannedEnemyShips.ContainsKey(enemyShipCollider.ship)){
-                    if (scannedEnemyShips[enemyShipCollider.ship] > 1)
-                        --scannedEnemyShips[enemyShipCollider.ship];
+				var scannedEnemyShipsCounter = team.aiInfor.scannedEnemyShipsCounter;
+				if(scannedEnemyShipsCounter.ContainsKey(enemyShipCollider.ship)){
+                    if (scannedEnemyShipsCounter[enemyShipCollider.ship] > 1)
+                        --scannedEnemyShipsCounter[enemyShipCollider.ship];
                     else
                     {
                         if (ScanUtils.NeedScanning(team,enemyShipCollider.ship.fleet.team))
                         {
                             enemyShipCollider.ship.GetComponent<Scannable>().ChangeScanCount(-1);
                         }
-                        scannedEnemyShips.Remove(enemyShipCollider.ship);
+                        scannedEnemyShipsCounter.Remove(enemyShipCollider.ship);
+                        team.aiInfor.scannedEnemyShips.Remove(enemyShipCollider.ship);
                     }
 				}
 				ships.Add(enemyShipCollider.ship);
@@ -141,17 +155,45 @@ public class Radar : MonoBehaviour {
 	}
 
 	void OnDisable(){
+        cols.Clear();
 		foreach (IJSONExportable ship in ships){
-			if(team.aiInfor.scannedEnemyShips.ContainsKey(ship) && team.aiInfor.scannedEnemyShips[ship] > 1)
-				--team.aiInfor.scannedEnemyShips[ship];
-			else
-				team.aiInfor.scannedEnemyShips.Remove(ship);
+            if (team.aiInfor.scannedEnemyShipsCounter.ContainsKey(ship) && team.aiInfor.scannedEnemyShipsCounter[ship] > 1)
+                --team.aiInfor.scannedEnemyShipsCounter[ship];
+            else
+            {
+                team.aiInfor.scannedEnemyShipsCounter.Remove(ship);
+                team.aiInfor.scannedEnemyShips.Remove(ship);
+            }
 		}
 		foreach (IJSONExportable bullet in bullets){
-			if(team.aiInfor.scannedBullets.ContainsKey(bullet) && team.aiInfor.scannedBullets[bullet] > 1)
-				--team.aiInfor.scannedBullets[bullet];
-			else
-				team.aiInfor.scannedBullets.Remove(bullet);
+            if (team.aiInfor.scannedBulletsCounter.ContainsKey(bullet) && team.aiInfor.scannedBulletsCounter[bullet] > 1)
+                --team.aiInfor.scannedBulletsCounter[bullet];
+            else
+            {
+                team.aiInfor.scannedBulletsCounter.Remove(bullet);
+                team.aiInfor.scannedBullets.Remove(bullet);
+            }
 		}
 	}
+
+    public override void DoCollision()
+    {
+        //cols.TrueForAll()
+        cols.Sort(Compare);
+        base.DoCollision();
+    }
+
+    public int Compare(Col a, Col b)
+    {
+        var orderA = a.cd.gameObject.GetComponent<INumberable>().number;
+        var orderB = b.cd.gameObject.GetComponent<INumberable>().number;
+        if (orderA != orderB)
+        {
+            return orderA - orderB;
+        }
+        else
+        {
+            return a.number - b.number;
+        }
+    }
 }

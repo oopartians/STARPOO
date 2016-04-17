@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using System.Collections;
 
-public class Ship : MonoBehaviour,IJSONExportable {
+public class Ship : MonoBehaviour, IJSONExportable
+{
     public ShipSoundPlayer sfx;
+    public Radar radar;
 
 //    public const float hitRange = 1;
     public const float maxSpeed = 5;
@@ -21,8 +24,9 @@ public class Ship : MonoBehaviour,IJSONExportable {
     public float angleSpeed = 0;
     public float ammo = maxAmmo;
     public float fireDelay = 0;
-	public Fleet fleet;
+    public Fleet fleet;
     public ShipCollider collider;
+    public Collider2D pushCollider;
 	public ShipHpBar hpBarDrawer;
 
     public Dictionary<string, double> exportableValues = new Dictionary<string, double>();
@@ -33,6 +37,7 @@ public class Ship : MonoBehaviour,IJSONExportable {
 	public bool destroyedByTimePenalty = false;
 	bool wantToShoot = false;
 	public ShipJSObject json;
+    public int number;
 
 	Vector3 pushing;
 
@@ -45,6 +50,10 @@ public class Ship : MonoBehaviour,IJSONExportable {
 		exportableValues ["y"] = GetPos().y;
 		exportableValues ["angle"] = angle;
 		exportableValues ["hp"] = hp;
+
+        collider.FixedStart();
+        radar.FixedStart();
+        pushCollider.enabled = true;
     }
 	
 	// Update is called once per frame
@@ -77,6 +86,8 @@ public class Ship : MonoBehaviour,IJSONExportable {
 		exportableValues ["y"] = GetPos().y;
 		exportableValues ["angle"] = angle;
 		exportableValues ["hp"] = hp;
+
+        radar.DoCollision();
     }
 
     public void ComputePushing(){
@@ -154,7 +165,6 @@ public class Ship : MonoBehaviour,IJSONExportable {
         if (hp <= 0)
         {
             sfx.PlayDie();
-            
             Collider2D[] cols = GetComponentsInChildren<Collider2D>();
             for(int i = 0; i < cols.Length; ++i){
                 cols[i].enabled = false;
@@ -178,4 +188,9 @@ public class Ship : MonoBehaviour,IJSONExportable {
     {
         return transform.localPosition;
     }
+
+    public int GetNumber(){
+        return number;
+    }
+
 }

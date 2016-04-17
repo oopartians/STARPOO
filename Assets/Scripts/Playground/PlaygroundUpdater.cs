@@ -21,39 +21,61 @@ public class PlaygroundUpdater : MonoBehaviour {
 
         Bullet.GoBullets();
         
-		foreach (Team team in Match.teams) {
-			foreach (Fleet fleet in team.fleets) {
-				if(fleet == null) continue;
-			    fleet.aiLoader.FixedUpdate2();
-			}
+        Team team;
+        int i,j,k;
+
+		for (i=0;i<Match.teams.Count;++i) {
+            team = Match.teams[i];
+            for (j = 0; j < team.fleets.Count; ++j )
+            {
+                var fleet = team.fleets[j];
+                if (fleet == null) continue;
+                fleet.aiLoader.FixedUpdate2();
+            }
 		}
 
 		console.FixedUpdate2();
-
-		foreach (Team team in Match.teams) {
-			foreach (Fleet fleet in team.fleets) {
-				foreach (Ship ship in fleet.ships) {
+        
+		for (i=0;i<Match.teams.Count;++i) {
+            team = Match.teams[i];
+            for (j = 0; j < team.fleets.Count; ++j) {
+                var fleet = team.fleets[j];
+				for (k = 0; k < fleet.ships.Count; ++k) {
+                    var ship = fleet.ships[k];
 					if(ship == null) continue;
 					ship.FixedUpdate2();
 				}
 			}
 		}
-		foreach (Team team in Match.teams) {
-			foreach (Fleet fleet in team.fleets) {
-				foreach (Ship ship in fleet.ships) {
+        /*
+        for (i = 0; i < Match.teams.Count; ++i)
+        {
+            team = Match.teams[i];
+            for (j = 0; j < team.fleets.Count; ++j)
+            {
+                var fleet = team.fleets[j];
+                for (k = 0; k < fleet.ships.Count; ++k)
+                {
+                    var ship = fleet.ships[k];
 					if(ship == null) continue;
-					//ship.ComputePushing();
+					ship.ComputePushing();
 				}
 			}
-		}
-		foreach (Team team in Match.teams) {
-			foreach (Fleet fleet in team.fleets) {
-				foreach (Ship ship in fleet.ships) {
+        }
+        for (i = 0; i < Match.teams.Count; ++i)
+        {
+            team = Match.teams[i];
+            for (j = 0; j < team.fleets.Count; ++j)
+            {
+                var fleet = team.fleets[j];
+                for (k = 0; k < fleet.ships.Count; ++k)
+                {
+                    var ship = fleet.ships[k];
 					if(ship == null) continue;
-					//ship.ApplyPushing();
+					ship.ApplyPushing();
 				}
 			}
-		}
+		}*/
         
 		
 

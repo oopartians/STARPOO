@@ -2,24 +2,22 @@
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class Bullet : MonoBehaviour,IJSONExportable {
+public class Bullet : CollisionPender,IJSONExportable {
 	public static Queue<Bullet> readyQueue = new Queue<Bullet>();
 	public static List<Bullet> list = new List<Bullet>();
 
-	public const float speed = 15;
+	public const float speed = 25;
 	public const float damage = 1;
     
     public static void GoBullets(){
-        Debug.Log("GoBullets-------------------------------->");
         while(readyQueue.Count > 0){
             Bullet b = readyQueue.Dequeue();
             b.FixedStart();
-            list.Add(b);
         }
         foreach (Bullet bullet in list) {
 			bullet.FixedUpdate2();
 		}
-        Debug.Log("GoBullets--------------------------------<");
+        list.RemoveAll(item => item.removeFromListMark);
     }
     
 	public float angle;
@@ -29,25 +27,22 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 	public Dictionary<string,double> GetExportableValues(){return exportableValues;}
 
     public Ship master;
+
+    public bool removeFromListMark;
     
-    bool started = false;
     
     public void Ready(){
-        Debug.Log("ready bullet");
         readyQueue.Enqueue(this);
     }
     
-    public void Start(){
-        Debug.Log("bullet start");
-        started = true;
-    }
 
 	public void FixedStart () {
-        Debug.Log("bullet fixedstart");
+        removeFromListMark = false;
 		exportableValues.Add("x",transform.localPosition.x);
 		exportableValues.Add("y",transform.localPosition.y);
 		exportableValues.Add("angle",angle);
 		exportableValues.Add("speed",speed);
+        DoNumbering();
         GetComponent<Collider2D>().enabled = true;
 		list.Add(this);
 	}
@@ -60,10 +55,18 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 		transform.localPosition += (transform.localRotation * Vector3.right * dt * speed);
 		
 		exportableValues["x"] = transform.localPosition.x;
-		exportableValues["y"] = transform.localPosition.y;
+        exportableValues["y"] = transform.localPosition.y;
+
+        DoCollision();
 	}
 
-	void OnTriggerEnter2D(Collider2D cd){
+    protected override void VirtualOnTriggerEnter2D(Collider2D cd)
+    {
+        if (cd == null)
+        {
+            Debug.Log("!!!! is null");
+            return;
+        }
 		switch (cd.tag) {
 	        case "Ship":
 		        Ship ship = cd.GetComponent<ShipCollider> ().ship;
@@ -84,8 +87,14 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 		        break;
         }
 	}
-	
-	void OnTriggerExit2D(Collider2D cd){
+
+    protected override void VirtualOnTriggerExit2D(Collider2D cd)
+    {
+        if (cd == null)
+        {
+            Debug.Log("!!!! is null");
+            return;
+        }
 		switch (cd.tag) {
 		case "Ground":
 			Die();
@@ -94,15 +103,17 @@ public class Bullet : MonoBehaviour,IJSONExportable {
 	}
 
 	void Die(){
+        cols.Clear();
 		foreach(Team team in Match.teams){
-			if(team.aiInfor.scannedBullets.ContainsKey(this)){
-				team.aiInfor.scannedBullets.Remove(this);
+            if (team.aiInfor.scannedBulletsCounter.ContainsKey(this))
+            {
+                team.aiInfor.scannedBulletsCounter.Remove(this);
+                team.aiInfor.scannedBullets.Remove(this);
 			}
 		}
         
         GetComponent<Collider2D>().enabled = false;
-        
-        list.Remove(this);
+        removeFromListMark = true;
 		Destroy (gameObject);
 	}
 

@@ -1,14 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class ShipCollider : MonoBehaviour {
+public class ShipCollider : CollisionPender
+{
 
     public GameObject mainObject;
     public Ship ship;
+    public Collider2D collider;
     public List<Ship> crashedShips = new List<Ship>();
 
 
-    void OnTriggerEnter2D(Collider2D cd)
+    public void FixedStart()
+    {
+        DoNumbering();
+        collider.enabled = true;
+    }
+
+    protected override void VirtualOnTriggerEnter2D(Collider2D cd)
     {
         if (ship.isDestroyed)
         {
@@ -25,7 +33,7 @@ public class ShipCollider : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit2D(Collider2D cd)
+    protected override void VirtualOnTriggerExit2D(Collider2D cd)
     {
         if (ship.isDestroyed)
         {
@@ -46,14 +54,15 @@ public class ShipCollider : MonoBehaviour {
 
     void OnDestroy()
     {
+        cols.Clear();
         if(ship.fleet != null)
             ship.fleet.team.aiInfor.allyShips.Remove(ship);
         foreach (Team team in Match.teams)
         {
             if (team == ship.fleet.team)
                 continue;
-            if (team.aiInfor.scannedEnemyShips.ContainsKey(ship))
-                team.aiInfor.scannedEnemyShips.Remove(ship);
+            if (team.aiInfor.scannedEnemyShipsCounter.ContainsKey(ship))
+                team.aiInfor.scannedEnemyShipsCounter.Remove(ship);
         }
     }
 }
